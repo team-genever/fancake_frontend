@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Banner from "../components/Experience/Banner";
 import CreaterSection from "../components/Experience/CreaterSection";
+import RequestSection from "../components/Experience/RequestSection";
+import VideoSection from "../components/Experience/VideoSection";
 
 export default class Experience extends Component {
   render() {
@@ -8,6 +10,8 @@ export default class Experience extends Component {
       <div>
         <Banner />
         <CreaterSection />
+        <VideoSection />
+        <RequestSection />
       </div>
     );
   }
