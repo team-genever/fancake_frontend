@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Positioner = styled.div`
   width: 100%;
-  background-color: #414446;
+  background-color: ${(props) => props.theme.boxDarkGray};
   padding: 100px 130px;
   text-align: center;
 `;
@@ -32,7 +32,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   border-radius: 8px;
-  background-color: #da225f;
+  background-color: ${(props) => props.theme.mainPink};
   color: white;
   padding: 12px 65px;
   margin: 20px 0px 10px 0px;

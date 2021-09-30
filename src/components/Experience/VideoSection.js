@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Positioner = styled.div`
-  background-color: #e3e3e3;
+  background-color: ${(props) => props.theme.boxLightGray};
   padding: 100px 130px 100px 130px;
 `;
 
@@ -12,7 +12,7 @@ const Heading = styled.div`
 `;
 
 const GrayBox = styled.div`
-  background-color: #ededed;
+  background-color: ${(props) => props.theme.boxCountGray};
   margin: 25px 0px;
 `;
 
@@ -54,7 +54,7 @@ const ProgressContainer = styled.div`
 `;
 
 const ProgressBar = styled.div`
-  background-color: #c5c5c5;
+  background-color: ${(props) => props.theme.progressBarGray};
   height: 17px;
   width: 500px;
   border-radius: 30px;
@@ -73,11 +73,11 @@ const Progress = styled.div`
 `;
 
 const GrayText = styled.div`
-  color: #979797;
+  color: ${(props) => props.theme.boxGray};
 `;
 
 const PinkText = styled.div`
-  color: #da225f;
+  color: ${(props) => props.theme.mainPink};
   font-weight: bold;
 `;
 

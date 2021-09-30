@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Positioner = styled.div`
   width: 100%;
-  background-color: #d8d8d8;
+  background-color: ${(props) => props.theme.boxLightGray};
   padding: 200px 100px 200px 130px;
 `;
 
@@ -22,7 +22,7 @@ const Heading2 = styled.div`
 
 const Button = styled.button`
   border-radius: 10px;
-  background-color: #da225f;
+  background-color: ${(props) => props.theme.mainPink};
   color: white;
   padding: 15px 30px 15px 30px;
   margin: 20px 0px 10px 0px;
@@ -32,7 +32,7 @@ const Button = styled.button`
   border: none;
 
   :hover {
-    background-color: #e34076;
+    background-color: ${(props) => props.theme.mainPinkHover};
   }
 `;
 
