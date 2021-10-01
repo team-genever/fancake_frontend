@@ -1,16 +1,13 @@
-import React, { Component } from 'react'
-import logo from '../images/logo.svg'
-import {FaAllignRight} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { withRouter } from "react-router";
+import NavBlack from "./NavBar/NavBlack";
+import NavWhite from "./NavBar/NavWhite";
 
+const Navbar = ({ location: { pathname } }) =>
+  pathname === "/" ? (
+    <NavBlack pathname={pathname} />
+  ) : (
+    <NavWhite pathname={pathname} />
+  );
 
-export default class Navbar extends Component {
-    
-    render() {
-        return (
-            <div>
-                hello from navbar
-            </div>
-        )
-    }
-}
+export default withRouter(Navbar);
