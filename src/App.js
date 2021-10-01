@@ -14,6 +14,7 @@ import GlobalStyles from "./components/GlobalStyles";
 import Experience from "./pages/Experience";
 import History from "./pages/History";
 import UserEdit from "./pages/UserEdit";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/user/:userId/edit" component={UserEdit} />
         <Route component={Error} />
       </Switch>
+      <Footer />
       <GlobalStyles />
     </>
   );
