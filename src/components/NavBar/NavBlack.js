@@ -94,7 +94,7 @@ const NavBlack = ({ pathname }) => (
         </SLink>
       </Navigator>
     </NavFront>
-    <LoginButton to="/login">
+    <LoginButton to="/auth/main">
       <span>로그인</span>
     </LoginButton>
   </Container>
