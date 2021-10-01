@@ -1,3 +1,5 @@
+// 3.2 - 거래내역
+
 import styled from "styled-components";
 import Transaction from "../components/History/Transaction";
 
