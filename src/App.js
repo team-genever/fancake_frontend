@@ -12,6 +12,7 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import GlobalStyles from "./components/GlobalStyles";
 import Experience from "./pages/Experience";
+import History from "./pages/History";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/rooms" component={Rooms} />
         <Route exact path="/rooms/:slug" component={SingleRoom} />
         <Route exact path="/wallet/:userId" component={Wallet} />
+        <Route path="/wallet/:userId/history" component={History} />
         <Route component={Error} />
       </Switch>
       <GlobalStyles />
