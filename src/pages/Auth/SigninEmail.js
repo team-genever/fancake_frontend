@@ -142,7 +142,7 @@ export default function SigninEmail () {
 
   const loginClicked = (e) => {
     if(checkValid.name===false)
-      setErrorMessage("이름을 기입해주세요.");
+      setErrorMessage("이름을 입력해주세요.");
     else if(checkValid.email===false)
       setErrorMessage("이메일이 정확하지 않습니다.");
     else if(checkValid.password===false)

@@ -70,6 +70,8 @@ export default function LoginMain () {
     }
   }
 
+
+
   return (
     <Container>
       <LoginDiv>
@@ -82,9 +84,11 @@ export default function LoginMain () {
         </Or>
         <LoginBox/>
         <FindIDPW>
-          <FindID id="id" onClick={findingClicked}>
-            아이디 찾기
-          </FindID>
+          <Link to={"./FindID"}>
+            <FindID id="id" onClick={findingClicked}>
+              아이디 찾기
+            </FindID>
+          </Link>
           &nbsp;|&nbsp;
           <FindPW id="pw" onClick={findingClicked}>
             비밀번호 찾기

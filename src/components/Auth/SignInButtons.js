@@ -51,6 +51,7 @@ const SignInButtons = () => {
     const componentClicked = (e) => {
         if (e.target.name == "naver"){
             console.log("naver clicked");
+            //네이버 가입 연동
         }
         else if(e.target.name == "email"){
             console.log("email clicked");

@@ -10,6 +10,7 @@ import History from "./pages/History";
 import UserEdit from "./pages/UserEdit";
 import LoginMain from "./pages/Auth/LoginMain";
 import SigninEmail from "./pages/Auth/SigninEmail"
+import FindID from "./pages/Auth/FindID"
 import Error from "./pages/Error";
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/user/:userId/edit" component={UserEdit} />
         <Route path="/auth/main" component={LoginMain}/>
         <Route path="/auth/SigninEmail" component={SigninEmail}/>
+        <Route path="/auth/FindID" component={FindID}/>
         <Route component={Error} />
       </Switch>
       <Footer />

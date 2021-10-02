@@ -57,7 +57,7 @@ const LoginBox = () => {
 
   return (
     <Container>
-      <EmailInput type="text" placeholder="이메일을 입력해주세요."/>
+      <EmailInput type="email" placeholder="이메일을 입력해주세요."/>
       <PasswordInput type="password" placeholder="비밀번호를 입력해주세요."/>
       <LoginButton name="login" onClick={loginClicked}>
         로그인
