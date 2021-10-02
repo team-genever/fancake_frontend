@@ -90,9 +90,11 @@ export default function LoginMain () {
             </FindID>
           </Link>
           &nbsp;|&nbsp;
-          <FindPW id="pw" onClick={findingClicked}>
-            비밀번호 찾기
-          </FindPW>
+          <Link to={"./FindPW"}>
+            <FindPW id="pw" onClick={findingClicked}>
+              비밀번호 찾기
+            </FindPW>
+          </Link>
         </FindIDPW>
       </LoginDiv>
     </Container>
