@@ -4,8 +4,6 @@ import React, { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {SignInButtons, LoginBox} from "../../components/Auth";
-// import Videos from "../components/Wallet/Videos";
-// import UserWallet from "../components/Wallet/UserWallet";
 
 const Container = styled.div`
   width: 100%;

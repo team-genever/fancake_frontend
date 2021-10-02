@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import SigninEmail from "../../pages/Auth/SigninEmail";
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -60,9 +62,11 @@ const SignInButtons = () => {
             <NaverButton name="naver" onClick={componentClicked}>
                 네이버로 시작하기
             </NaverButton>
-            <EmailButton name="email" onClick={componentClicked}>
-                이메일로 가입하기
-            </EmailButton>
+            <Link to={"../../Auth/SigninEmail"}>
+                <EmailButton name="email">
+                    이메일로 가입하기
+                </EmailButton>
+            </Link>
         </Container>
     );
 };
