@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import Video from "../components/Detail/Video";
+import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import VideoInfo from "../components/Detail/VideoInfo";
 
 const Container = styled.div`
   width: 100%;
   height: max-content;
-  padding: 11.5vw 8.3vw 18.4vw 8.3vw;
 `;
 
 const Property = styled.div`
@@ -29,6 +32,7 @@ const Property = styled.div`
 
 const videos = [
   {
+    video_id: "1",
     types: [
       { id: "youtube", name: "유튜브" },
       { id: "onsale", name: "판매중" },
@@ -39,6 +43,7 @@ const videos = [
     price: 12000,
   },
   {
+    video_id: "2",
     types: [
       { id: "tiktok", name: "틱톡" },
       { id: "onsale", name: "판매중" },
@@ -50,10 +55,15 @@ const videos = [
   },
 ];
 
-const Detail = () => (
-  <Container>
-    <div>abc</div>
-  </Container>
-);
+const Detail = ({ match }) => {
+  const [videoId, usetVideoId] = useState(match.params.videoId);
+
+  return (
+    <Container>
+      <Video data={videos.find((data) => data.video_id === videoId)} />
+      <VideoInfo />
+    </Container>
+  );
+};
 
 export default Detail;
