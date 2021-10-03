@@ -17,7 +17,7 @@ const basicInfo = [
   { type: "이름", content: "백건우" },
   { type: "아이디", content: "gwbaik97@naver.com" },
   { type: "전화번호", content: "010-2874-2457", changeLink: "/" },
-  { type: "비밀번호", changeLink: "/" },
+  { type: "비밀번호", changeLink: "./changepw" },
   {
     type: "계좌정보",
     content: "카카오뱅크 3333-02-035125 백건우",
