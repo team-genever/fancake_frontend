@@ -55,7 +55,7 @@ const videos = [
   },
 ];
 
-const Detail = ({ match }) => {
+const Detail = ({ match, login_info }) => {
   const [videoId, usetVideoId] = useState(match.params.videoId);
 
   return (
