@@ -12,7 +12,7 @@ const Heading1 = styled.div`
   color: white;
   font-weight: bold;
   font-size: 45px;
-  margin-bottom: 1%;
+  margin : 7% 0 1% 0;
 `;
 
 const Heading2 = styled.div`
@@ -48,7 +48,7 @@ export default class Banner extends Component {
     return (
       <Positioner>
         <Heading1>좋아하는 크리에이터 영상의 주인이 되세요.</Heading1>
-        <Heading2>내용을 채워주세요.</Heading2>
+        <Heading2>이것은 샘플, 내용을 채워주세요.<br/>바로 여기에요.</Heading2>
         <Link to="/experience">
           <Button>베타 서비스 참여하기</Button>
         </Link>

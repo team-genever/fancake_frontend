@@ -6,11 +6,15 @@ const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
   padding: 100px 130px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Container = styled.div`
   display: flex;
   margin-bottom: 100px;
+  text-align: center;
 `;
 
 const TextContainer = styled.div`
