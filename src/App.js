@@ -36,11 +36,11 @@ function App() {
         <Route exact path="/wallet/:userId" component={Wallet} />
         <Route path="/wallet/:userId/history" component={History} />
         <Route path="/user/:userId/edit" component={UserEdit} />
-        <Route path="/auth/main" component={LoginMain} />
-        <Route path="/auth/SigninEmail" component={SigninEmail} />
-        <Route path="/auth/FindID" component={FindID} />
-        <Route path="/auth/FindPW" component={FindPW} />
-        <Route path="/user/:userID/changePW" component={ChangePW} />
+        <Route exact path="/auth/main" component={LoginMain} />
+        <Route exact path="/auth/SigninEmail" component={SigninEmail} />
+        <Route exact path="/auth/FindID" component={FindID} />
+        <Route exact path="/auth/FindPW" component={FindPW} />
+        <Route exact path="/user/:userID/changePW" component={ChangePW} />
         <Route component={Error} />
       </Switch>
       <Footer />

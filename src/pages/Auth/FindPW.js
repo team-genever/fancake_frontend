@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
   height: max-content;
-  padding: 35vw 30vw 30vw 30vw;
+  padding: 15vw 30vw 30vw 30vw;
 `;
 
 const LoginDiv = styled.div`
@@ -63,6 +63,10 @@ const LoginButton = styled.button`
 `;
 
 const FindPW = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -109,7 +113,7 @@ const FindPW = () => {
                 <EmailInput type="email" placeholder="등록된 이메일을 입력해주세요." onChange={inputChange}/>
                 <ErrorMessage>{errorMessage}</ErrorMessage>
                 <LoginButton name="login" onClick={loginClicked} style={{backgroundColor:loginAble}}>
-                    메일에서 아이디 확인하기
+                    메일에서 비밀번호 확인하기
                 </LoginButton>
             </LoginDiv>
         </Container>
