@@ -1,7 +1,7 @@
 // 4.4 - 비밀번호 변경
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ChangePWBtn from "../../components/User/ChangePWBtn"
 
@@ -75,10 +75,13 @@ const LoginButton = styled.button`
   }
 `;
 
-export default function SigninEmail (userinfo) {
+export default function ChangePW () {
+
+  let { userID } = useParams();
+  console.log("userID is ", userID);
 
   const [changePWInfo, setChangePWInfo] = useState({
-    "user_id": userinfo ? userinfo.user_id : "",
+    "user_id": userID ? userID : "",
     "password_now": "",
     "password_new": "",
   });
