@@ -17,6 +17,7 @@ const theme = {
   linkBlue: "#3d4ec1", // 링크용 파란색
   naverGreen: "#2db400", // '네이버로 가입' 버튼 용 초록색
   errorRed: "#ca0d0d", // 오류 표시 빨간색
+  tableBorder: "rgba(0, 0, 0, 0.2)", //FAQ 구분선
 };
 
 export default theme;
