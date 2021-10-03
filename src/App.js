@@ -8,10 +8,10 @@ import Experience from "./pages/Experience";
 import Wallet from "./pages/Wallet";
 import History from "./pages/History";
 import UserEdit from "./pages/UserEdit";
-import LoginMain from "./pages/Auth/LoginMain";
-import SigninEmail from "./pages/Auth/SigninEmail";
-import FindID from "./pages/Auth/FindID";
-import FindPW from "./pages/Auth/FindPW";
+
+import { LoginMain, SigninEmail, FindID, FindPW } from "./pages/Auth/";
+import ChangePW from "./pages/Userpage/ChangePW";
+
 import Error from "./pages/Error";
 import Detail from "./pages/Detail";
 
@@ -38,6 +38,7 @@ function App() {
         <Route path="/auth/SigninEmail" component={SigninEmail} />
         <Route path="/auth/FindID" component={FindID} />
         <Route path="/auth/FindPW" component={FindPW} />
+        <Route path="/user/:userID/changePW" component={ChangePW} />
         <Route component={Error} />
       </Switch>
       <Footer />
