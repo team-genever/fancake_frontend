@@ -11,6 +11,7 @@ const Heading = styled.div`
   font-weight: bold;
   font-size: 35px;
   margin-bottom: 1%;
+  margin-top: 20px;
 `;
 
 const ChannelName = styled.div`
@@ -24,11 +25,22 @@ const VideoContainer = styled.div`
   height: 400px;
 `;
 
+const YoutubeEmbed = styled.iframe`
+  width: 853px;
+  height: 480px;
+`;
+
 const Video = ({ data }) => {
   console.log(data);
   return (
     <Positioner>
-      <VideoContainer></VideoContainer>
+      <YoutubeEmbed
+        src={`https://www.youtube.com/embed/PQehBcftLKU`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="Embedded youtube"
+      />
       <Heading>{data.title}</Heading>
       <ChannelName>{data.channelName}</ChannelName>
     </Positioner>

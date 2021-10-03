@@ -41,6 +41,7 @@ const videos = [
     channelName: "뻘짓 연구소",
     tokenCount: 100,
     price: 12000,
+    deadline: "2021-10-31",
   },
   {
     video_id: "2",
@@ -52,6 +53,19 @@ const videos = [
     channelName: "뻘짓 연구소",
     tokenCount: 120,
     price: 12000,
+    deadline: "2021-10-31",
+  },
+  {
+    video_id: "3",
+    types: [
+      { id: "tiktok", name: "틱톡" },
+      { id: "closed", name: "판매완료" },
+    ],
+    title: "[쇼츠/먹방]CU돈까스김밥과 훈제닭다리 먹끼(ft.핵불닭소스ㄷㄷ)",
+    channelName: "뻘짓 연구소",
+    tokenCount: 120,
+    price: 12000,
+    deadline: "2021-10-31",
   },
 ];
 

@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
@@ -216,7 +217,7 @@ export default function VideoSection() {
         break;
     }
   };
-  
+
   useEffect(() => {
     setComponent(
       video_info
@@ -236,47 +237,52 @@ export default function VideoSection() {
           let remainingSec = 60 - currentDate.getSeconds();
 
           return (
-            <GrayBox>
-              <Container>
-                <Thumbnail />
-                <TextContainer>
-                  <PropertiesGrid>
-                    {data.types.map((type, index) => (
-                      <Property key={index} type={type.id}>
-                        <span>{type.name}</span>
-                      </Property>
-                    ))}
-                  </PropertiesGrid>
-                  <Title>{data.title}</Title>
-                  <ChannelName>{data.channelName}</ChannelName>
-                  <ProgressContainer>
-                    <ProgressBar>
-                      <Progress />
-                    </ProgressBar>
-                  </ProgressContainer>
-                  <TextContainer2>
-                    <GrayText>총 {data.tokenCount}조각</GrayText>
-                    <PinkText>84%</PinkText>
-                  </TextContainer2>
-                  <TextContainer2>
-                    <GrayText>조각당 가격</GrayText>
-                    <GrayText>{data.price}원</GrayText>
-                  </TextContainer2>
-                  <TextContainer2>
-                    <GrayText>남은 시간</GrayText>
-                    <PinkText>
-                      {/*한 자리 수일때 0 추가하는 것 구현해야 함*/}
-                      {remainingDay}일 {remainingHour}:{remainingMin}:
-                      {remainingSec}
-                    </PinkText>
-                  </TextContainer2>
-                </TextContainer>
-              </Container>
-            </GrayBox>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={"/experience/detail/" + data.video_id}
+            >
+              <GrayBox>
+                <Container>
+                  <Thumbnail />
+                  <TextContainer>
+                    <PropertiesGrid>
+                      {data.types.map((type, index) => (
+                        <Property key={index} type={type.id}>
+                          <span>{type.name}</span>
+                        </Property>
+                      ))}
+                    </PropertiesGrid>
+                    <Title>{data.title}</Title>
+                    <ChannelName>{data.channelName}</ChannelName>
+                    <ProgressContainer>
+                      <ProgressBar>
+                        <Progress />
+                      </ProgressBar>
+                    </ProgressContainer>
+                    <TextContainer2>
+                      <GrayText>총 {data.tokenCount}조각</GrayText>
+                      <PinkText>84%</PinkText>
+                    </TextContainer2>
+                    <TextContainer2>
+                      <GrayText>조각당 가격</GrayText>
+                      <GrayText>{data.price}원</GrayText>
+                    </TextContainer2>
+                    <TextContainer2>
+                      <GrayText>남은 시간</GrayText>
+                      <PinkText>
+                        {/*한 자리 수일때 0 추가하는 것 구현해야 함*/}
+                        {remainingDay}일 {remainingHour}:{remainingMin}:
+                        {remainingSec}
+                      </PinkText>
+                    </TextContainer2>
+                  </TextContainer>
+                </Container>
+              </GrayBox>
+            </Link>
           );
         })
     );
-  });
+  }, [Date()]);
 
   return (
     <Positioner>

@@ -92,7 +92,7 @@ const RejectModal = ({ setModal, userId }) => {
           >
             돌아가기
           </CancelButton>
-          <Link to="/wallet/${userId}">
+          <Link to={"/wallet/" + userId}>
             <ConfirmButton
               onClick={() => {
                 setModal(false);
