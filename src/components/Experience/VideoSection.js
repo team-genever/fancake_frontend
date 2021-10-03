@@ -140,6 +140,7 @@ const PropertiesGrid = styled.div`
 export default function VideoSection() {
   const [video_info, setData] = useState([
     {
+      video_id: "1",
       types: [
         { id: "youtube", name: "유튜브" },
         { id: "onsale", name: "판매중" },
@@ -151,6 +152,7 @@ export default function VideoSection() {
       deadline: "2021-10-31",
     },
     {
+      video_id: "2",
       types: [
         { id: "tiktok", name: "틱톡" },
         { id: "onsale", name: "판매중" },
@@ -162,6 +164,7 @@ export default function VideoSection() {
       deadline: "2021-10-31",
     },
     {
+      video_id: "3",
       types: [
         { id: "tiktok", name: "틱톡" },
         { id: "closed", name: "판매완료" },
@@ -213,7 +216,7 @@ export default function VideoSection() {
         break;
     }
   };
-
+  
   useEffect(() => {
     setComponent(
       video_info
