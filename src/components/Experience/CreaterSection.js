@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import styled from "styled-components";
 
 const Positioner = styled.div`
@@ -44,39 +44,39 @@ const Name = styled.div`
   margin-top: 10px;
 `;
 
-export default class CreaterSection extends Component {
-  render() {
-    return (
-      <Positioner>
-        <Heading>참여 중인 크리에이터</Heading>
-        <Container>
-          <Box>
-            <Image></Image>
-            <Name>야식이</Name>
-          </Box>
-          <Box>
-            <Image></Image>
-            <Name>맛있는 생각</Name>
-          </Box>
-          <Box>
-            <Image></Image>
-            <Name>바다 중독자</Name>
-          </Box>
-          <Box>
-            <Image></Image>
-            <Name>뻘짓 연구소</Name>
-          </Box>
-          <Box>
-            <Image></Image>
-            <Name>디자인 베이스</Name>
-          </Box>
-          <Box>
-            <Image></Image>
-            <Name>띠동갑형</Name>
-          </Box>
-        </Container>
-        <Button>찾고 있는 크리에이터가 있나요?</Button>
-      </Positioner>
-    );
-  }
-}
+const CreaterSection = ({ Scroll }) => {
+  return (
+    <Positioner>
+      <Heading>참여 중인 크리에이터</Heading>
+      <Container>
+        <Box>
+          <Image></Image>
+          <Name>야식이</Name>
+        </Box>
+        <Box>
+          <Image></Image>
+          <Name>맛있는 생각</Name>
+        </Box>
+        <Box>
+          <Image></Image>
+          <Name>바다 중독자</Name>
+        </Box>
+        <Box>
+          <Image></Image>
+          <Name>뻘짓 연구소</Name>
+        </Box>
+        <Box>
+          <Image></Image>
+          <Name>디자인 베이스</Name>
+        </Box>
+        <Box>
+          <Image></Image>
+          <Name>띠동갑형</Name>
+        </Box>
+      </Container>
+      <Button onClick={Scroll}>찾고 있는 크리에이터가 있나요?</Button>
+    </Positioner>
+  );
+};
+
+export default CreaterSection;

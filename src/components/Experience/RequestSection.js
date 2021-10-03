@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Positioner = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.boxDarkGray};
-  padding: 100px 130px;
+  padding: 120px 130px;
   text-align: center;
 `;
 
@@ -46,14 +46,14 @@ const Button = styled.button`
   }
 `;
 
-export default class RequestSection extends Component {
-  render() {
-    return (
-      <Positioner>
-        <Heading>원하시는 영상이 있으신가요?</Heading>
-        <Input placeholder="채널명 또는 영상의 URL을 첨부해주세요." />
-        <Button>요청하기</Button>
-      </Positioner>
-    );
-  }
-}
+const RequestSection = ({ myRef }) => {
+  return (
+    <Positioner ref={myRef}>
+      <Heading>원하시는 영상이 있으신가요?</Heading>
+      <Input placeholder="채널명 또는 영상의 URL을 첨부해주세요." />
+      <Button>요청하기</Button>
+    </Positioner>
+  );
+};
+
+export default RequestSection;
