@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Video from "../components/Detail/Video";
+import Video from "components/Detail/Video";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import VideoInfo from "../components/Detail/VideoInfo";
+import VideoInfo from "components/Detail/VideoInfo";
 
 const Container = styled.div`
   width: 100%;

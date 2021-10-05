@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import {SignInButtons, LoginBox} from "../../components/Auth";
+import { SignInButtons, LoginBox } from "components/Auth";
 
 const Container = styled.div`
   width: 100%;
@@ -45,44 +45,41 @@ const FindIDPW = styled.div`
 `;
 const FindID = styled.span`
   text-decoration: underline;
-  cursor: pointer;  
+  cursor: pointer;
 
-  :hover{
-      color: black;
+  :hover {
+    color: black;
   }
 `;
 const FindPW = styled.span`
   text-decoration: underline;
-  cursor: pointer;  
+  cursor: pointer;
 
-  :hover{
-      color: black;
+  :hover {
+    color: black;
   }
 `;
 
-export default function LoginMain () {
+export default function LoginMain() {
   const findingClicked = (e) => {
-    if (e.target.id === "id"){
+    if (e.target.id === "id") {
       console.log("find id clicked");
-    }
-    else if (e.target.id === "pw"){
+    } else if (e.target.id === "pw") {
       console.log("find pw clicked");
     }
-  }
-
-
+  };
 
   return (
     <Container>
       <LoginDiv>
         <TextDiv>
-          SNS계정으로<br/>간편하게 시작하세요.
+          SNS계정으로
+          <br />
+          간편하게 시작하세요.
         </TextDiv>
-        <SignInButtons/>
-        <Or>
-          or
-        </Or>
-        <LoginBox/>
+        <SignInButtons />
+        <Or>or</Or>
+        <LoginBox />
         <FindIDPW>
           <Link to={"./FindID"}>
             <FindID id="id" onClick={findingClicked}>
@@ -98,6 +95,5 @@ export default function LoginMain () {
         </FindIDPW>
       </LoginDiv>
     </Container>
-  )
+  );
 }
-

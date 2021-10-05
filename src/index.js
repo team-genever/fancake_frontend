@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 //import './index.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import theme from "./theme";
+import App from "App";
+import reportWebVitals from "reportWebVitals";
+import theme from "theme";
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

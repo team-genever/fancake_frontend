@@ -1,5 +1,5 @@
 import React from "react";
-import logo_white from "../../images/logo_white.png";
+import logo_white from "images/logo_white.png";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import EditContainer from "../components/UserEdit/EditContainer";
+import EditContainer from "components/UserEdit/EditContainer";
 
 const Container = styled.div`
   width: 100%;

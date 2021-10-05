@@ -1,5 +1,5 @@
 import React from "react";
-import logo_black from "../../images/logo_black.png";
+import logo_black from "images/logo_black.png";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 

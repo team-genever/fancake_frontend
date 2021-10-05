@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import {LoginBox} from "../../components/Auth";
+import { LoginBox } from "components/Auth";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -90,47 +90,46 @@ const LoginButton = styled.button`
   background-color: #da225f;
   font-size: 32px;
   color: #fff;
-  border : none;
-  cursor: pointer;  
+  border: none;
+  cursor: pointer;
 
-  :hover{
-      background-color: #e34076;
+  :hover {
+    background-color: #e34076;
   }
 `;
 
-export default function SigninEmail () {
-
+export default function SigninEmail() {
   const [loginInfo, setLoginInfo] = useState({
-    "email": "",
-    "password": "",
-    "name": "",
-    "phone_num": "",
-    "create_at": "",
-    "terms": {
-      "event_info": false,
-      "service_usage": false,
-      "privacy_info": false,
+    email: "",
+    password: "",
+    name: "",
+    phone_num: "",
+    create_at: "",
+    terms: {
+      event_info: false,
+      service_usage: false,
+      privacy_info: false,
     },
-    "gender": "",
-    "delivery": {
-      "recipient": "",
-      "phone_num": "",
-      "address": "",
-      "address_detailed": "",
-      "zip_code":"",
+    gender: "",
+    delivery: {
+      recipient: "",
+      phone_num: "",
+      address: "",
+      address_detailed: "",
+      zip_code: "",
     },
-    "account": {
-      "bank_type": "",
-      "account_num": "",
-      "account_holder": "",
+    account: {
+      bank_type: "",
+      account_num: "",
+      account_holder: "",
     },
   });
 
   const [checkValid, setCheckValid] = useState({
-    "name": false,
-    "email": false,
-    "password": false,
-    "passwordCheck": false,
+    name: false,
+    email: false,
+    password: false,
+    passwordCheck: false,
   });
   const [nameVisible, setNameVisible] = useState("hidden");
   const [emailVisible, setEmailVisible] = useState("hidden");
@@ -141,58 +140,57 @@ export default function SigninEmail () {
   const [errorMessage, setErrorMessage] = useState("");
 
   const loginClicked = (e) => {
-    if(checkValid.name===false)
-      setErrorMessage("이름을 입력해주세요.");
-    else if(checkValid.email===false)
+    if (checkValid.name === false) setErrorMessage("이름을 입력해주세요.");
+    else if (checkValid.email === false)
       setErrorMessage("이메일이 정확하지 않습니다.");
-    else if(checkValid.password===false)
+    else if (checkValid.password === false)
       setErrorMessage("비밀번호는 8자리 이상이어야 합니다.");
-    else if(checkValid.passwordCheck===false)
+    else if (checkValid.passwordCheck === false)
       setErrorMessage("비밀번호가 일치하지 않습니다.");
-    else{
+    else {
       setErrorMessage("");
-      console.log("sign in success")
+      console.log("sign in success");
     }
-  }
+  };
 
   const inputChange = (e) => {
-
-    if(e.target.name === "name") {
-      if(e.target.value){
+    if (e.target.name === "name") {
+      if (e.target.value) {
         loginInfo.name = e.target.value;
         checkValid.name = true;
         console.log("name is ", e.target.value);
 
         setNameVisible("visible");
-      }
-      else{ //empty name
+      } else {
+        //empty name
         checkValid.name = false;
         console.log("empty name");
         setNameVisible("hidden");
       }
     } else if (e.target.name === "email") {
       let email = e.target.value;
-      let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if ( re.test(email) ) { //valid email address
+      let re =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (re.test(email)) {
+        //valid email address
         loginInfo.email = e.target.value;
         checkValid.email = true;
         console.log("email is ", e.target.value);
         setEmailVisible("visible");
-      }
-      else { //invalid email address
+      } else {
+        //invalid email address
         checkValid.email = false;
         loginInfo.email = "";
-        console.log("invalid email")
+        console.log("invalid email");
         setEmailVisible("hidden");
       }
     } else if (e.target.name === "password") {
-      if(e.target.value.length >= 8){
+      if (e.target.value.length >= 8) {
         checkValid.password = true;
         loginInfo.password = e.target.value;
         console.log("password is ", e.target.value);
         setPasswordVisible("visible");
-      }
-      else{
+      } else {
         checkValid.password = false;
         loginInfo.password = "";
         console.log("password has to be more than 8 characters");
@@ -201,56 +199,114 @@ export default function SigninEmail () {
     } else if (e.target.name === "passwordCheck") {
       console.log("login password is ", loginInfo.password);
       console.log("passwordCheck is ", e.target.value);
-      if(e.target.value === loginInfo.password){
+      if (e.target.value === loginInfo.password) {
         checkValid.passwordCheck = true;
         console.log("passwordCheck is ", e.target.value);
         setConfirmVisible("visible");
-      }
-      else{
+      } else {
         checkValid.passwordCheck = false;
-        console.log("password check does not match")
+        console.log("password check does not match");
         setConfirmVisible("hidden");
       }
     }
     console.log("checkValid is ", checkValid);
 
-    if(checkValid.name===true&&checkValid.email===true&&checkValid.password===true&&checkValid.passwordCheck===true){
+    if (
+      checkValid.name === true &&
+      checkValid.email === true &&
+      checkValid.password === true &&
+      checkValid.passwordCheck === true
+    ) {
       setLoginAble("#da225f");
-    }
-    else{
+    } else {
       setLoginAble("#878485");
     }
-  }
-  
+  };
 
   return (
     <Container>
       <LoginDiv>
-        <TextDiv>
-          이메일로 가입하기
-        </TextDiv>
-
-        <br/>이름
-        <NameInput type="text" name="name" placeholder="이름을 입력해주세요." onBlur={inputChange}/>
-        <FontAwesomeIcon style={{color: '#E31019',  position: "relative", left: "93%", bottom: "65px", visibility: nameVisible}} icon={faCheck}/>
-        
-        <br/>이메일(아이디)
-        <EmailInput type="email" name="email" placeholder="이메일을 입력해주세요." onBlur={inputChange}/>
-        <FontAwesomeIcon style={{color: '#E31019',  position: "relative", left: "93%", bottom: "70px", visibility: emailVisible}} icon={faCheck}/>
-        
-        <br/><br/>비밀번호
-        <PasswordInput type="password" name="password" placeholder="비밀번호를 입력해주세요." onBlur={inputChange}/>
-        <FontAwesomeIcon style={{color: '#E31019',  position: "relative", left: "93%", bottom: "65px", visibility: passwordVisible}} icon={faCheck}/>
-        
-        <PasswordCheckInput type="password" name="passwordCheck" placeholder="비밀번호를 다시 입력해주세요." onChange={inputChange}/>
-        <FontAwesomeIcon style={{color: '#E31019',  position: "relative", left: "93%", bottom: "105px", visibility: confirmVisible}} icon={faCheck}/>
-
+        <TextDiv>이메일로 가입하기</TextDiv>
+        <br />
+        이름
+        <NameInput
+          type="text"
+          name="name"
+          placeholder="이름을 입력해주세요."
+          onBlur={inputChange}
+        />
+        <FontAwesomeIcon
+          style={{
+            color: "#E31019",
+            position: "relative",
+            left: "93%",
+            bottom: "65px",
+            visibility: nameVisible,
+          }}
+          icon={faCheck}
+        />
+        <br />
+        이메일(아이디)
+        <EmailInput
+          type="email"
+          name="email"
+          placeholder="이메일을 입력해주세요."
+          onBlur={inputChange}
+        />
+        <FontAwesomeIcon
+          style={{
+            color: "#E31019",
+            position: "relative",
+            left: "93%",
+            bottom: "70px",
+            visibility: emailVisible,
+          }}
+          icon={faCheck}
+        />
+        <br />
+        <br />
+        비밀번호
+        <PasswordInput
+          type="password"
+          name="password"
+          placeholder="비밀번호를 입력해주세요."
+          onBlur={inputChange}
+        />
+        <FontAwesomeIcon
+          style={{
+            color: "#E31019",
+            position: "relative",
+            left: "93%",
+            bottom: "65px",
+            visibility: passwordVisible,
+          }}
+          icon={faCheck}
+        />
+        <PasswordCheckInput
+          type="password"
+          name="passwordCheck"
+          placeholder="비밀번호를 다시 입력해주세요."
+          onChange={inputChange}
+        />
+        <FontAwesomeIcon
+          style={{
+            color: "#E31019",
+            position: "relative",
+            left: "93%",
+            bottom: "105px",
+            visibility: confirmVisible,
+          }}
+          icon={faCheck}
+        />
         <ErrorMessage>{errorMessage}</ErrorMessage>
-        <LoginButton name="login" onClick={loginClicked} style={{backgroundColor:loginAble}}>
+        <LoginButton
+          name="login"
+          onClick={loginClicked}
+          style={{ backgroundColor: loginAble }}
+        >
           가입하기
         </LoginButton>
       </LoginDiv>
     </Container>
-  )
+  );
 }
-

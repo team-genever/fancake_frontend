@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import img from "../../images/blank.png";
+import img from "images/blank.png";
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.fontSmallGray};
