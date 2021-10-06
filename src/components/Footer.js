@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 513px;
-  padding: 152px 159px 152px 159px;
+  height: 35vw;
+  padding: 9vw 11vw;
   background-color: ${(props) => props.theme.boxDarkGray};
 `;
 
@@ -13,6 +13,7 @@ const FooterGrid = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
+  gap: 2vw;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   grid-template-rows: 100%;
@@ -25,15 +26,15 @@ const Section = styled.div`
   display: flex;
   flex-direction: column;
   & h5 {
-    font-size: 20px;
+    font-size: 1.2vw;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 1.5vw;
   }
   & :is(span, a) {
     text-decoration: none;
-    font-size: 16px;
+    font-size: 0.9vw;
     color: white;
-    margin-bottom: 14px;
+    margin-bottom: 0.6vw;
   }
   & a:hover {
     opacity: 70%;
