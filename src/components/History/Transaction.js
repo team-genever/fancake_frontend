@@ -6,9 +6,9 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 56px;
+  font-size: 2.5vw;
   font-weight: bold;
-  margin-bottom: 50px;
+  margin-bottom: 1.7vw;
 `;
 
 const DarkLine = styled.div`
@@ -19,7 +19,7 @@ const DarkLine = styled.div`
 
 const HistoryContainer = styled.div`
   display: grid;
-  grid-auto-rows: minmax(120px, max-content);
+  grid-auto-rows: minmax(4vw, max-content);
   grid-template-columns: 80%;
   justify-content: center;
 `;
@@ -30,21 +30,21 @@ const History = styled.div`
   grid-template-columns: 11fr 74fr 15fr;
   place-items: center start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 37px 0;
+  padding: 1.5vw 0;
   & span {
     font-weight: 500;
-    font-size: 32px;
+    font-size: 1.4vw;
   }
   & h5 {
     font-weight: bold;
-    font-size: 28px;
+    font-size: 1.2vw;
   }
   & small {
-    font-size: 28px;
+    font-size: 1.2vw;
   }
   & div:last-child {
     justify-self: end;
-    font-size: 32px;
+    font-size: 1.4vw;
   }
 `;
 
