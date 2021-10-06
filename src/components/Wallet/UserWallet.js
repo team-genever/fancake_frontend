@@ -1,82 +1,60 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 600px;
   background-color: ${(props) => props.theme.boxLightGray};
   border-radius: 20px;
-  padding: 80px 0 63px 83px;
+  padding: 4.2vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 100px;
+  margin-bottom: 5vw;
 `;
 
 const WalletTitle = styled.h2`
-  font-size: 56px;
+  font-size: 3vw;
   font-weight: 400;
+  margin-bottom: 2vw;
   & strong {
     font-weight: 600;
   }
 `;
 
-const Balance = styled.div`
-  height: 136px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
 const CurrentBalance = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: flex-end;
-  width: 615px;
+  gap: 11.8vw;
+  margin-bottom: 2vw;
   & span {
-    font-size: 32px;
+    font-size: 1.7vw;
     font-weight: 500;
   }
   & span:last-child {
     font-weight: normal;
   }
   & strong {
-    font-size: 48px;
+    font-size: 2.3vw;
     font-weight: bold;
   }
 `;
 
-const TotalCost = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  width: 615px;
-  & span {
-    font-size: 32px;
-    font-weight: 500;
-  }
-  & span:last-child {
-    font-weight: normal;
-  }
-`;
-
 const Buttons = styled.div`
-  width: 840px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 2vw;
 `;
 
 const HistoryButton = styled.button`
   background-color: ${(props) => props.theme.boxGray};
-  width: 400px;
-  height: 100px;
+  width: 20vw;
+  height: 5vw;
   border: none;
   border-radius: 10px;
   & span {
     color: white;
-    font-size: 32px;
+    font-size: 1.7vw;
     font-weight: 700;
   }
   &:hover {
@@ -87,13 +65,13 @@ const HistoryButton = styled.button`
 
 const ChargeButton = styled.button`
   background-color: ${(props) => props.theme.mainPink};
-  width: 400px;
-  height: 100px;
+  width: 20vw;
+  height: 5vw;
   border: none;
   border-radius: 10px;
   & span {
     color: white;
-    font-size: 32px;
+    font-size: 1.7vw;
     font-weight: 700;
   }
   &:hover {
@@ -117,39 +95,38 @@ const PopupBackground = styled.div`
 
 const PopupContainer = styled.div`
   background-color: white;
-  width: 939px;
-  height: 597px;
-  padding: 70px 0 64px 0;
+  width: 50vw;
+  padding: 4vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
   z-index: 11;
   & h3 {
-    font-size: 40px;
+    font-size: 2.1vw;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 2vw;
   }
   & p {
     font-weight: normal;
-    font-size: 32px;
-    max-width: 489px;
+    font-size: 1.7vw;
+    max-width: 27vw;
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 1.5vw;
   }
   & div {
     display: flex;
     justify-content: space-between;
-    width: 555px;
+    width: 30vw;
   }
   & small {
-    font-size: 28px;
+    font-size: 1.5vw;
     font-weight: normal;
     color: ${(props) => props.theme.boxGray};
   }
   & span {
-    font-size: 28px;
+    font-size: 1.5vw;
     font-weight: normal;
     color: black;
   }
@@ -157,8 +134,8 @@ const PopupContainer = styled.div`
     background-color: ${(props) => props.theme.mainPink};
     color: white;
     border: none;
-    padding: 20px 77px;
-    font-size: 20px;
+    padding: 1.3vw 5vw;
+    font-size: 1.2vw;
     font-weight: bold;
     border-radius: 10px;
     margin-top: 40px;
@@ -177,18 +154,12 @@ const UserWallet = () => {
       <WalletTitle>
         <strong>백건우</strong>님의 지갑
       </WalletTitle>
-      <Balance>
-        <CurrentBalance>
-          <span>현재 보유 금액</span>
-          <span>
-            <strong>20,000</strong>원
-          </span>
-        </CurrentBalance>
-        <TotalCost>
-          <span>누적 수익셰어 금액</span>
-          <span>1,200 원</span>
-        </TotalCost>
-      </Balance>
+      <CurrentBalance>
+        <span>현재 보유 금액</span>
+        <span>
+          <strong>20,000</strong>원
+        </span>
+      </CurrentBalance>
       <Buttons>
         <Link to={`/wallet/${userId}/history`}>
           <HistoryButton>

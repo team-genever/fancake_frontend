@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 56px;
+  font-size: 3vw;
   font-weight: bold;
   margin-bottom: 50px;
 `;
@@ -20,7 +20,7 @@ const VideosGrid = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: 100%;
-  grid-auto-rows: 518px;
+  grid-auto-rows: 27vw;
   gap: 30px;
 `;
 

@@ -20,18 +20,17 @@ const Thumbnail = styled.img`
 `;
 
 const TextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 83px 106px 83px 59px;
   width: 100%;
+  height: 100%;
+  padding: 4.7vw 3vw 2.6vw 3vw;
 `;
 
 const PropertiesGrid = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 80px;
-  grid-template-rows: 30px;
-  margin-bottom: 12px;
+  grid-auto-columns: 5.5vw;
+  grid-template-rows: 1.8vw;
+  margin-bottom: 1vw;
   gap: 10px;
 `;
 
@@ -51,23 +50,24 @@ const Property = styled.div`
   justify-content: center;
   align-items: center;
   & span {
-    font-size: 16px;
+    font-size: 0.9vw;
     color: white;
   }
 `;
 
 const Title = styled.h3`
-  font-weight: bold;
-  font-size: 32px;
-  line-height: 48px;
   width: 100%;
-  margin-bottom: 12px;
+  font-size: 1.7vw;
+  line-height: 2.6vw;
+  font-weight: bold;
+  margin-bottom: 0.6vw;
 `;
 
 const ChannelName = styled.div`
+  display: block;
+  font-size: 1.3vw;
   font-weight: normal;
-  font-size: 24px;
-  margin-bottom: 30px;
+  margin-bottom: 1.7vw;
 `;
 
 const ProgressBar = styled.div`
@@ -94,19 +94,19 @@ const VideoTokenInfos = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-bottom: 35px;
+  gap: 0.1vw;
+  margin-bottom: 1.5vw;
 `;
 
 const VideoTokenInfo = styled.div`
   display: flex;
   justify-content: space-between;
   & small {
-    font-size: 24px;
+    font-size: 1.2vw;
     color: ${(prop) => prop.theme.boxGray};
   }
   & span {
-    font-size: 24px;
+    font-size: 1.2vw;
     & strong {
       font-weight: bold;
       color: ${(props) => props.theme.mainPink};

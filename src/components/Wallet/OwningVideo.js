@@ -23,41 +23,41 @@ const VideoImg = styled.div`
 const VideoDescription = styled.div`
   width: 100%;
   height: 100%;
-  padding: 90px 61px 51px 59px;
+  padding: 4.7vw 3vw 2.6vw 3vw;
 `;
 
 const VideoTitle = styled.h3`
   width: 100%;
-  font-size: 32px;
-  line-height: 48px;
+  font-size: 1.7vw;
+  line-height: 2.6vw;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 0.6vw;
 `;
 
 const VideoChannel = styled.small`
   display: block;
-  font-size: 24px;
+  font-size: 1.3vw;
   font-weight: normal;
-  margin-bottom: 30px;
+  margin-bottom: 2vw;
 `;
 
 const VideoTokenInfos = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 35px;
+  gap: 0.1vw;
+  margin-bottom: 1.5vw;
 `;
 
 const VideoTokenInfo = styled.div`
   display: flex;
   justify-content: space-between;
   & small {
-    font-size: 24px;
+    font-size: 1.2vw;
     color: ${(prop) => prop.theme.boxGray};
   }
   & span {
-    font-size: 24px;
+    font-size: 1.2vw;
     & strong {
       font-weight: bold;
     }
@@ -68,14 +68,14 @@ const VideoTokenInfo = styled.div`
 `;
 
 const VideoButton = styled.button`
-  width: 240px;
-  height: 56px;
+  width: 14vw;
+  height: 3.2vw;
   border: 1px solid ${(props) => props.theme.borderGray};
   display: flex;
   justify-content: center;
   align-items: center;
   & span {
-    font-size: 20px;
+    font-size: 1.2vw;
     font-weight: bold;
   }
   &:hover {
