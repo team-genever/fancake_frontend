@@ -5,11 +5,11 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 100px;
+  height: 5vw;
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0 60px;
+  padding: 0 3vw;
   background-color: white;
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@ const NavFront = styled.div`
   display: flex;
   align-items: center;
   & img {
-    width: 200px;
+    height: 2.4vw;
   }
 `;
 
@@ -31,7 +31,7 @@ const HomeLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 56px;
+  margin-right: 3vw;
 `;
 
 const SLink = styled(Link)`
@@ -44,7 +44,7 @@ const SLink = styled(Link)`
   border-bottom: ${(props) => (props.selected ? "1px solid black" : "none")};
   & span {
     color: ${(props) => (props.selected ? "black" : props.theme.boxDarkGray)};
-    font-size: 18px;
+    font-size: 1vw;
     font-weight: normal;
   }
   &:hover {
@@ -55,7 +55,7 @@ const SLink = styled(Link)`
 const Navigator = styled.div`
   height: 100%;
   display: flex;
-  gap: 28px;
+  gap: 1.5vw;
 `;
 
 const LoginButton = styled(Link)`
@@ -63,13 +63,13 @@ const LoginButton = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 240px;
-  height: 60px;
+  width: 12.5vw;
+  height: 3.3vw;
   border-radius: 15px;
   text-decoration: none;
   & span {
     color: white;
-    font-size: 22px;
+    font-size: 1.1vw;
     font-weight: bold;
   }
   &:hover {
