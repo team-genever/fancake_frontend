@@ -7,10 +7,30 @@ const Container = styled.div`
   margin-bottom: 5vw;
 `;
 
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1vw;
+`;
+
 const Title = styled.h2`
   font-size: 2.2vw;
   font-weight: 500;
-  margin-bottom: 1vw;
+`;
+
+const EditButton = styled.button`
+  border: none;
+  text-decoration: underline;
+  color: ${(props) => props.theme.linkBlue};
+  font-size: 1.4vw;
+  font-weight: bold;
+  background-color: transparent;
+  margin-right: 8vw;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const DarkLine = styled.div`
@@ -46,9 +66,12 @@ const UserEdit = styled.div`
   }
 `;
 
-const EditContainer = ({ title, infos }) => (
+const EditContainer = ({ title, infos, isDelivery }) => (
   <Container>
-    <Title>{title}</Title>
+    <TitleContainer>
+      <Title>{title}</Title>
+      {isDelivery && <EditButton>변경</EditButton>}
+    </TitleContainer>
     <DarkLine />
     <UserEditContainer>
       {infos.map((info, index) => (

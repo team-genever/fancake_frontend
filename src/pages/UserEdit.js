@@ -27,19 +27,24 @@ const basicInfo = [
 
 const deliveryInfo = [
   {
+    type: "수령인",
+    content: "백건우",
+  },
+  {
+    type: "전화번호",
+    content: "010-2874-2457",
+  },
+  {
     type: "도로명 주소",
     content: "서울시 서초중앙로 24길 43",
-    changeLink: "/",
   },
   {
     type: "상세주소",
     content: "101동 202호",
-    changeLink: "/",
   },
   {
     type: "우편번호",
     content: "06603",
-    changeLink: "/",
   },
 ];
 
@@ -47,7 +52,7 @@ const UserEdit = () => (
   <Container>
     <Title>회원정보수정</Title>
     <EditContainer title="기본정보" infos={basicInfo} />
-    <EditContainer title="배송지 관리" infos={deliveryInfo} />
+    <EditContainer title="배송지 관리" infos={deliveryInfo} isDelivery />
   </Container>
 );
 
