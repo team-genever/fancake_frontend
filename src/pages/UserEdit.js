@@ -8,9 +8,9 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 56px;
+  font-size: 2.5vw;
   font-weight: bold;
-  margin-bottom: 50px;
+  margin-bottom: 1.7vw;
 `;
 
 const basicInfo = [

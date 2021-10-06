@@ -4,13 +4,13 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  margin-bottom: 120px;
+  margin-bottom: 5vw;
 `;
 
 const Title = styled.h2`
-  font-size: 48px;
+  font-size: 2.2vw;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 1vw;
 `;
 
 const DarkLine = styled.div`
@@ -21,7 +21,7 @@ const DarkLine = styled.div`
 
 const UserEditContainer = styled.div`
   display: grid;
-  grid-auto-rows: minmax(120px, max-content);
+  grid-auto-rows: minmax(4vw, max-content);
   grid-template-columns: 80%;
   justify-content: center;
 `;
@@ -32,14 +32,14 @@ const UserEdit = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 37px 0;
+  padding: 1.5vw 0;
   & span {
-    font-size: 32px;
+    font-size: 1.4vw;
     font-weight: 500;
   }
   & .changeLink {
-    margin-left: 20px;
-    font-size: 32px;
+    margin-left: 1vw;
+    font-size: 1.4vw;
     font-weight: 500;
     color: ${(props) => props.theme.linkBlue};
     text-decoration: underline;
