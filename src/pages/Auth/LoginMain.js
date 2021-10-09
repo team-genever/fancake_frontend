@@ -10,6 +10,14 @@ const Container = styled.div`
   width: 100%;
   height: max-content;
   padding: 200px 300px 200px 300px;
+  
+  @media only screen and (max-width:1007px) {
+    padding: 200px 100px 200px 100px;
+  }
+
+  @media only screen and (max-width:640px) {
+    padding: 200px 30px 200px 30px;
+  }
 `;
 
 const LoginDiv = styled.div`
@@ -18,6 +26,10 @@ const LoginDiv = styled.div`
   //background-color: grey;
   text-align: center;
   margin: 0 auto;
+
+  @media only screen and (max-width:640px) {
+    width: 300px;
+  }
 `;
 
 const TextDiv = styled.div`
@@ -26,6 +38,10 @@ const TextDiv = styled.div`
   font-size: 35px;
   font-weight: bold;
   text-align: left;
+
+  @media only screen and (max-width:640px) {
+    font-size: 25px;
+  }
 `;
 
 const Or = styled.p`
@@ -35,6 +51,11 @@ const Or = styled.p`
   font-size: 26px;
   text-align: center;
   color: #767676;
+
+  @media only screen and (max-width:640px) {
+    font-size: 20px;
+    margin: 7px 0 14px 0;
+  }
 `;
 
 const FindIDPW = styled.div`
@@ -45,6 +66,10 @@ const FindIDPW = styled.div`
   font-size: 18px;
   color: #6e6e6e;
   font-style: bold;
+
+  @media only screen and (max-width:640px) {
+    font-size: 12px;
+  }
 `;
 const FindID = styled.span`
   text-decoration: underline;

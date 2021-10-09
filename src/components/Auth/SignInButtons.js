@@ -28,6 +28,13 @@ const NaverButton = styled.button`
   :hover {
     background-color: #2b9906;
   }
+
+  @media only screen and (max-width:640px) {
+    font-size: 22px;
+    height: 60px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+  }
 `;
 
 const EmailButton = styled.button`
@@ -44,6 +51,11 @@ const EmailButton = styled.button`
 
   :hover {
     background-color: #f5f5f5;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 22px;
+    height: 60px;
   }
 `;
 

@@ -17,6 +17,12 @@ const EmailInput = styled.input`
   border: solid 1px #979797;
   font-size: 18px;
   color: #d8d8d8;
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin-bottom: 10px;
+  }
 `;
 
 const PasswordInput = styled.input`
@@ -28,6 +34,12 @@ const PasswordInput = styled.input`
   border: solid 1px #979797;
   font-size: 18px;
   color: #d8d8d8;
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin-bottom: 15px
+  }
 `;
 
 const LoginButton = styled.button`
@@ -44,6 +56,11 @@ const LoginButton = styled.button`
 
   :hover{
       background-color: #e34076;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 20px;
+    height: 55px;
   }
 `;
 
