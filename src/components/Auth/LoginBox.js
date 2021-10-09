@@ -10,34 +10,34 @@ const Container = styled.div`
 
 const EmailInput = styled.input`
   width: 100%;
-  height: 100px;
+  height: 55px;
   margin: 0 0 15px 0;
-  padding: 40px;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  color: #d8d8d8;
 `;
 
 const PasswordInput = styled.input`
   width: 100%;
-  height: 100px;
+  height: 55px;
   margin: 0 0 25px 0;
-  padding: 40px;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  color: #d8d8d8;
 `;
 
 const LoginButton = styled.button`
   width: 100%;
-  height: 120px;
-  margin: 30px 0 0 0;
+  height: 70px;
+  margin: 10px 0 0 0;
   //padding: 37px 348px 37px 347px;
   border-radius: 60px;
   background-color: #da225f;
-  font-size: 32px;
+  font-size: 24px;
   color: #fff;
   border : none;
   cursor: pointer;  

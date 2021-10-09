@@ -5,33 +5,36 @@ import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { SignInButtons, LoginBox } from "components/Auth";
 
+
 const Container = styled.div`
   width: 100%;
   height: max-content;
-  padding: 35vw 30vw 30vw 30vw;
+  padding: 200px 300px 200px 300px;
 `;
 
 const LoginDiv = styled.div`
-  width: 100%;
+  width: 400px;
   height: 100%;
-  text-allign: center;
   //background-color: grey;
+  text-align: center;
+  margin: 0 auto;
 `;
 
 const TextDiv = styled.div`
   width: 100%;
   height: 100%;
-  font-size: 56px;
+  font-size: 35px;
   font-weight: bold;
+  text-align: left;
 `;
 
 const Or = styled.p`
   //width: 32px;
   //height: 46px;
-  margin: 0 0 30px 0;
-  font-size: 32px;
+  margin: 10px 0 20px 0;
+  font-size: 26px;
   text-align: center;
-  color: boxGray;
+  color: #767676;
 `;
 
 const FindIDPW = styled.div`
@@ -39,7 +42,7 @@ const FindIDPW = styled.div`
   height: 100%;
   margin-top: 15px;
   text-align: center;
-  font-size: 28px;
+  font-size: 18px;
   color: #6e6e6e;
   font-style: bold;
 `;

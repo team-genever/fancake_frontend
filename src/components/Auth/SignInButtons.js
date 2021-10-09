@@ -8,20 +8,21 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  padding: 10px 0 10px 0;
+  padding: 10px 0 0 0;
   text-align: center;
+  margin: 0 auto;
 `;
 
 const NaverButton = styled.button`
   width: 100%;
-  height: 120px;
+  height: 70px;
   margin: 50px 0 10px 0;
   //padding: 37px 271px 37px 270px;
   border-radius: 60px;
   background-color: #2db400;
   border: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 26px;
   cursor: pointer;
 
   :hover {
@@ -31,14 +32,14 @@ const NaverButton = styled.button`
 
 const EmailButton = styled.button`
   width: 100%;
-  height: 120px;
-  margin: 10px 0 20px 0;
+  height: 70px;
+  margin: 10px 0 0px 0;
   //padding: 37px 271px 37px 270px;
   background-color: white;
   border-radius: 60px;
   border-color: #cfcfcf;
   color: #767676;
-  font-size: 2rem;
+  font-size: 26px;
   cursor: pointer;
 
   :hover {
