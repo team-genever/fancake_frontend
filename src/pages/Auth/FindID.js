@@ -81,8 +81,12 @@ const ErrorMessage = styled.p`
   width: 100%;
   margin: 0 0 0 0;
   color: red;
-  font-size: 25px;
+  font-size: 18px;
   text-align: center;
+
+  @media only screen and (max-width:640px) {
+    font-size: 13px;
+  }
 `;
 
 const LoginButton = styled.button`
