@@ -7,11 +7,11 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 5vw;
+  height: 80px;
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0 3vw;
+  padding: 0 50px;
   background-color: ${(props) =>
     props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
   display: flex;
@@ -19,6 +19,16 @@ const Container = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid
     ${(props) => (props.isHome ? props.theme.navBarUnderGray : "black")};
+
+  @media only screen and (max-width:1007px) {
+    height: 60px;
+    padding: 0 35px;
+  }
+
+  @media only screen and (max-width:640px) {
+    height: 40px;
+    padding: 0 25px;
+  }
 `;
 
 const NavFront = styled.div`
@@ -26,7 +36,19 @@ const NavFront = styled.div`
   display: flex;
   align-items: center;
   & img {
-    height: 2.4vw;
+    height: 40px;
+  }
+
+  @media only screen and (max-width:1007px) {
+    & img {
+      height: 30px;
+    }
+  }
+
+  @media only screen and (max-width:640px) {
+    & img {
+      height: 22px;
+    }
   }
 `;
 
@@ -35,7 +57,15 @@ const HomeLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 3vw;
+  margin-right: 50px;
+
+  @media only screen and (max-width:1007px) {
+    margin-right: 35px;
+  }
+
+  @media only screen and (max-width:640px) {
+    margin-right: 25px;
+  }
 `;
 
 const SLink = styled(Link)`
@@ -58,19 +88,48 @@ const SLink = styled(Link)`
         : props.isHome
         ? props.theme.boxLightGray
         : props.theme.boxDarkGray};
-    font-size: 1vw;
-    font-weight: normal;
+    font-size: 17px;
+    font-weight: 600;
   }
   &:hover {
     background-color: ${(props) =>
       props.isHome ? "rgba(255, 255, 255, 0.3)" : props.theme.boxVeryLightGray};
+    border-bottom: 1px solid;
+    border-bottom-color: ${(props) =>
+      props.selected
+        ? props.isHome
+          ? props.theme.boxVeryLightGray
+          : "black"
+        : props.isHome
+        ? props.theme.boxLightGray
+        : props.theme.boxDarkGray};
+  }
+
+  @media only screen and (max-width:1007px) {
+    & span {
+      font-size: 14px;
+    }
+  }
+
+  @media only screen and (max-width:640px) {
+    & span {
+      font-size: 8px;
+    }
   }
 `;
 
 const Navigator = styled.div`
   height: 100%;
   display: flex;
-  gap: 1.5vw;
+  gap: 35px;
+
+  @media only screen and (max-width:1007px) {
+    gap: 25px;
+  }
+
+  @media only screen and (max-width:640px) {
+    gap: 15px;
+  }
 `;
 
 const LoginButton = styled(Link)`
@@ -78,17 +137,33 @@ const LoginButton = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 12.5vw;
-  height: 3.3vw;
+  width: 190px;
+  height: 48px;
   border-radius: 15px;
   text-decoration: none;
   & span {
     color: white;
-    font-size: 1.1vw;
+    font-size: 18px;
     font-weight: bold;
   }
   &:hover {
     background-color: ${(props) => props.theme.mainPinkHover};
+  }
+
+  @media only screen and (max-width:1007px) {
+    width: 140px;
+    height: 35px;
+    & span {
+      font-size: 13px;
+    }
+  }
+
+  @media only screen and (max-width:640px) {
+    width: 110px;
+    height: 28px;
+    & span {
+      font-size: 10px;
+    }
   }
 `;
 
