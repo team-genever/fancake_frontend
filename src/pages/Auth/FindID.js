@@ -5,46 +5,76 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 100%;
   height: max-content;
-  padding: 15vw 30vw 30vw 30vw;
+  padding: 200px 300px 200px 300px;
+  
+  @media only screen and (max-width:1007px) {
+    padding: 200px 100px 200px 100px;
+  }
+
+  @media only screen and (max-width:640px) {
+    padding: 200px 30px 200px 30px;
+  }
 `;
 
 const LoginDiv = styled.div`
-  width: 100%;
+  width: 400px;
   height: 100%;
-  text-allign: center;
-  //background-color: grey;
-  font-size: 24px;
+  margin: 0 auto;
+  font-size: 16px;
   font-weight: 600;
+
+  @media only screen and (max-width:640px) {
+    width: 300px;
+  }
 `;
 
 const TextDiv = styled.div`
   width: 100%;
   height: 100%;
-  font-size: 56px;
+  font-size: 35px;
   font-weight: bold;
-  margin: 0 0 40px 0;
+  text-align: left;
+  margin: 0 0 25px 0;
+
+  @media only screen and (max-width:640px) {
+    font-size: 25px;
+    margin: 0 0 15px 0;
+  }
 `;
 
 const NameInput = styled.input`
   width: 100%;
-  height: 100px;
-  margin: 12px 0 35px 0;
-  padding: 40px;
+  height: 55px;
+  margin: 10px 0 25px 0;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  color: #d8d8d8;
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin: 5px 0 15px 0;
+  }
 `;
+
 
 const EmailInput = styled.input`
   width: 100%;
-  height: 100px;
-  margin: 12px 0 80px 0;
-  padding: 40px;
+  height: 55px;
+  margin: 10px 0 50px 0;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  color: #d8d8d8;
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin: 5px 0 25px 0;
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -57,18 +87,23 @@ const ErrorMessage = styled.p`
 
 const LoginButton = styled.button`
   width: 100%;
-  height: 120px;
-  margin: 30px 0 0 0;
+  height: 70px;
+  margin: 10px 0 0 0;
   //padding: 37px 348px 37px 347px;
   border-radius: 60px;
   background-color: #da225f;
-  font-size: 32px;
+  font-size: 24px;
   color: #fff;
   border : none;
   cursor: pointer;  
 
   :hover{
       background-color: #e34076;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 20px;
+    height: 55px;
   }
 `;
 
