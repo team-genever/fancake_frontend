@@ -9,8 +9,12 @@ const Container = styled.div`
   padding: 4.2vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin-bottom: 5vw;
+  @media screen and (max-width: 640px) {
+    height: 39vw;
+    padding: 5vw 4.7vw;
+    margin-bottom: 8vw;
+  }
 `;
 
 const WalletTitle = styled.h2`
@@ -19,6 +23,10 @@ const WalletTitle = styled.h2`
   margin-bottom: 2vw;
   & strong {
     font-weight: 600;
+  }
+  @media screen and (max-width: 640px) {
+    font-size: 5vw;
+    margin-bottom: 3.5vw;
   }
 `;
 
@@ -38,6 +46,15 @@ const CurrentBalance = styled.div`
     font-size: 2.3vw;
     font-weight: bold;
   }
+  @media screen and (max-width: 640px) {
+    margin-bottom: 3.5vw;
+    & span {
+      font-size: 3.3vw;
+    }
+    & strong {
+      font-size: 4vw;
+    }
+  }
 `;
 
 const Buttons = styled.div`
@@ -56,10 +73,18 @@ const HistoryButton = styled.button`
     color: white;
     font-size: 1.7vw;
     font-weight: 700;
+    text-align: center;
   }
   &:hover {
     background-color: ${(props) => props.theme.boxGray};
     cursor: pointer;
+  }
+  @media screen and (max-width: 640px) {
+    width: 32vw;
+    height: 8vw;
+    & span {
+      font-size: 3vw;
+    }
   }
 `;
 
@@ -73,10 +98,18 @@ const ChargeButton = styled.button`
     color: white;
     font-size: 1.7vw;
     font-weight: 700;
+    text-align: center;
   }
   &:hover {
     background-color: ${(props) => props.theme.mainPinkHover};
     cursor: pointer;
+  }
+  @media screen and (max-width: 640px) {
+    width: 32vw;
+    height: 8vw;
+    & span {
+      font-size: 3vw;
+    }
   }
 `;
 
@@ -144,6 +177,35 @@ const PopupContainer = styled.div`
     background-color: ${(props) => props.theme.mainPinkHover};
     cursor: pointer;
   }
+  @media screen and (max-width: 640px) {
+    padding: 8vw;
+    width: 88vw;
+    & h3 {
+      font-size: 4.7vw;
+      margin-bottom: 5vw;
+    }
+    & p {
+      font-size: 2.7vw;
+      max-width: 43vw;
+      margin-bottom: 4vw;
+    }
+    & div {
+      width: 85%;
+    }
+    & small {
+      font-size: 2.5vw;
+    }
+    & span {
+      font-size: 2.5vw;
+    }
+    & button {
+      padding: 2vw 7vw;
+      font-size: 2.7vw;
+      border-radius: 2vw;
+      margin-top: 5vw;
+      text-align: center;
+    }
+  }
 `;
 
 const UserWallet = () => {
@@ -157,7 +219,7 @@ const UserWallet = () => {
       <CurrentBalance>
         <span>현재 보유 금액</span>
         <span>
-          <strong>20,000</strong>원
+          <strong>20,000</strong> 원
         </span>
       </CurrentBalance>
       <Buttons>

@@ -14,6 +14,10 @@ const Title = styled.h2`
   font-size: 3vw;
   font-weight: bold;
   margin-bottom: 50px;
+  @media screen and (max-width: 640px) {
+    font-size: 5vw;
+    margin-bottom: 5vw;
+  }
 `;
 
 const VideosGrid = styled.div`
@@ -22,6 +26,10 @@ const VideosGrid = styled.div`
   grid-template-columns: 100%;
   grid-auto-rows: 27vw;
   gap: 30px;
+  @media screen and (max-width: 640px) {
+    gap: 8vw;
+    grid-auto-rows: 108vw;
+  }
 `;
 
 const videos = [
