@@ -20,14 +20,17 @@ const Container = styled.div`
   border-bottom: 1px solid
     ${(props) => (props.isHome ? props.theme.navBarUnderGray : "black")};
 
-  @media only screen and (max-width:1007px) {
+  @media only screen and (max-width: 1007px) {
     height: 60px;
     padding: 0 35px;
   }
 
-  @media only screen and (max-width:640px) {
-    height: 40px;
-    padding: 0 25px;
+  @media only screen and (max-width: 640px) {
+    height: 14vw;
+    padding: 0 5vw;
+    border-bottom: none;
+    background-color: ${(props) =>
+      props.isHome ? "rgba(0, 0, 0, 0.41)" : "rgba(255, 255, 255, 0.41)"};
   }
 `;
 
@@ -39,15 +42,15 @@ const NavFront = styled.div`
     height: 40px;
   }
 
-  @media only screen and (max-width:1007px) {
+  @media only screen and (max-width: 1007px) {
     & img {
       height: 30px;
     }
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     & img {
-      height: 22px;
+      height: 6.5vw;
     }
   }
 `;
@@ -59,12 +62,12 @@ const HomeLink = styled(Link)`
   align-items: center;
   margin-right: 50px;
 
-  @media only screen and (max-width:1007px) {
+  @media only screen and (max-width: 1007px) {
     margin-right: 35px;
   }
 
-  @media only screen and (max-width:640px) {
-    margin-right: 25px;
+  @media only screen and (max-width: 640px) {
+    // margin-right: 25px;
   }
 `;
 
@@ -105,16 +108,17 @@ const SLink = styled(Link)`
         : props.theme.boxDarkGray};
   }
 
-  @media only screen and (max-width:1007px) {
+  @media only screen and (max-width: 1007px) {
     & span {
       font-size: 14px;
     }
   }
 
-  @media only screen and (max-width:640px) {
-    & span {
+  @media only screen and (max-width: 640px) {
+    display: none;
+    /* & span {
       font-size: 8px;
-    }
+    } */
   }
 `;
 
@@ -123,12 +127,13 @@ const Navigator = styled.div`
   display: flex;
   gap: 35px;
 
-  @media only screen and (max-width:1007px) {
+  @media only screen and (max-width: 1007px) {
     gap: 25px;
   }
 
-  @media only screen and (max-width:640px) {
-    gap: 15px;
+  @media only screen and (max-width: 640px) {
+    // gap: 15px;
+    display: none;
   }
 `;
 
@@ -150,7 +155,7 @@ const LoginButton = styled(Link)`
     background-color: ${(props) => props.theme.mainPinkHover};
   }
 
-  @media only screen and (max-width:1007px) {
+  @media only screen and (max-width: 1007px) {
     width: 140px;
     height: 35px;
     & span {
@@ -158,12 +163,13 @@ const LoginButton = styled(Link)`
     }
   }
 
-  @media only screen and (max-width:640px) {
-    width: 110px;
+  @media only screen and (max-width: 640px) {
+    display: none;
+    /* width: 110px;
     height: 28px;
     & span {
       font-size: 10px;
-    }
+    } */
   }
 `;
 

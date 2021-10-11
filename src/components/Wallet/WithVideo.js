@@ -7,6 +7,10 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+    background-color: ${(props) => props.theme.boxLightGray};
+  }
 `;
 
 const Thumbnail = styled.img`
@@ -17,12 +21,19 @@ const Thumbnail = styled.img`
     width: 100%;
     height: 100%;
   }
+  @media screen and (max-width: 640px) {
+    height: max-content;
+    width: 100%;
+  }
 `;
 
 const TextContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 4.7vw 3vw 2.6vw 3vw;
+  @media screen and (max-width: 640px) {
+    padding: 5vw;
+  }
 `;
 
 const PropertiesGrid = styled.div`
@@ -32,6 +43,11 @@ const PropertiesGrid = styled.div`
   grid-template-rows: 1.8vw;
   margin-bottom: 1vw;
   gap: 10px;
+  @media screen and (max-width: 640px) {
+    grid-auto-columns: 11vw;
+    grid-template-rows: 4vw;
+    gap: 1vw;
+  }
 `;
 
 const Property = styled.div`
@@ -53,6 +69,9 @@ const Property = styled.div`
     font-size: 0.9vw;
     color: white;
   }
+  @media screen and (max-width: 640px) {
+    font-size: 0.9vw;
+  }
 `;
 
 const Title = styled.h3`
@@ -61,6 +80,10 @@ const Title = styled.h3`
   line-height: 2.6vw;
   font-weight: bold;
   margin-bottom: 0.6vw;
+  @media screen and (max-width: 640px) {
+    font-size: 4.3vw;
+    line-height: 6vw;
+  }
 `;
 
 const ChannelName = styled.div`
@@ -68,6 +91,11 @@ const ChannelName = styled.div`
   font-size: 1.3vw;
   font-weight: normal;
   margin-bottom: 1.7vw;
+  @media screen and (max-width: 640px) {
+    color: ${(props) => props.theme.boxGray};
+    font-size: 2.7vw;
+    margin-bottom: 5vw;
+  }
 `;
 
 const ProgressBar = styled.div`
@@ -77,6 +105,10 @@ const ProgressBar = styled.div`
   border-radius: 30px;
   padding: 0px;
   margin-bottom: 10px;
+  @media screen and (max-width: 640px) {
+    height: 3vw;
+    border-radius: 2vw;
+  }
 `;
 
 const Progress = styled.div`
@@ -88,6 +120,10 @@ const Progress = styled.div`
     rgba(218, 34, 95, 0.8)
   );
   width: 84%;
+  @media screen and (max-width: 640px) {
+    height: 3vw;
+    border-radius: 2vw;
+  }
 `;
 
 const VideoTokenInfos = styled.div`
@@ -96,6 +132,9 @@ const VideoTokenInfos = styled.div`
   flex-direction: column;
   gap: 0.1vw;
   margin-bottom: 1.5vw;
+  @media screen and (max-width: 640px) {
+    margin-bottom: 5.5vw;
+  }
 `;
 
 const VideoTokenInfo = styled.div`
@@ -110,6 +149,18 @@ const VideoTokenInfo = styled.div`
     & strong {
       font-weight: bold;
       color: ${(props) => props.theme.mainPink};
+    }
+  }
+  @media screen and (max-width: 640px) {
+    & small {
+      font-size: 2.5vw;
+      color: ${(prop) => prop.theme.boxGray};
+    }
+    & span {
+      font-size: 2.5vw;
+      & strong {
+        font-weight: bold;
+      }
     }
   }
 `;
