@@ -13,11 +13,17 @@ const TitleContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 1vw;
+  @media only screen and (max-width: 640px) {
+    margin-bottom: 3vw;
+  }
 `;
 
 const Title = styled.h2`
   font-size: 2.2vw;
   font-weight: 500;
+  @media only screen and (max-width: 640px) {
+    font-size: 4vw;
+  }
 `;
 
 const EditButton = styled.button`
@@ -31,12 +37,19 @@ const EditButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  @media only screen and (max-width: 640px) {
+    font-size: 3vw;
+    margin: 0;
+  }
 `;
 
 const DarkLine = styled.div`
   width: 100%;
   height: 2px;
   background-color: black;
+  @media only screen and (max-width: 640px) {
+    height: 1px;
+  }
 `;
 
 const UserEditContainer = styled.div`
@@ -44,6 +57,10 @@ const UserEditContainer = styled.div`
   grid-auto-rows: minmax(4vw, max-content);
   grid-template-columns: 80%;
   justify-content: center;
+  @media only screen and (max-width: 640px) {
+    grid-template-columns: 100%;
+    grid-auto-rows: minmax(13vw, max-content);
+  }
 `;
 
 const UserEdit = styled.div`
@@ -63,6 +80,15 @@ const UserEdit = styled.div`
     font-weight: 500;
     color: ${(props) => props.theme.linkBlue};
     text-decoration: underline;
+  }
+  @media only screen and (max-width: 640px) {
+    padding: 2vw 0;
+    & span {
+      font-size: 3vw;
+    }
+    & .changeLink {
+      font-size: 3vw;
+    }
   }
 `;
 
