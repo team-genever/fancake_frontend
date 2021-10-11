@@ -8,6 +8,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 120px;
+  @media screen and (max-width: 640px) {
+    margin-bottom: 20vw;
+  }
 `;
 
 const Title = styled.h2`
