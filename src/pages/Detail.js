@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import VideoInfo from "components/Detail/VideoInfo";
 
+import axios from "axios";
+import { getAllByDisplayValue } from "@testing-library/dom";
+
 const Container = styled.div`
   width: 100%;
   height: max-content;
@@ -69,12 +72,49 @@ const videos = [
   },
 ];
 
-const Detail = ({ match, login_info }) => {
+function Detail ({ match, login_info }) {
   const [videoId, usetVideoId] = useState(match.params.videoId);
+
+  useEffect(()=> {  //==componenetDidMount
+    getApi();
+  },[])
+
+  const [testVideo, setTestVideo] = useState(
+    {
+      video_id: "2",
+      channel: {
+        channelId: "2",
+        channelTitle: "test channel title",
+        channelURL: "https://www.youtube.com/embed/PQehBcftLKU",
+        thubnailURL: "",
+      },
+      title: "temp Title (백엔드에서 못가져옴)",
+      totlaAmount: 100,
+      currentAmount: 10,
+      pricePerShare: 1000,
+      marketCap: 100000,
+      onSale: false,
+      expirationDate: "2021-10-31T09:19:04.159157",
+    });
+
+  async function getApi() {
+    let tempData;
+
+    try {
+      const response = await axios.get("http://psj2867.com/api/video/2")
+      console.log(response);
+      tempData = response.data;
+      console.log("tempData is ", tempData);
+      setTestVideo(tempData);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <Container>
-      <Video data={videos.find((data) => data.video_id === videoId)} />
+      <Video data={videos.find((data) => data.video_id === videoId)} testdata={testVideo} />
       <VideoInfo />
     </Container>
   );

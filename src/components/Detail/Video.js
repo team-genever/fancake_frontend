@@ -30,8 +30,9 @@ const YoutubeEmbed = styled.iframe`
   height: 480px;
 `;
 
-const Video = ({ data }) => {
+const Video = ({ data, testdata }) => {
   console.log(data);
+  console.log("testdata is ", testdata);
   return (
     <Positioner>
       <YoutubeEmbed
@@ -41,8 +42,10 @@ const Video = ({ data }) => {
         allowFullScreen
         title="Embedded youtube"
       />
-      <Heading>{data.title}</Heading>
-      <ChannelName>{data.channelName}</ChannelName>
+      {/* <Heading>{data.title}</Heading>
+      <ChannelName>{data.channelName}</ChannelName> */}
+      <Heading>{testdata.title}</Heading>
+      <ChannelName>{testdata.channel.channelTitle}</ChannelName>
     </Positioner>
   );
 };
