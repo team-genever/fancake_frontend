@@ -9,12 +9,19 @@ const Title = styled.h2`
   font-size: 2.5vw;
   font-weight: bold;
   margin-bottom: 1.7vw;
+  @media only screen and (max-width: 640px) {
+    font-size: 5vw;
+    margin-bottom: 3vw;
+  }
 `;
 
 const DarkLine = styled.div`
   width: 100%;
   height: 2px;
   background-color: black;
+  @media only screen and (max-width: 640px) {
+    height: 1px;
+  }
 `;
 
 const HistoryContainer = styled.div`
@@ -22,6 +29,10 @@ const HistoryContainer = styled.div`
   grid-auto-rows: minmax(4vw, max-content);
   grid-template-columns: 80%;
   justify-content: center;
+  @media only screen and (max-width: 640px) {
+    grid-template-columns: 100%;
+    grid-auto-rows: minmax(13vw, max-content);
+  }
 `;
 
 const History = styled.div`
@@ -34,6 +45,7 @@ const History = styled.div`
   & span {
     font-weight: 500;
     font-size: 1.4vw;
+    align-self: start;
   }
   & h5 {
     font-weight: bold;
@@ -44,12 +56,37 @@ const History = styled.div`
   }
   & div:last-child {
     justify-self: end;
+    align-self: start;
     font-size: 1.4vw;
+  }
+  @media only screen and (max-width: 640px) {
+    gap: 2vw;
+    grid-template-columns: 11fr 70fr 20fr;
+    padding: 2vw 0;
+    & span {
+      font-size: 3vw;
+    }
+    & h5 {
+      font-size: 3vw;
+    }
+    & div {
+      width: 100%;
+      align-self: start;
+    }
+    & small {
+      font-size: 2.7vw;
+    }
+    & div:last-child {
+      font-size: 3vw;
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 `;
 
 const SStrong = styled.strong`
   color: ${(props) => (props.number > 0 ? "#172b7c" : "#c30505")};
+  margin-right: 0.7vw;
 `;
 
 const histories = [
@@ -61,7 +98,7 @@ const histories = [
   },
   {
     date: new Date("November 2, 2021"),
-    content: "계좌입금",
+    title: "계좌입금",
     number: 20000,
   },
   {
@@ -72,7 +109,7 @@ const histories = [
   },
   {
     date: new Date("October 26, 2021"),
-    content: "계좌입금",
+    title: "계좌입금",
     number: 20000,
   },
 ];
@@ -89,7 +126,7 @@ const Transaction = () => (
           }/${history.date.getDate()}`}</span>
           <div>
             {history.title ? <h5>{history.title}</h5> : ""}
-            <small>{history.content}</small>
+            {history.content ? <small>{history.content}</small> : ""}
           </div>
           <div>
             <SStrong number={history.number}>
