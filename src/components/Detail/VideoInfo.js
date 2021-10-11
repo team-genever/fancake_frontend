@@ -91,12 +91,30 @@ const Input = styled.input`
   }
 `;
 
-const VideoInfo = () => {
+const VideoInfo = ({testdata}) => {
+  console.log("testdata in videoInfo is ", testdata);
+  const [videoData, setVideoData] = useState({
+    video_id: "",
+    channel: {
+      channelId: "",
+      channelTitle: "",
+      channelURL: "",
+      thubnailURL: "",
+    },
+    title: "",
+    totlaAmount: 0,
+    currentAmount: 0,
+    pricePerShare: 0,
+    marketCap: 0,
+    onSale: true,
+    expirationDate: "",
+  });
+
   const [buttonComponent, setButton] = useState(
     <Button>로그인 후 이용가능합니다.</Button>
   );
   const [isLogin, setLogin] = useState(true);
-  const [OnSale, setOnSale] = useState(true);
+  const [OnSale, setOnSale] = useState(videoData.onSale);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -111,7 +129,7 @@ const VideoInfo = () => {
     setQuantity(e.target.value);
     //console.log(quantity);
     //console.log(e.target.value);
-    setTotalPrice(e.target.value * 12000);
+    setTotalPrice(e.target.value * videoData.pricePerShare);
   };
 
   const onClick = (e) => {
@@ -119,6 +137,11 @@ const VideoInfo = () => {
     if (totalPrice > balance) setRejectModal(true);
     else setConfirmModal(true);
   };
+
+  useEffect(()=> {
+    setVideoData(testdata);
+    setOnSale(testdata.onSale)
+  },[])
 
   useEffect(() => {
     //로그인 상태, 영상 판매중 여부에 따라 다른 버튼 렌더링
@@ -172,15 +195,15 @@ const VideoInfo = () => {
             </tr>
             <tr>
               <BoldTd>공동구매 목표금액</BoldTd>
-              <BlackTd>1,000,000원</BlackTd>
+              <BlackTd>{videoData.marketCap}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>공동구매 달성액</BoldTd>
-              <BlackTd>800,000원</BlackTd>
+              <BlackTd>{videoData.currentAmount * videoData.pricePerShare}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>한 조각당 가격</BoldTd>
-              <BlackTd>12,000원</BlackTd>
+              <BlackTd>{videoData.pricePerShare}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>진행률</BoldTd>
@@ -191,9 +214,9 @@ const VideoInfo = () => {
                       <Progress />
                     </ProgressBar>
                   </ProgressContainer>
-                  100%
+                  {(videoData.currentAmount/videoData.totlaAmount)*100}%
                 </FlexContainer>
-                <GrayFont>총 100조각 중 0조각 남음</GrayFont>
+                <GrayFont>총 {videoData.totlaAmount}조각 중 {videoData.totlaAmount - videoData.currentAmount}조각 남음</GrayFont>
               </PinkTd>
             </tr>
             <tr>

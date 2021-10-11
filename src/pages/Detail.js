@@ -79,43 +79,61 @@ function Detail ({ match, login_info }) {
     getApi();
   },[])
 
-  const [testVideo, setTestVideo] = useState(
+  const [testVideo, setTestVideo] = useState([
     {
-      video_id: "2",
+      video_id: "0",
       channel: {
-        channelId: "2",
-        channelTitle: "test channel title",
+        channelId: "1",
+        channelTitle: "test channel title1",
         channelURL: "https://www.youtube.com/embed/PQehBcftLKU",
         thubnailURL: "",
       },
-      title: "temp Title (백엔드에서 못가져옴)",
+      title: "temp Title1 (백엔드에서 못가져옴)",
       totlaAmount: 100,
       currentAmount: 10,
       pricePerShare: 1000,
       marketCap: 100000,
-      onSale: false,
+      onSale: true,
       expirationDate: "2021-10-31T09:19:04.159157",
-    });
+    },
+    {
+      video_id: "1",
+      channel: {
+        channelId: "2",
+        channelTitle: "test channel title2",
+        channelURL: "https://www.youtube.com/embed/PQehBcftLKU",
+        thubnailURL: "",
+      },
+      title: "temp Title2 (백엔드에서 못가져옴)",
+      totlaAmount: 100,
+      currentAmount: 10,
+      pricePerShare: 1000,
+      marketCap: 100000,
+      onSale: true,
+      expirationDate: "2021-10-31T09:19:04.159157",
+    },
+  ]);
 
   async function getApi() {
     let tempData;
 
     try {
-      const response = await axios.get("http://psj2867.com/api/video/2")
+      const response = await axios.get("http://psj2867.com/api/video")
       console.log(response);
       tempData = response.data;
-      console.log("tempData is ", tempData);
+      console.log("tempData is ", tempData.content);
       setTestVideo(tempData);
 
     } catch (error) {
+      
       console.error(error);
     }
   }
 
   return (
     <Container>
-      <Video data={videos.find((data) => data.video_id === videoId)} testdata={testVideo} />
-      <VideoInfo />
+      <Video data={videos.find((data) => data.video_id === videoId)} testdata={testVideo[videoId?videoId:0]} />
+      <VideoInfo testdata={testVideo[videoId?videoId:0]} />
     </Container>
   );
 };

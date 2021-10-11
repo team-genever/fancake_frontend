@@ -35,15 +35,22 @@ const Video = ({ data, testdata }) => {
   console.log("testdata is ", testdata);
   return (
     <Positioner>
-      <YoutubeEmbed
+      {/* <YoutubeEmbed
         src={`https://www.youtube.com/embed/PQehBcftLKU`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         title="Embedded youtube"
       />
-      {/* <Heading>{data.title}</Heading>
+      <Heading>{data.title}</Heading>
       <ChannelName>{data.channelName}</ChannelName> */}
+      <YoutubeEmbed
+        src={testdata.channel.channelURL}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="Embedded youtube"
+      />
       <Heading>{testdata.title}</Heading>
       <ChannelName>{testdata.channel.channelTitle}</ChannelName>
     </Positioner>
