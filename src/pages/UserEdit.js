@@ -4,18 +4,24 @@ import EditContainer from "components/UserEdit/EditContainer";
 const Container = styled.div`
   width: 100%;
   height: max-content;
-  padding: 11.5vw 8.3vw 18.4vw 8.3vw;
+  padding: 160px 120px 200px 120px;
+  @media only screen and (max-width: 1007px) {
+    padding: 120px 90px 150px 90px;
+  }
   @media only screen and (max-width: 640px) {
     padding: 21vw 5vw;
-    padding-bottom: 0;
-    height: 120vh;
+    padding-bottom: 15vw;
   }
 `;
 
 const Title = styled.h1`
-  font-size: 2.5vw;
+  font-size: 36px;
   font-weight: bold;
-  margin-bottom: 1.7vw;
+  margin-bottom: 20px;
+  @media only screen and (max-width: 1007px) {
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
   @media only screen and (max-width: 640px) {
     font-size: 5vw;
     margin-bottom: 5vw;
