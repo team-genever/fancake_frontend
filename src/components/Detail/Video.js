@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 const Positioner = styled.div`
   text-align: center;
@@ -32,27 +33,21 @@ const YoutubeEmbed = styled.iframe`
 
 const Video = ({ data, testdata }) => {
   console.log(data);
-  console.log("testdata is ", testdata);
+  console.log("testdata here is ", testdata);
+  console.log("channel URL is ", testdata.channel.channelUrl);
   return (
     <Positioner>
-      {/* <YoutubeEmbed
-        src={`https://www.youtube.com/embed/PQehBcftLKU`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="Embedded youtube"
-      />
-      <Heading>{data.title}</Heading>
-      <ChannelName>{data.channelName}</ChannelName> */}
       <YoutubeEmbed
-        src={testdata.channel.channelURL}
+        src={testdata.channel.channelUrl}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         title="Embedded youtube"
       />
       <Heading>{testdata.title}</Heading>
-      <ChannelName>{testdata.channel.channelTitle}</ChannelName>
+      <Link to={{ pathname: testdata.channel.channelUrl }} style={{ textDecoration: 'none' }} target="_blank">
+        <ChannelName href ={testdata.channel.channelUrl}>{testdata.channel.channelTitle}</ChannelName>
+      </Link>
     </Positioner>
   );
 };

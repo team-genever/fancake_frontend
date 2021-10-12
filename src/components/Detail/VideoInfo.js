@@ -211,7 +211,7 @@ const VideoInfo = ({testdata}) => {
                 <FlexContainer>
                   <ProgressContainer>
                     <ProgressBar>
-                      <Progress />
+                      <Progress style={{width:300*(videoData.currentAmount/videoData.totlaAmount)+'px'}}/>
                     </ProgressBar>
                   </ProgressContainer>
                   {(videoData.currentAmount/videoData.totlaAmount)*100}%

@@ -3,6 +3,7 @@ import Video from "components/Detail/Video";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import VideoInfo from "components/Detail/VideoInfo";
+import { GetBackendIP } from "../settings"
 
 import axios from "axios";
 import { getAllByDisplayValue } from "@testing-library/dom";
@@ -79,7 +80,7 @@ function Detail ({ match, login_info }) {
     getApi();
   },[])
 
-  const [testVideo, setTestVideo] = useState([
+  const [testVideos, setTestVideos] = useState([
     {
       video_id: "0",
       channel: {
@@ -116,24 +117,26 @@ function Detail ({ match, login_info }) {
 
   async function getApi() {
     let tempData;
+    let backendip = GetBackendIP();
+    console.log(backendip);
 
     try {
-      const response = await axios.get("http://psj2867.com/api/video")
+      const response = await axios.get(backendip+"/api/video")
       console.log(response);
       tempData = response.data;
-      console.log("tempData is ", tempData.content);
-      setTestVideo(tempData);
+      console.log("tempData is ", tempData);
+      setTestVideos(tempData.content);
 
     } catch (error) {
-      
       console.error(error);
     }
   }
 
   return (
     <Container>
-      <Video data={videos.find((data) => data.video_id === videoId)} testdata={testVideo[videoId?videoId:0]} />
-      <VideoInfo testdata={testVideo[videoId?videoId:0]} />
+      {console.log("tesvideos is", testVideos)}
+      <Video data={videos.find((data) => data.video_id === videoId)} testdata={testVideos[videoId?videoId:0]} />
+      <VideoInfo testdata={testVideos[videoId?videoId:0]} />
     </Container>
   );
 };
