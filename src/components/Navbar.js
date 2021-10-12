@@ -92,7 +92,7 @@ const SLink = styled(Link)`
         ? props.theme.boxLightGray
         : props.theme.boxDarkGray};
     font-size: 17px;
-    font-weight: 600;
+    font-weight: normal;
   }
   &:hover {
     background-color: ${(props) =>
@@ -175,29 +175,36 @@ const LoginButton = styled(Link)`
 
 const Navbar = ({ location: { pathname } }) => {
   const isHome = pathname === "/";
+  const onClick = () => window.scrollTo(0, 0);
   return (
     <Container isHome={isHome}>
       <NavFront>
-        <HomeLink to="/">
+        <HomeLink to="/" onClick={onClick}>
           <img
             src={isHome ? logo_white : logo_black}
             alt={isHome ? "logo_white" : "logo_black"}
           />
         </HomeLink>
         <Navigator>
-          <SLink to="/" selected={pathname === "/"} isHome={isHome}>
+          <SLink
+            to="/"
+            selected={pathname === "/"}
+            isHome={isHome}
+            onClick={onClick}
+          >
             <span>서비스 소개</span>
           </SLink>
           <SLink
             to="/experience"
             selected={pathname === "/experience"}
             isHome={isHome}
+            onClick={onClick}
           >
             <span>체험하기</span>
           </SLink>
         </Navigator>
       </NavFront>
-      <LoginButton to="/auth/main">
+      <LoginButton to="/auth/main" onClick={onClick}>
         <span>로그인</span>
       </LoginButton>
     </Container>
