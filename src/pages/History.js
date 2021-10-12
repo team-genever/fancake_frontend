@@ -8,7 +8,7 @@ const Container = styled.div`
   height: max-content;
   padding: 160px 120px 200px 120px;
   @media only screen and (max-width: 1007px) {
-    padding: 120px 90px 150px 90px;
+    padding: 120px 90px 300px 90px;
   }
   @media only screen and (max-width: 640px) {
     padding: 21vw 5vw;

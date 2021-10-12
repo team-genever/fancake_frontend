@@ -6,12 +6,12 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   width: 100%;
-  height: 35vw;
-  padding: 9vw 11vw;
+  height: 400px;
+  padding: 100px 110px;
   background-color: ${(props) => props.theme.boxDarkGray};
-  @media screen and (max-width: 640px) {
-    height: 8vw;
-    background-color: white;
+  @media only screen and (max-width: 1007px) {
+    height: 250px;
+    padding: 65px 90px;
   }
 `;
 
@@ -19,10 +19,13 @@ const FooterGrid = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
-  gap: 2vw;
+  gap: 20px;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   grid-template-rows: 100%;
+  @media only screen and (max-width: 1007px) {
+    gap: 15px;
+  }
 `;
 
 const Section = styled.div`
@@ -32,18 +35,28 @@ const Section = styled.div`
   display: flex;
   flex-direction: column;
   & h5 {
-    font-size: 1.2vw;
+    font-size: 17px;
     font-weight: bold;
-    margin-bottom: 1.5vw;
+    margin-bottom: 25px;
   }
   & :is(span, a) {
     text-decoration: none;
-    font-size: 0.9vw;
+    font-size: 13px;
     color: white;
-    margin-bottom: 0.6vw;
+    margin-bottom: 10px;
   }
   & a:hover {
     opacity: 70%;
+  }
+  @media only screen and (max-width: 1007px) {
+    & h5 {
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+    & :is(span, a) {
+      font-size: 10px;
+      margin-bottom: 7px;
+    }
   }
 `;
 
