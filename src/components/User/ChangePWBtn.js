@@ -4,18 +4,23 @@ import styled from "styled-components";
 
 const LoginButton = styled.button`
   width: 100%;
-  height: 120px;
+  height: 70px;
   margin: 10px 0 0 0;
   //padding: 37px 348px 37px 347px;
   border-radius: 60px;
   background-color: #da225f;
-  font-size: 32px;
+  font-size: 24px;
   color: #fff;
   border : none;
   cursor: pointer;  
 
   :hover{
       background-color: #e34076;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 20px;
+    height: 55px;
   }
 `;
 
