@@ -38,7 +38,7 @@ const TextDiv = styled.div`
 
   @media only screen and (max-width:640px) {
     font-size: 25px;
-    margin: 0 0 15px 0;
+    margin: 0 0 25px 0;
   }
 `;
 
