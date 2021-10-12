@@ -6,95 +6,158 @@ import styled from "styled-components";
 import { LoginBox } from "components/Auth";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMediaQuery } from "react-responsive";
 
 const Container = styled.div`
   width: 100%;
   height: max-content;
-  padding: 35vw 30vw 30vw 30vw;
+  padding: 200px 300px 200px 300px;
+  
+  @media only screen and (max-width:1007px) {
+    padding: 200px 100px 200px 100px;
+  }
+
+  @media only screen and (max-width:640px) {
+    padding: 200px 30px 200px 30px;
+  }
 `;
 
 const LoginDiv = styled.div`
-  width: 100%;
+  width: 400px;
   height: 100%;
-  text-allign: center;
-  //background-color: grey;
-  font-size: 24px;
+  margin: 0 auto;
+  font-size: 16px;
   font-weight: 600;
+  color: #767676;
+
+  @media only screen and (max-width:640px) {
+    width: 300px;
+  }
 `;
 
 const TextDiv = styled.div`
   width: 100%;
   height: 100%;
-  font-size: 56px;
+  font-size: 35px;
   font-weight: bold;
+  text-align: left;
+  margin: 0 0 5px 0;
+  color: black;
+
+  @media only screen and (max-width:640px) {
+    font-size: 25px;
+    margin: 0 0 15px 0;
+  }
 `;
 
 const NameInput = styled.input`
   width: 100%;
-  height: 100px;
+  height: 55px;
   margin: 10px 0 0 0;
-  padding: 40px;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  ::-webkit-input-placeholder {
+    color: #d8d8d8;
+  }
+  
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin: 5px 0 0 0;
+  }
 `;
 
 const EmailInput = styled.input`
   width: 100%;
-  height: 100px;
-  margin: 10px 0 0 0;
-  padding: 40px;
+  height: 55px;
+  margin: 10px 0 20px 0;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  ::-webkit-input-placeholder {
+    color: #d8d8d8;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin: 5px 0 10px 0;
+  }
 `;
 
 const PasswordInput = styled.input`
   width: 100%;
-  height: 100px;
-  margin: 10px 0 0 0;
-  padding: 40px;
+  height: 55px;
+  margin: 10px 0 10px 0;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  ::-webkit-input-placeholder {
+    color: #d8d8d8;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin: 5px 0 5px 0;
+  }
 `;
 
 const PasswordCheckInput = styled.input`
   width: 100%;
-  height: 100px;
-  margin: 0 0 40px 0;
-  padding: 40px;
+  height: 55px;
+  margin: 0 0 35px 0;
+  padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
-  font-size: 28px;
-  color: #767676;
+  font-size: 18px;
+  ::-webkit-input-placeholder {
+    color: #d8d8d8;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 15px;
+    height: 45px;
+    margin: 0 0 20px 0;
+  }
 `;
 
 const ErrorMessage = styled.p`
   width: 100%;
   margin: 0 0 0 0;
   color: red;
-  font-size: 25px;
+  font-size: 18px;
   text-align: center;
+
+  @media only screen and (max-width:640px) {
+    font-size: 13px;
+  }
 `;
 
 const LoginButton = styled.button`
   width: 100%;
-  height: 120px;
+  height: 70px;
   margin: 10px 0 0 0;
   //padding: 37px 348px 37px 347px;
   border-radius: 60px;
   background-color: #da225f;
-  font-size: 32px;
+  font-size: 24px;
   color: #fff;
-  border: none;
-  cursor: pointer;
+  border : none;
+  cursor: pointer;  
 
-  :hover {
-    background-color: #e34076;
+  :hover{
+      background-color: #e34076;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 20px;
+    height: 55px;
   }
 `;
 
@@ -138,6 +201,13 @@ export default function SigninEmail() {
   const [loginAble, setLoginAble] = useState("#878485");
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  const isTabletPC = useMediaQuery({
+    query: "(min-width: 641px)"
+  });
+  const isMobile = useMediaQuery({
+    query: "(max-width: 640px)"
+  });
 
   const loginClicked = (e) => {
     if (checkValid.name === false) setErrorMessage("이름을 입력해주세요.");
@@ -235,16 +305,28 @@ export default function SigninEmail() {
           placeholder="이름을 입력해주세요."
           onBlur={inputChange}
         />
-        <FontAwesomeIcon
-          style={{
-            color: "#E31019",
-            position: "relative",
-            left: "93%",
-            bottom: "65px",
-            visibility: nameVisible,
-          }}
-          icon={faCheck}
-        />
+        {isTabletPC &&
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "93%",
+              bottom: "40px",
+              visibility: nameVisible,
+            }}
+            icon={faCheck}
+        />}
+        {isMobile &&
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "90%",
+              bottom: "35px",
+              visibility: nameVisible,
+            }}
+            icon={faCheck}
+        />}
         <br />
         이메일(아이디)
         <EmailInput
@@ -253,17 +335,29 @@ export default function SigninEmail() {
           placeholder="이메일을 입력해주세요."
           onBlur={inputChange}
         />
-        <FontAwesomeIcon
-          style={{
-            color: "#E31019",
-            position: "relative",
-            left: "93%",
-            bottom: "70px",
-            visibility: emailVisible,
-          }}
-          icon={faCheck}
-        />
-        <br />
+        {isTabletPC && 
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "93%",
+              bottom: "60px",
+              visibility: emailVisible,
+            }}
+            icon={faCheck}
+        />}
+        {isMobile && 
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "90%",
+              bottom: "45px",
+              visibility: emailVisible,
+            }}
+            icon={faCheck}
+        />}
+        
         <br />
         비밀번호
         <PasswordInput
@@ -272,32 +366,58 @@ export default function SigninEmail() {
           placeholder="비밀번호를 입력해주세요."
           onBlur={inputChange}
         />
-        <FontAwesomeIcon
-          style={{
-            color: "#E31019",
-            position: "relative",
-            left: "93%",
-            bottom: "65px",
-            visibility: passwordVisible,
-          }}
-          icon={faCheck}
-        />
         <PasswordCheckInput
           type="password"
           name="passwordCheck"
           placeholder="비밀번호를 다시 입력해주세요."
           onChange={inputChange}
         />
-        <FontAwesomeIcon
-          style={{
-            color: "#E31019",
-            position: "relative",
-            left: "93%",
-            bottom: "105px",
-            visibility: confirmVisible,
-          }}
-          icon={faCheck}
-        />
+        {isTabletPC && 
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "93%",
+              bottom: "140px",
+              visibility: passwordVisible,
+            }}
+            icon={faCheck}
+        />}
+        {isMobile && 
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "90%",
+              bottom: "105px",
+              visibility: passwordVisible,
+            }}
+            icon={faCheck}
+        />}
+        
+        {isTabletPC && 
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "89%",
+              bottom: "75px",
+              visibility: confirmVisible,
+            }}
+            icon={faCheck}
+          />}
+        {isMobile && 
+          <FontAwesomeIcon
+            style={{
+              color: "#E31019",
+              position: "relative",
+              left: "85%",
+              bottom: "55px",
+              visibility: confirmVisible,
+            }}
+            icon={faCheck}
+        />}
+        
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <LoginButton
           name="login"
