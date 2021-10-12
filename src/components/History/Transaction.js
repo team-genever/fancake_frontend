@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -6,9 +7,13 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 2.5vw;
+  font-size: 36px;
   font-weight: bold;
-  margin-bottom: 1.7vw;
+  margin-bottom: 15px;
+  @media only screen and (max-width: 1007px) {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
   @media only screen and (max-width: 640px) {
     font-size: 5vw;
     margin-bottom: 3vw;
@@ -26,9 +31,12 @@ const DarkLine = styled.div`
 
 const HistoryContainer = styled.div`
   display: grid;
-  grid-auto-rows: minmax(4vw, max-content);
+  grid-auto-rows: minmax(72px, max-content);
   grid-template-columns: 80%;
   justify-content: center;
+  @media only screen and (max-width: 1007px) {
+    grid-auto-rows: minmax(64px, max-content);
+  }
   @media only screen and (max-width: 640px) {
     grid-template-columns: 100%;
     grid-auto-rows: minmax(13vw, max-content);
@@ -41,23 +49,37 @@ const History = styled.div`
   grid-template-columns: 11fr 74fr 15fr;
   place-items: center start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 1.5vw 0;
+  padding: 20px 0;
   & span {
     font-weight: 500;
-    font-size: 1.4vw;
+    font-size: 20px;
     align-self: start;
   }
   & h5 {
     font-weight: bold;
-    font-size: 1.2vw;
+    font-size: 17px;
   }
   & small {
-    font-size: 1.2vw;
+    font-size: 17px;
   }
   & div:last-child {
     justify-self: end;
     align-self: start;
-    font-size: 1.4vw;
+    font-size: 20px;
+  }
+  @media only screen and (max-width: 1007px) {
+    & span {
+      font-size: 17px;
+    }
+    & h5 {
+      font-size: 14px;
+    }
+    & small {
+      font-size: 14px;
+    }
+    & div:last-child {
+      font-size: 17px;
+    }
   }
   @media only screen and (max-width: 640px) {
     gap: 2vw;
@@ -86,7 +108,9 @@ const History = styled.div`
 
 const SStrong = styled.strong`
   color: ${(props) => (props.number > 0 ? "#172b7c" : "#c30505")};
-  margin-right: 0.7vw;
+  @media only screen and (max-width: 640px) {
+    margin-right: 0.7vw;
+  }
 `;
 
 const histories = [
@@ -114,32 +138,43 @@ const histories = [
   },
 ];
 
-const Transaction = () => (
-  <Container>
-    <Title>거래내역</Title>
-    <DarkLine />
-    <HistoryContainer>
-      {histories.map((history, index) => (
-        <History key={index}>
-          <span>{`${
-            history.date.getMonth() + 1
-          }/${history.date.getDate()}`}</span>
-          <div>
-            {history.title ? <h5>{history.title}</h5> : ""}
-            {history.content ? <small>{history.content}</small> : ""}
-          </div>
-          <div>
-            <SStrong number={history.number}>
-              {history.number >= 0
-                ? `+${history.number} `
-                : `${history.number} `}
-            </SStrong>
-            원
-          </div>
-        </History>
-      ))}
-    </HistoryContainer>
-  </Container>
-);
+const Transaction = () => {
+  const [history, setHistory] = useState([]);
+  const getHistory = async () => {
+    const response = await axios.get("http://psj2867.com/api/user");
+    console.log(response);
+    setHistory();
+  };
+  useEffect(() => {
+    getHistory();
+  }, []);
+  return (
+    <Container>
+      <Title>거래내역</Title>
+      <DarkLine />
+      <HistoryContainer>
+        {histories.map((history, index) => (
+          <History key={index}>
+            <span>{`${
+              history.date.getMonth() + 1
+            }/${history.date.getDate()}`}</span>
+            <div>
+              {history.title ? <h5>{history.title}</h5> : ""}
+              {history.content ? <small>{history.content}</small> : ""}
+            </div>
+            <div>
+              <SStrong number={history.number}>
+                {history.number >= 0
+                  ? `+${history.number} `
+                  : `${history.number} `}
+              </SStrong>
+              원
+            </div>
+          </History>
+        ))}
+      </HistoryContainer>
+    </Container>
+  );
+};
 
 export default Transaction;
