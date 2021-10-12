@@ -31,7 +31,10 @@ const VideoImg = styled.div`
 const VideoDescription = styled.div`
   width: 100%;
   height: 100%;
-  padding: 4.7vw 3vw 2.6vw 3vw;
+  padding: 40px 30px 20px 30px;
+  @media only screen and (max-width: 1007px) {
+    padding: 30px 25px 10px 25px;
+  }
   @media screen and (max-width: 640px) {
     padding: 5vw;
   }
@@ -39,10 +42,20 @@ const VideoDescription = styled.div`
 
 const VideoTitle = styled.h3`
   width: 100%;
-  font-size: 1.7vw;
-  line-height: 2.6vw;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: bold;
-  margin-bottom: 0.6vw;
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  @media only screen and (max-width: 1007px) {
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: 4px;
+  }
   @media screen and (max-width: 640px) {
     font-size: 4.3vw;
     line-height: 6vw;
@@ -51,22 +64,29 @@ const VideoTitle = styled.h3`
 
 const VideoChannel = styled.small`
   display: block;
-  font-size: 1.3vw;
+  font-size: 17px;
   font-weight: normal;
-  margin-bottom: 2vw;
+  margin-bottom: 15px;
+  @media only screen and (max-width: 1007px) {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
   @media screen and (max-width: 640px) {
     color: ${(props) => props.theme.boxGray};
     font-size: 2.7vw;
-    margin-bottom: 5vw;
+    margin-bottom: 3.5vw;
   }
 `;
 
 const VideoTokenInfos = styled.div`
-  width: 100%;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.1vw;
-  margin-bottom: 1.5vw;
+  gap: 1px;
+  margin-bottom: 27px;
+  @media only screen and (max-width: 1007px) {
+    margin-bottom: 15px;
+  }
   @media screen and (max-width: 640px) {
     margin-bottom: 5.5vw;
   }
@@ -76,16 +96,25 @@ const VideoTokenInfo = styled.div`
   display: flex;
   justify-content: space-between;
   & small {
-    font-size: 1.2vw;
+    font-size: 14px;
     color: ${(prop) => prop.theme.boxGray};
+    width: max-content;
   }
   & span {
-    font-size: 1.2vw;
+    font-size: 14px;
     & strong {
       font-weight: bold;
     }
     & .pink {
       color: ${(props) => props.theme.mainPink};
+    }
+  }
+  @media only screen and (max-width: 1007px) {
+    & small {
+      font-size: 12px;
+    }
+    & span {
+      font-size: 12px;
     }
   }
   @media screen and (max-width: 640px) {
@@ -114,18 +143,25 @@ const VideoButtonContainer = styled.div`
 `;
 
 const VideoButton = styled.button`
-  width: 14vw;
-  height: 3.2vw;
+  width: 200px;
+  height: 45px;
   border: 1px solid ${(props) => props.theme.borderGray};
   display: flex;
   justify-content: center;
   align-items: center;
   & span {
-    font-size: 1.2vw;
+    font-size: 16px;
     font-weight: bold;
   }
   &:hover {
     cursor: pointer;
+  }
+  @media only screen and (max-width: 1007px) {
+    width: 150px;
+    height: 40px;
+    & span {
+      font-size: 14px;
+    }
   }
   @media screen and (max-width: 640px) {
     background-color: ${(props) => props.theme.boxLightGray};
@@ -153,7 +189,7 @@ const OwningVideo = ({ title, channelName, tokenCount }) => (
           </span>
         </VideoTokenInfo>
         <VideoTokenInfo>
-          <small>증서번호</small>
+          <small>증서번호 </small>
           <small>K238OIJEOOEIWIOJFEWO</small>
         </VideoTokenInfo>
         <VideoTokenInfo>

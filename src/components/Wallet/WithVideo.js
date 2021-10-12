@@ -30,7 +30,10 @@ const Thumbnail = styled.img`
 const TextContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 4.7vw 3vw 2.6vw 3vw;
+  padding: 40px 30px 20px 30px;
+  @media only screen and (max-width: 1007px) {
+    padding: 30px 25px 10px 25px;
+  }
   @media screen and (max-width: 640px) {
     padding: 5vw;
   }
@@ -39,10 +42,15 @@ const TextContainer = styled.div`
 const PropertiesGrid = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 5.5vw;
-  grid-template-rows: 1.8vw;
-  margin-bottom: 1vw;
-  gap: 10px;
+  grid-auto-columns: 60px;
+  grid-template-rows: 25px;
+  margin-bottom: 5px;
+  gap: 5px;
+  @media only screen and (max-width: 1007px) {
+    grid-auto-columns: 50px;
+    grid-template-rows: 22px;
+    gap: 3px;
+  }
   @media screen and (max-width: 640px) {
     grid-auto-columns: 11vw;
     grid-template-rows: 4vw;
@@ -66,8 +74,13 @@ const Property = styled.div`
   justify-content: center;
   align-items: center;
   & span {
-    font-size: 0.9vw;
+    font-size: 12px;
     color: white;
+  }
+  @media only screen and (max-width: 1007px) {
+    & span {
+      font-size: 11px;
+    }
   }
   @media screen and (max-width: 640px) {
     font-size: 0.9vw;
@@ -76,10 +89,20 @@ const Property = styled.div`
 
 const Title = styled.h3`
   width: 100%;
-  font-size: 1.7vw;
-  line-height: 2.6vw;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: bold;
-  margin-bottom: 0.6vw;
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  @media only screen and (max-width: 1007px) {
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: 4px;
+  }
   @media screen and (max-width: 640px) {
     font-size: 4.3vw;
     line-height: 6vw;
@@ -88,9 +111,13 @@ const Title = styled.h3`
 
 const ChannelName = styled.div`
   display: block;
-  font-size: 1.3vw;
+  font-size: 17px;
   font-weight: normal;
-  margin-bottom: 1.7vw;
+  margin-bottom: 18px;
+  @media only screen and (max-width: 1007px) {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
   @media screen and (max-width: 640px) {
     color: ${(props) => props.theme.boxGray};
     font-size: 2.7vw;
@@ -104,7 +131,11 @@ const ProgressBar = styled.div`
   width: 100%;
   border-radius: 30px;
   padding: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  @media only screen and (max-width: 1007px) {
+    margin-bottom: 12px;
+    height: 15px;
+  }
   @media screen and (max-width: 640px) {
     height: 3vw;
     border-radius: 2vw;
@@ -120,6 +151,9 @@ const Progress = styled.div`
     rgba(218, 34, 95, 0.8)
   );
   width: 84%;
+  @media only screen and (max-width: 1007px) {
+    height: 15px;
+  }
   @media screen and (max-width: 640px) {
     height: 3vw;
     border-radius: 2vw;
@@ -130,8 +164,10 @@ const VideoTokenInfos = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.1vw;
-  margin-bottom: 1.5vw;
+  gap: 1px;
+  @media only screen and (max-width: 1007px) {
+    margin-bottom: 15px;
+  }
   @media screen and (max-width: 640px) {
     margin-bottom: 5.5vw;
   }
@@ -141,14 +177,23 @@ const VideoTokenInfo = styled.div`
   display: flex;
   justify-content: space-between;
   & small {
-    font-size: 1.2vw;
+    font-size: 14px;
     color: ${(prop) => prop.theme.boxGray};
+    width: max-content;
   }
   & span {
-    font-size: 1.2vw;
+    font-size: 14px;
     & strong {
       font-weight: bold;
       color: ${(props) => props.theme.mainPink};
+    }
+  }
+  @media only screen and (max-width: 1007px) {
+    & small {
+      font-size: 12px;
+    }
+    & span {
+      font-size: 12px;
     }
   }
   @media screen and (max-width: 640px) {

@@ -14,9 +14,9 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 3vw;
+  font-size: 40px;
   font-weight: bold;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   @media screen and (max-width: 640px) {
     font-size: 5vw;
     margin-bottom: 5vw;
@@ -26,10 +26,15 @@ const Title = styled.h2`
 const VideosGrid = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: 100%;
-  grid-auto-rows: 27vw;
+  grid-template-columns: minmax(870px, 1fr);
+  grid-auto-rows: 320px;
   gap: 30px;
+  @media only screen and (max-width: 1007px) {
+    grid-template-columns: minmax(680px, 1fr);
+    grid-auto-rows: 250px;
+  }
   @media screen and (max-width: 640px) {
+    grid-template-columns: 1fr;
     gap: 8vw;
     grid-auto-rows: 108vw;
   }

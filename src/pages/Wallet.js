@@ -8,8 +8,10 @@ import UserWallet from "components/Wallet/UserWallet";
 const Container = styled.div`
   width: 100%;
   height: max-content;
-  padding: 11.5vw 8.3vw 18.4vw 8.3vw;
-
+  padding: 160px 120px 100px 120px;
+  @media only screen and (max-width: 1007px) {
+    padding: 120px 90px 80px 90px;
+  }
   @media screen and (max-width: 640px) {
     padding: 21vw 5vw;
     padding-bottom: 0;

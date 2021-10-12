@@ -6,10 +6,14 @@ const Container = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.boxLightGray};
   border-radius: 20px;
-  padding: 4.2vw;
+  padding: 60px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 5vw;
+  margin-bottom: 70px;
+  @media only screen and (max-width: 1007px) {
+    padding: 40px;
+    margin-bottom: 50px;
+  }
   @media screen and (max-width: 640px) {
     height: 39vw;
     padding: 5vw 4.7vw;
@@ -18,11 +22,15 @@ const Container = styled.div`
 `;
 
 const WalletTitle = styled.h2`
-  font-size: 3vw;
+  font-size: 42px;
   font-weight: 400;
-  margin-bottom: 2vw;
+  margin-bottom: 22px;
   & strong {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 1007px) {
+    font-size: 36px;
+    margin-bottom: 12px;
   }
   @media screen and (max-width: 640px) {
     font-size: 5vw;
@@ -33,18 +41,27 @@ const WalletTitle = styled.h2`
 const CurrentBalance = styled.div`
   display: flex;
   align-items: flex-end;
-  gap: 11.8vw;
-  margin-bottom: 2vw;
+  gap: 170px;
+  margin-bottom: 28px;
   & span {
-    font-size: 1.7vw;
+    font-size: 23px;
     font-weight: 500;
   }
   & span:last-child {
     font-weight: normal;
   }
   & strong {
-    font-size: 2.3vw;
+    font-size: 32px;
     font-weight: bold;
+  }
+  @media only screen and (max-width: 1007px) {
+    margin-bottom: 20px;
+    & span {
+      font-size: 20px;
+    }
+    & strong {
+      font-size: 28px;
+    }
   }
   @media screen and (max-width: 640px) {
     margin-bottom: 3.5vw;
@@ -60,24 +77,37 @@ const CurrentBalance = styled.div`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  gap: 2vw;
+  gap: 25px;
+  @media only screen and (max-width: 1007px) {
+    gap: 15px;
+  }
+  @media screen and (max-width: 640px) {
+    gap: 2.5vw;
+  }
 `;
 
 const HistoryButton = styled.button`
   background-color: ${(props) => props.theme.boxGray};
-  width: 20vw;
-  height: 5vw;
+  width: 280px;
+  height: 72px;
   border: none;
   border-radius: 10px;
   & span {
     color: white;
-    font-size: 1.7vw;
+    font-size: 24px;
     font-weight: 700;
     text-align: center;
   }
   &:hover {
     background-color: ${(props) => props.theme.boxGray};
     cursor: pointer;
+  }
+  @media only screen and (max-width: 1007px) {
+    width: 180px;
+    height: 56px;
+    & span {
+      font-size: 20px;
+    }
   }
   @media screen and (max-width: 640px) {
     width: 32vw;
@@ -90,19 +120,26 @@ const HistoryButton = styled.button`
 
 const ChargeButton = styled.button`
   background-color: ${(props) => props.theme.mainPink};
-  width: 20vw;
-  height: 5vw;
+  width: 280px;
+  height: 72px;
   border: none;
   border-radius: 10px;
   & span {
     color: white;
-    font-size: 1.7vw;
+    font-size: 24px;
     font-weight: 700;
     text-align: center;
   }
   &:hover {
     background-color: ${(props) => props.theme.mainPinkHover};
     cursor: pointer;
+  }
+  @media only screen and (max-width: 1007px) {
+    width: 180px;
+    height: 56px;
+    & span {
+      font-size: 20px;
+    }
   }
   @media screen and (max-width: 640px) {
     width: 32vw;
