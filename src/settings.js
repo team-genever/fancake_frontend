@@ -11,6 +11,6 @@ export const GetBackendIP = () => {
   }
 };
 
-export const api = axios.create(backend_ip_address); // axios 인스턴스 생성
+export const api = axios.create({ baseURL: backend_ip_address }); // axios 인스턴스 생성
 
 // api.get("api/user/", {}); 이렇게 상대경로로 사용하면 될 거 같아요!
