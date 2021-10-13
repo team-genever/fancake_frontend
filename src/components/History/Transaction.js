@@ -1,10 +1,17 @@
-import axios from "axios";
-import React from "react";
-import { useCookies, withCookies } from "react-cookie";
+import Loading from "components/Loading";
+import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { api } from "settings";
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
+`;
+
+const LoadingContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const Title = styled.h2`
@@ -114,79 +121,108 @@ const SStrong = styled.strong`
   }
 `;
 
-const histories = [
-  {
-    date: new Date("November 2, 2021"),
-    title: "스틱 PC 중 최고 성능!! USB 처럼 생긴 초미니 컴퓨터 사봤습니다",
-    content: "구매(2조각)",
-    number: -20000,
-  },
-  {
-    date: new Date("November 2, 2021"),
-    title: "계좌입금",
-    number: 20000,
-  },
-  {
-    date: new Date("October 26, 2021"),
-    title: "스틱 PC 중 최고 성능!! USB 처럼 생긴 초미니 컴퓨터 사봤습니다",
-    content: "구매(2조각)",
-    number: -20000,
-  },
-  {
-    date: new Date("October 26, 2021"),
-    title: "계좌입금",
-    number: 20000,
-  },
-];
+// const histories = [
+//   {
+//     date: new Date("November 2, 2021"),
+//     title: "스틱 PC 중 최고 성능!! USB 처럼 생긴 초미니 컴퓨터 사봤습니다",
+//     content: "구매(2조각)",
+//     number: -20000,
+//   },
+//   {
+//     date: new Date("November 2, 2021"),
+//     title: "계좌입금",
+//     number: 20000,
+//   },
+//   {
+//     date: new Date("October 26, 2021"),
+//     title: "스틱 PC 중 최고 성능!! USB 처럼 생긴 초미니 컴퓨터 사봤습니다",
+//     content: "구매(2조각)",
+//     number: -20000,
+//   },
+//   {
+//     date: new Date("October 26, 2021"),
+//     title: "계좌입금",
+//     number: 20000,
+//   },
+// ];
 
 const Transaction = () => {
-  const [cookies, setCookie, removeCookie] = useCookies();
-  setCookie("Authorization", "asdkfhasdkhgsadlg");
-  console.log(cookies);
-  removeCookie("Authorization");
-  console.log(cookies);
-  // const [history, setHistory] = useState([]);
-  // const getHistory = async () => {
-  //   const response = await axios.get("http://localhost/api/user/tradings", {
-  //     headers: {
-  //       Authorization:
-  //         "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNiIsImdyYW50cyI6IlJPTEVfVVNFUiIsInVzZXJfbmFtZSI6Ikp1bmdtaW4iLCJleHAiOjE2MzQxMjczNTF9.KWuBBqxXTgUwLEkemE8oCgClu7YbKe0OlSoTgQzN4L0nO8I9DtWjdkDjtIYVzzpPhtk5VKbxac29EKvnVDsVCw",
-  //     },
-  //     // params: {
-  //     //   id: "yoojm4718@outlook.com",
-  //     //   password: "123123123",
-  //     // },
-  //   });
-  //   console.log(response);
-  //   setHistory();
-  // };
-  // useEffect(() => {
-  //   getHistory();
-  // }, []);
-  return (
+  const [cookies, setCookie] = useCookies(["Authorization"]);
+  const [histories, setHistories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getHistories = async () => {
+    let content;
+    try {
+      const response = await api.get("user/tradings", {
+        headers: {
+          Authorization: cookies.Authorization,
+        },
+      });
+      content = response.data.content;
+      setHistories(content);
+    } catch {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const userLogin = async () => {
+    let accessToken;
+    try {
+      const response = await api.get("user/login", {
+        params: {
+          id: "yoojm4718@outlook.com",
+          password: "123123123",
+        },
+      });
+      accessToken = response.data.accessToken;
+      setCookie("Authorization", accessToken);
+    } catch {
+    } finally {
+      getHistories();
+    }
+  };
+
+  useEffect(() => {
+    userLogin();
+  }, []);
+
+  return loading ? (
+    <LoadingContainer>
+      <Loading />
+    </LoadingContainer>
+  ) : (
     <Container>
       <Title>거래내역</Title>
       <DarkLine />
       <HistoryContainer>
-        {histories.map((history, index) => (
-          <History key={index}>
-            <span>{`${
-              history.date.getMonth() + 1
-            }/${history.date.getDate()}`}</span>
-            <div>
-              {history.title ? <h5>{history.title}</h5> : ""}
-              {history.content ? <small>{history.content}</small> : ""}
-            </div>
-            <div>
-              <SStrong number={history.number}>
-                {history.number >= 0
-                  ? `+${history.number} `
-                  : `${history.number} `}
-              </SStrong>
-              원
-            </div>
-          </History>
-        ))}
+        {histories.map((history, index) => {
+          const createdDate = new Date(history.createdDate);
+          return (
+            <History key={index}>
+              <span>{`${
+                createdDate.getMonth() + 1
+              }/${createdDate.getDate()}`}</span>
+              <div>
+                {history.videoTitle ? <h5>{history.videoTitle}</h5> : ""}
+                {history.type === "BUY" ? (
+                  <small>{`구매(${history.size}조각)`}</small>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div>
+                <SStrong number={history.number}>
+                  {history.type === "BUY"
+                    ? `-${history.price * history.size} `
+                    : `+${history.price * history.size} `}
+                </SStrong>
+                원
+              </div>
+            </History>
+          );
+        })}
       </HistoryContainer>
     </Container>
   );

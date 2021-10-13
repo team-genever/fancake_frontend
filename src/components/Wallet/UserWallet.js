@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -246,7 +246,6 @@ const PopupContainer = styled.div`
 `;
 
 const UserWallet = () => {
-  const { userId } = useParams();
   const [popup, setPopup] = useState(false);
   return (
     <Container>
@@ -260,7 +259,7 @@ const UserWallet = () => {
         </span>
       </CurrentBalance>
       <Buttons>
-        <Link to={`/wallet/${userId}/history`}>
+        <Link to={`/wallet/history`}>
           <HistoryButton>
             <span>거래내역</span>
           </HistoryButton>
