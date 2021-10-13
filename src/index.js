@@ -6,13 +6,16 @@ import { ThemeProvider } from "styled-components";
 import App from "App";
 import reportWebVitals from "reportWebVitals";
 import theme from "theme";
+import { CookiesProvider } from "react-cookie";
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <Router>
-      <App />
-    </Router>
-  </ThemeProvider>,
+  <CookiesProvider>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <App />
+      </Router>
+    </ThemeProvider>
+  </CookiesProvider>,
   document.getElementById("root")
 );
 

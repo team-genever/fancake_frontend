@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useCookies, withCookies } from "react-cookie";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -139,15 +140,29 @@ const histories = [
 ];
 
 const Transaction = () => {
-  const [history, setHistory] = useState([]);
-  const getHistory = async () => {
-    const response = await axios.get("http://psj2867.com/api/user");
-    console.log(response);
-    setHistory();
-  };
-  useEffect(() => {
-    getHistory();
-  }, []);
+  const [cookies, setCookie, removeCookie] = useCookies();
+  setCookie("Authorization", "asdkfhasdkhgsadlg");
+  console.log(cookies);
+  removeCookie("Authorization");
+  console.log(cookies);
+  // const [history, setHistory] = useState([]);
+  // const getHistory = async () => {
+  //   const response = await axios.get("http://localhost/api/user/tradings", {
+  //     headers: {
+  //       Authorization:
+  //         "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNiIsImdyYW50cyI6IlJPTEVfVVNFUiIsInVzZXJfbmFtZSI6Ikp1bmdtaW4iLCJleHAiOjE2MzQxMjczNTF9.KWuBBqxXTgUwLEkemE8oCgClu7YbKe0OlSoTgQzN4L0nO8I9DtWjdkDjtIYVzzpPhtk5VKbxac29EKvnVDsVCw",
+  //     },
+  //     // params: {
+  //     //   id: "yoojm4718@outlook.com",
+  //     //   password: "123123123",
+  //     // },
+  //   });
+  //   console.log(response);
+  //   setHistory();
+  // };
+  // useEffect(() => {
+  //   getHistory();
+  // }, []);
   return (
     <Container>
       <Title>거래내역</Title>
