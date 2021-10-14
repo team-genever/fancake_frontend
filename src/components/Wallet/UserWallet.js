@@ -65,6 +65,7 @@ const CurrentBalance = styled.div`
   }
   @media screen and (max-width: 640px) {
     margin-bottom: 3.5vw;
+    gap: 20vw;
     & span {
       font-size: 3.3vw;
     }
