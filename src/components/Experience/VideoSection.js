@@ -6,7 +6,7 @@ import WithVideo from "../Wallet/WithVideo";
 
 const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
-  padding: 200px 10vw;
+  padding: 150px 10vw;
   overflow: hidden;
   width: 100%;
   height: max-content;

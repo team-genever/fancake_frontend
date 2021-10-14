@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Positioner = styled.div`
   text-align: center;
-  padding: 10vw 0 5vw 0;
+  padding: 10vw 0vw 5vw 0vw;
+
+  @media only screen and (max-width: 640px) {
+    padding: 10vw 7vw 5vw 7vw;
+  }
 `;
 
 const Heading = styled.div`
@@ -13,12 +17,20 @@ const Heading = styled.div`
   font-size: 35px;
   margin-bottom: 1%;
   margin-top: 20px;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 5vw;
+  }
 `;
 
 const ChannelName = styled.div`
   color: ${(props) => props.theme.fontSmallGray};
   font-weight: bold;
   font-size: large;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 3vw;
+  }
 `;
 
 const VideoContainer = styled.div`
@@ -27,8 +39,16 @@ const VideoContainer = styled.div`
 `;
 
 const YoutubeEmbed = styled.iframe`
-  width: 853px;
-  height: 480px;
+  aspect-ratio: 16 / 9;
+  width: 60%;
+  min-width: 500px;
+  height: max-content;
+  border: 1px solid black;
+
+  @media only screen and (max-width: 640px) {
+    width: 100%;
+    min-width: 0px;
+  }
 `;
 
 const Video = ({ data, testdata }) => {
@@ -45,8 +65,14 @@ const Video = ({ data, testdata }) => {
         title="Embedded youtube"
       />
       <Heading>{testdata.title}</Heading>
-      <Link to={{ pathname: testdata.channel.channelUrl }} style={{ textDecoration: 'none' }} target="_blank">
-        <ChannelName href ={testdata.channel.channelUrl}>{testdata.channel.channelTitle}</ChannelName>
+      <Link
+        to={{ pathname: testdata.channel.channelUrl }}
+        style={{ textDecoration: "none" }}
+        target="_blank"
+      >
+        <ChannelName href={testdata.channel.channelUrl}>
+          {testdata.channel.channelTitle}
+        </ChannelName>
       </Link>
     </Positioner>
   );
