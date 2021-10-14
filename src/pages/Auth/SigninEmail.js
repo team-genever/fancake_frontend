@@ -231,12 +231,6 @@ export default function SigninEmail() {
     let tempData;
     let backendip = GetBackendIP();
     console.log(backendip+"user");
-    console.log({
-      id: loginInfo.email,
-      name: loginInfo.name,
-      password: loginInfo.password
-    })
-
     try {
       const response = await axios.post(backendip+"user", null, {
         params: {
