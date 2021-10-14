@@ -4,33 +4,25 @@ import styled from "styled-components";
 const Positioner = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.boxLightGray};
-  padding: 200px 100px 200px 130px;
-
-  @media only screen and (max-width: 640px) {
-    padding: 200px 30px 200px 30px;
-  }
+  padding: 200px 10vw;
 `;
 
 const Heading = styled.div`
   font-weight: bold;
   font-size: 35px;
+  margin-bottom: 10px;
 
   @media only screen and (max-width: 640px) {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 6vw;
   }
 `;
 
 const Heading2 = styled.div`
   font-weight: bold;
-  font-size: 35px;
-
-  @media only screen and (max-width: 1007px) {
-    font-size: 30px;
-  }
+  font-size: 30px;
 
   @media only screen and (max-width: 640px) {
-    font-size: 22px;
+    font-size: 4.5vw;
   }
 `;
 

@@ -1,12 +1,12 @@
-import React, { Component, useRef } from "react";
+import React, { Component, useRef, useState } from "react";
 import styled from "styled-components";
 
 const Positioner = styled.div`
   width: 100%;
-  padding: 100px 130px;
+  padding: 100px 10vw;
 
   @media only screen and (max-width: 640px) {
-    padding: 100px 5vw 100px 5vw;
+    padding: 100px 10vw;
   }
 `;
 
@@ -15,7 +15,7 @@ const Heading = styled.div`
   font-weight: bold;
 
   @media only screen and (max-width: 640px) {
-    font-size: 20px;
+    font-size: 4.5vw;
   }
 `;
 
@@ -40,6 +40,7 @@ const Container = styled.div`
   display: flex;
   margin-top: 40px;
   overflow-x: scroll;
+  cursor: pointer;
 
   ::-webkit-scrollbar {
     display: none;
@@ -57,8 +58,8 @@ const Image = styled.img`
   border-radius: 100%;
 
   @media only screen and (max-width: 640px) {
-    width: 90px;
-    height: 90px;
+    width: 20vw;
+    height: 20vw;
   }
 `;
 
@@ -68,15 +69,44 @@ const Name = styled.div`
   margin-top: 10px;
 
   @media only screen and (max-width: 640px) {
-    font-size: 16px;
+    font-size: 2.5vw;
   }
 `;
 
-const CreaterSection = ({ Scroll }) => {
+const CreaterSection = () => {
+  const scrollRef = useRef(null);
+
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollX, setScrollX] = useState(0);
+
+  const onDragStart = (e) => {
+    e.preventDefault();
+
+    setIsDrag(true);
+    setStartX(e.pageX + scrollRef.current.scrollLeft);
+  };
+
+  const onDragEnd = () => {
+    setIsDrag(false);
+  };
+
+  const onDragMove = (e) => {
+    if (isDrag) {
+      scrollRef.current.scrollLeft = startX - e.pageX;
+    }
+  };
+
   return (
     <Positioner>
       <Heading>참여 중인 크리에이터</Heading>
-      <Container>
+      <Container
+        ref={scrollRef}
+        onMouseDown={onDragStart}
+        onMouseMove={onDragMove}
+        onMouseUp={onDragEnd}
+        onMouseLeave={onDragEnd}
+      >
         <Box>
           <Image></Image>
           <Name>야식이</Name>

@@ -12,7 +12,7 @@ const Positioner = styled.div`
   height: max-content;
 
   @media only screen and (max-width: 640px) {
-    padding: 100px 30px;
+    padding: 100px 10vw;
   }
 `;
 
@@ -22,7 +22,7 @@ const Heading = styled.div`
   margin-bottom: 30px;
 
   @media only screen and (max-width: 640px) {
-    font-size: 20px;
+    font-size: 4.5vw;
     margin-bottom: 12px;
   }
 `;
