@@ -91,6 +91,7 @@ const KakaoLink = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: black;
   :hover {
     cursor: pointer;
   }
@@ -110,11 +111,12 @@ const Footer = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [isMobile]);
+  const onClick = () => window.scrollTo(0, 0);
   return isMobile ? (
     <MobileContainer>
       <MobileInnerContainer>
         <Copyright>&copy; fanCake, 2021. All rights reserved.</Copyright>
-        <KakaoLink>
+        <KakaoLink href="https://pf.kakao.com/_pLnhb">
           <FontAwesomeIcon icon={faComment} />
         </KakaoLink>
       </MobileInnerContainer>
@@ -124,8 +126,12 @@ const Footer = () => {
       <FooterGrid>
         <Section>
           <h5>fanCake</h5>
-          <Link to="/">서비스 소개</Link>
-          <Link to="/experience">체험하기</Link>
+          <Link to="/" onClick={onClick}>
+            서비스 소개
+          </Link>
+          <Link to="/experience" onClick={onClick}>
+            체험하기
+          </Link>
         </Section>
         <Section>
           <h5>BANK INFO</h5>

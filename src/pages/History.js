@@ -5,7 +5,7 @@ import Transaction from "components/History/Transaction";
 
 const Container = styled.div`
   width: 100%;
-  height: max-content;
+  height: minmax(100vh, max-content);
   padding: 160px 120px 200px 120px;
   @media only screen and (max-width: 1007px) {
     padding: 120px 90px 300px 90px;
