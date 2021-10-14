@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import logo_white from "images/logo_white.png";
 import logo_black from "images/logo_black.png";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useCookies } from "react-cookie";
+import { api } from "settings";
 
 const Container = styled.div`
   width: 100%;
@@ -158,6 +160,7 @@ const LoginButton = styled(Link)`
   @media only screen and (max-width: 1007px) {
     width: 140px;
     height: 35px;
+    border-radius: 10px;
     & span {
       font-size: 13px;
     }
@@ -165,11 +168,77 @@ const LoginButton = styled(Link)`
 
   @media only screen and (max-width: 640px) {
     display: none;
-    /* width: 110px;
-    height: 28px;
+  }
+`;
+
+const LoggedInButton = styled.div`
+  background-color: ${(props) =>
+    props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 190px;
+  height: 48px;
+  border-radius: 15px;
+  border: 1px solid ${(props) => (props.isHome ? "white" : "black")};
+  & span {
+    color: ${(props) => (props.isHome ? "white" : "black")};
+    font-size: 18px;
+    font-weight: bold;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover #LoggedInList {
+    display: block;
+  }
+
+  @media only screen and (max-width: 1007px) {
+    width: 140px;
+    height: 35px;
+    border-radius: 10px;
     & span {
-      font-size: 10px;
-    } */
+      font-size: 13px;
+    }
+  }
+
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
+`;
+
+const LoggedInList = styled.div`
+  display: none;
+  position: absolute;
+  top: 103%;
+  width: 100%;
+  padding: 20px 0;
+
+  border: 1px solid black;
+  background-color: white;
+  @media only screen and (max-width: 1007px) {
+    padding: 15px 0;
+  }
+`;
+
+const LoggedInLink = styled(Link)`
+  display: block;
+  width: 100%;
+  padding: 5px 0;
+  font-size: 17px;
+  font-weight: normal;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  background-color: white;
+  &:hover {
+    color: white;
+    background-color: black;
+  }
+  @media only screen and (max-width: 1007px) {
+    font-size: 14px;
   }
 `;
 
@@ -266,7 +335,14 @@ const SidebarContent = styled.div`
 const SidebarTitle = styled.h4`
   font-size: 4.3vw;
   font-weight: bold;
-  margin-bottom: 2.7vw;
+  margin-bottom: ${(props) => (props.loggedIn ? "9vw" : "2.7vw")};
+`;
+
+const SidebarBr = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${(props) => props.theme.boxLightGray};
+  margin: 4vw 0 4vw 0;
 `;
 
 const SidebarSmall = styled.small`
@@ -324,17 +400,47 @@ const SidebarLinkA = styled.a`
 `;
 
 const Navbar = ({ location: { pathname } }) => {
+  const [cookies, _, removeCookie] = useCookies(["Authorization"]);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   const isHome = pathname === "/";
+
+  const getUserInfo = async () => {
+    try {
+      const response = await api.get("user", {
+        headers: {
+          Authorization: cookies.Authorization,
+        },
+      });
+      setUserInfo(response.data);
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  useEffect(() => {
+    setLoggedIn(cookies.Authorization !== undefined);
+  }, [cookies]);
+
   const onChange = (e) => {
     setChecked(e.target.checked);
   };
+
   const onClick = () => window.scrollTo(0, 0);
+
   const onLinkClick = () => {
     const input = document.getElementById("menu");
     input.checked = false;
     setChecked(false);
   };
+
+  const onLogout = () => {
+    removeCookie("Authorization");
+  };
+
   return (
     <Container isHome={isHome}>
       <NavFront>
@@ -363,14 +469,27 @@ const Navbar = ({ location: { pathname } }) => {
           </SLink>
         </Navigator>
       </NavFront>
-      <LoginButton to="/auth/main" onClick={onClick}>
-        <span>로그인</span>
-      </LoginButton>
+      {loggedIn ? (
+        <LoggedInButton isHome={isHome}>
+          <span>나의 정보</span>
+          <LoggedInList id="LoggedInList">
+            <LoggedInLink to="/user/edit">회원정보수정</LoggedInLink>
+            <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>
+            <LoggedInLink to="/" onClick={onLogout}>
+              로그아웃
+            </LoggedInLink>
+          </LoggedInList>
+        </LoggedInButton>
+      ) : (
+        <LoginButton to="/auth/main" onClick={onClick}>
+          <span>로그인</span>
+        </LoginButton>
+      )}
       <Background checked={checked} onClick={onLinkClick} />
       <SidebarContainer checked={checked}>
         <MenuContainer>
           <MenuInput id="menu" onChange={onChange} />
-          <MenuIcon for="menu" isHome={isHome}>
+          <MenuIcon htmlFor="menu" isHome={isHome}>
             <div />
             <div />
             <div />
@@ -378,11 +497,38 @@ const Navbar = ({ location: { pathname } }) => {
         </MenuContainer>
         <Sidebar>
           <SidebarContent>
-            <SidebarTitle>환영해요!</SidebarTitle>
-            <SidebarSmall>로그인 / 회원가입을 진행해주세요.</SidebarSmall>
-            <SidebarButton to="/auth/main" onClick={onLinkClick}>
-              <span>로그인/회원가입</span>
-            </SidebarButton>
+            {loggedIn ? (
+              <>
+                <SidebarTitle loggedIn={loggedIn}>
+                  반가워요, {userInfo.name}님!
+                </SidebarTitle>
+
+                <SidebarLink to="/user/wallet" onClick={onLinkClick}>
+                  나의 지갑
+                </SidebarLink>
+                <SidebarLink to="/user/edit" onClick={onLinkClick}>
+                  회원정보수정
+                </SidebarLink>
+                <SidebarLink
+                  to="/"
+                  onClick={() => {
+                    onLinkClick();
+                    onLogout();
+                  }}
+                >
+                  로그아웃
+                </SidebarLink>
+                <SidebarBr />
+              </>
+            ) : (
+              <>
+                <SidebarTitle>환영해요!</SidebarTitle>
+                <SidebarSmall>로그인 / 회원가입을 진행해주세요.</SidebarSmall>
+                <SidebarButton to="/auth/main" onClick={onLinkClick}>
+                  <span>로그인/회원가입</span>
+                </SidebarButton>
+              </>
+            )}
             <SidebarLink to="/" onClick={onLinkClick}>
               서비스 소개
             </SidebarLink>
