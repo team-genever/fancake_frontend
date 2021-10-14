@@ -29,6 +29,11 @@ const PopupContainer = styled.div`
     font-weight: bold;
     text-align: center;
     margin-bottom: 48px;
+
+    @media only screen and (max-width: 640px) {
+      font-size: 6vw;
+      margin-bottom: 8vw;
+    }
   }
   & p {
     font-weight: normal;
@@ -36,10 +41,19 @@ const PopupContainer = styled.div`
     max-width: 489px;
     text-align: center;
     margin-bottom: 35px;
+    @media only screen and (max-width: 640px) {
+      font-size: 3.7vw;
+    }
   }
   & div {
     display: flex;
     justify-content: center;
+  }
+
+  @media only screen and (max-width: 640px) {
+    width: 85vw;
+    height: 60vw;
+    padding: 10vw 0px;
   }
 `;
 
@@ -58,6 +72,12 @@ const CancelButton = styled.button`
     background-color: ${(props) => props.theme.boxGray};
     cursor: pointer;
   }
+
+  @media only screen and (max-width: 640px) {
+    width: 35vw;
+    height: 10vw;
+    font-size: 3.2vw;
+  }
 `;
 
 const ConfirmButton = styled.button`
@@ -74,6 +94,12 @@ const ConfirmButton = styled.button`
   :hover {
     background-color: ${(props) => props.theme.mainPinkHover};
     cursor: pointer;
+  }
+
+  @media only screen and (max-width: 640px) {
+    width: 35vw;
+    height: 10vw;
+    font-size: 3.2vw;
   }
 `;
 

@@ -8,11 +8,24 @@ const Positioner = styled.div`
   display: flex;
   justify-content: center;
   padding: 50px 0px;
+
+  margin-bottom: 100px; //임시
+
+  @media only screen and (max-width: 640px) {
+    padding: 10vw 7vw;
+  }
 `;
 
-const Table = styled.td`
+const Table = styled.table`
   text-align: left;
+  width: 100%;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 3vw;
+  }
 `;
+
+const Body = styled.body``;
 
 const BoldTd = styled.td`
   font-weight: bold;
@@ -23,9 +36,17 @@ const BoldTd = styled.td`
 const PinkTd = styled.td`
   color: ${(props) => props.theme.mainPink};
   font-weight: bold;
+
+  @media only screen and (max-width: 640px) {
+    text-align: right;
+  }
 `;
 
-const BlackTd = styled.td``;
+const BlackTd = styled.td`
+  @media only screen and (max-width: 640px) {
+    text-align: right;
+  }
+`;
 
 const FlexContainer = styled.div`
   display: flex;
@@ -43,6 +64,10 @@ const ProgressBar = styled.div`
   width: 300px;
   border-radius: 30px;
   padding: 0px;
+
+  @media only screen and (max-width: 640px) {
+    width: 80vw;
+  }
 `;
 
 const Progress = styled.div`
@@ -79,6 +104,27 @@ const Button = styled.div`
   cursor: pointer;
 `;
 
+const ButtonContainer = styled.div`
+  position: absolute;
+  margin-left: 470px;
+  margin-top: 20px;
+
+  @media only screen and (max-width: 640px) {
+    margin-left: 65vw;
+  }
+`;
+
+const InputButton = styled.button`
+  border-radius: 100%;
+  margin: 3px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-color: ${(props) => props.theme.boxLightGray};
+
+  cursor: pointer;
+`;
+
 const Input = styled.input`
   width: 100%;
   height: 45px;
@@ -89,9 +135,27 @@ const Input = styled.input`
   :focus {
     outline: none;
   }
+
+  @media only screen and (max-width: 640px) {
+    width: 80vw;
+  }
 `;
 
-const VideoInfo = ({testdata}) => {
+const Mobile = styled.div`
+  //모바일에서 보이는 부분
+  display: none;
+  @media only screen and (max-width: 640px) {
+    display: block;
+  }
+`;
+
+const Web = styled.div`
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
+`;
+
+const VideoInfo = ({ testdata }) => {
   console.log("testdata in videoInfo is ", testdata);
   const [videoData, setVideoData] = useState({
     video_id: "",
@@ -113,11 +177,14 @@ const VideoInfo = ({testdata}) => {
   const [buttonComponent, setButton] = useState(
     <Button>로그인 후 이용가능합니다.</Button>
   );
+
+  const [progressComponent, setProgress] = useState(<div></div>);
+
   const [isLogin, setLogin] = useState(true);
   const [OnSale, setOnSale] = useState(videoData.onSale);
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [amount, setAmount] = useState(null);
 
   const [balance, setBalance] = useState(20000); //임시 보유 금액
 
@@ -126,7 +193,6 @@ const VideoInfo = ({testdata}) => {
 
   const onChange = (e) => {
     console.log("value changed");
-    setQuantity(e.target.value);
     //console.log(quantity);
     //console.log(e.target.value);
     setTotalPrice(e.target.value * videoData.pricePerShare);
@@ -138,10 +204,26 @@ const VideoInfo = ({testdata}) => {
     else setConfirmModal(true);
   };
 
-  useEffect(()=> {
+  const ChangeAmount = (e) => {
+    switch (e.target.name) {
+      case "+":
+        setTotalPrice((amount + 1) * videoData.pricePerShare);
+        setAmount(amount + 1);
+        break;
+      case "-":
+        if (amount > 0) {
+          setTotalPrice((amount - 1) * videoData.pricePerShare);
+          setAmount(amount - 1);
+        }
+
+        break;
+    }
+  };
+
+  useEffect(() => {
     setVideoData(testdata);
-    setOnSale(testdata.onSale)
-  },[])
+    setOnSale(testdata.onSale);
+  }, []);
 
   useEffect(() => {
     //로그인 상태, 영상 판매중 여부에 따라 다른 버튼 렌더링
@@ -151,12 +233,25 @@ const VideoInfo = ({testdata}) => {
     } else if (OnSale) {
       setButton(
         <div>
-          <Input
-            type="number"
-            min={0}
-            placeholder="수량을 입력하세요."
-            onChange={onChange}
-          />
+          <div>
+            <ButtonContainer>
+              <InputButton name="-" onClick={ChangeAmount}>
+                –
+              </InputButton>
+              <InputButton name="+" onClick={ChangeAmount}>
+                +
+              </InputButton>
+            </ButtonContainer>
+            <Input
+              type="number"
+              min={0}
+              value={amount}
+              placeholder="수량을 입력하세요."
+              onChange={onChange}
+              disabled
+            />
+          </div>
+
           <FlexContainer>
             <BoldFont>총 주문금액</BoldFont>
             <BoldFont>
@@ -182,13 +277,13 @@ const VideoInfo = ({testdata}) => {
         </Button>
       );
     }
-  }, [isLogin, totalPrice, confirmModal, rejectModal]);
+  }, [isLogin, totalPrice, confirmModal, rejectModal, amount]);
 
   return (
     <Positioner>
       <div>
         <Table>
-          <body>
+          <Body>
             <tr>
               <BoldTd>남은시간</BoldTd>
               <PinkTd>12:13:11</PinkTd>
@@ -199,30 +294,76 @@ const VideoInfo = ({testdata}) => {
             </tr>
             <tr>
               <BoldTd>공동구매 달성액</BoldTd>
-              <BlackTd>{videoData.currentAmount * videoData.pricePerShare}원</BlackTd>
+              <BlackTd>
+                {videoData.currentAmount * videoData.pricePerShare}원
+              </BlackTd>
             </tr>
             <tr>
               <BoldTd>한 조각당 가격</BoldTd>
               <BlackTd>{videoData.pricePerShare}원</BlackTd>
             </tr>
             <tr>
-              <BoldTd>진행률</BoldTd>
+              <BoldTd>
+                <Web>진행률</Web>
+              </BoldTd>
               <PinkTd>
-                <FlexContainer>
-                  <ProgressContainer>
-                    <ProgressBar>
-                      <Progress style={{width:300*(videoData.currentAmount/videoData.totlaAmount)+'px'}}/>
-                    </ProgressBar>
-                  </ProgressContainer>
-                  {(videoData.currentAmount/videoData.totlaAmount)*100}%
-                </FlexContainer>
-                <GrayFont>총 {videoData.totlaAmount}조각 중 {videoData.totlaAmount - videoData.currentAmount}조각 남음</GrayFont>
+                <Web>
+                  <FlexContainer>
+                    <ProgressContainer>
+                      <ProgressBar>
+                        <Progress
+                          style={{
+                            width:
+                              300 *
+                                (videoData.currentAmount /
+                                  videoData.totlaAmount) +
+                              "px",
+                          }}
+                        />
+                      </ProgressBar>
+                    </ProgressContainer>
+                    {(videoData.currentAmount / videoData.totlaAmount) * 100}%
+                  </FlexContainer>
+                  <GrayFont>
+                    총 {videoData.totlaAmount}조각 중{" "}
+                    {videoData.totlaAmount - videoData.currentAmount}조각 남음
+                  </GrayFont>
+                </Web>
               </PinkTd>
+            </tr>
+            <tr>
+              <td colSpan="2">
+                <Mobile>
+                  <FlexContainer>
+                    <ProgressContainer>
+                      <ProgressBar>
+                        <Progress
+                          style={{
+                            width:
+                              80 *
+                                (videoData.currentAmount /
+                                  videoData.totlaAmount) +
+                              "vw",
+                          }}
+                        />
+                      </ProgressBar>
+                    </ProgressContainer>
+                  </FlexContainer>
+                </Mobile>
+              </td>
+            </tr>
+            <tr>
+              <BoldTd>
+                <Mobile>{videoData.currentAmount}조각</Mobile>
+              </BoldTd>
+              <BlackTd>
+                <Mobile>총 {videoData.totlaAmount}조각</Mobile>
+              </BlackTd>
             </tr>
             <tr>
               <td colSpan="2">{buttonComponent}</td>
             </tr>
-          </body>
+          </Body>
         </Table>
       </div>
     </Positioner>

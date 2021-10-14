@@ -197,6 +197,12 @@ const Background = styled.div`
   height: 100vh;
   background-color: ${(props) => props.theme.backgroundGray};
   z-index: 10;
+  &:hover {
+    cursor: pointer;
+  }
+  @media only screen and (min-width: 640px) {
+    display: none;
+  }
 `;
 
 const MenuContainer = styled.div`
@@ -320,7 +326,15 @@ const SidebarLinkA = styled.a`
 const Navbar = ({ location: { pathname } }) => {
   const [checked, setChecked] = useState(false);
   const isHome = pathname === "/";
+  const onChange = (e) => {
+    setChecked(e.target.checked);
+  };
   const onClick = () => window.scrollTo(0, 0);
+  const onLinkClick = () => {
+    const input = document.getElementById("menu");
+    input.checked = false;
+    setChecked(false);
+  };
   return (
     <Container isHome={isHome}>
       <NavFront>
@@ -352,10 +366,10 @@ const Navbar = ({ location: { pathname } }) => {
       <LoginButton to="/auth/main" onClick={onClick}>
         <span>로그인</span>
       </LoginButton>
-      <Background checked={checked} />
+      <Background checked={checked} onClick={onLinkClick} />
       <SidebarContainer checked={checked}>
         <MenuContainer>
-          <MenuInput id="menu" onClick={() => setChecked(!checked)} />
+          <MenuInput id="menu" onChange={onChange} />
           <MenuIcon for="menu" isHome={isHome}>
             <div />
             <div />
@@ -366,12 +380,19 @@ const Navbar = ({ location: { pathname } }) => {
           <SidebarContent>
             <SidebarTitle>환영해요!</SidebarTitle>
             <SidebarSmall>로그인 / 회원가입을 진행해주세요.</SidebarSmall>
-            <SidebarButton to="/auth/main">
+            <SidebarButton to="/auth/main" onClick={onLinkClick}>
               <span>로그인/회원가입</span>
             </SidebarButton>
-            <SidebarLink to="/">서비스 소개</SidebarLink>
-            <SidebarLink to="/experience">체험하기</SidebarLink>
-            <SidebarLinkA target="_blank" href="https://pf.kakao.com/_pLnhb">
+            <SidebarLink to="/" onClick={onLinkClick}>
+              서비스 소개
+            </SidebarLink>
+            <SidebarLink to="/experience" onClick={onLinkClick}>
+              체험하기
+            </SidebarLink>
+            <SidebarLinkA
+              href="https://pf.kakao.com/_pLnhb"
+              onClick={onLinkClick}
+            >
               문의하기
             </SidebarLinkA>
           </SidebarContent>
