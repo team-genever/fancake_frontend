@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+// import { GetBackendIP } from "../../settings"
+
+// import axios from "axios";
 
 const Positioner = styled.div`
   text-align: center;
@@ -35,10 +38,34 @@ const Video = ({ data, testdata }) => {
   console.log(data);
   console.log("testdata here is ", testdata);
   console.log("channel URL is ", testdata.channel.channelUrl);
+  //const [videoURL, setVideoURL] = useState("");
+
+  // useEffect(()=> {
+  //   getYoutube();
+  // },[])
+
+  // async function getYoutube() {
+  //   let url;
+  //   let backendip = GetBackendIP();
+  //   console.log(backendip);
+
+  //   try {
+  //     const response = await axios.get(backendip+"video/"+testdata.videoIdx)
+  //     console.log(response);
+  //     url = response.data;
+  //     console.log("url is ", url);
+  //     setVideoURL(url);
+
+  //   } catch (error) {
+  //     console.error(error);
+      
+  //   }
+  // }
+
   return (
     <Positioner>
       <YoutubeEmbed
-        src={testdata.channel.channelUrl}
+        src={testdata.videoid}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen

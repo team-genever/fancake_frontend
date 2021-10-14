@@ -8,6 +8,10 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMediaQuery } from "react-responsive";
 
+import { GetBackendIP } from "../../settings"
+import axios from "axios";
+
+
 const Container = styled.div`
   width: 100%;
   height: max-content;
@@ -214,14 +218,43 @@ export default function SigninEmail() {
     else if (checkValid.email === false)
       setErrorMessage("이메일이 정확하지 않습니다.");
     else if (checkValid.password === false)
-      setErrorMessage("비밀번호는 8자리 이상이어야 합니다.");
+      setErrorMessage("비밀번호는 7자리 이상이어야 합니다.");
     else if (checkValid.passwordCheck === false)
       setErrorMessage("비밀번호가 일치하지 않습니다.");
     else {
       setErrorMessage("");
-      console.log("sign in success");
+      signin();
     }
   };
+
+  async function signin() {
+    let tempData;
+    let backendip = GetBackendIP();
+    console.log(backendip+"user");
+    console.log({
+      id: loginInfo.email,
+      name: loginInfo.name,
+      password: loginInfo.password
+    })
+
+    try {
+      const response = await axios.post(backendip+"user", null, {
+        params: {
+          id: loginInfo.email,
+          password: loginInfo.password,
+          name: loginInfo.name,
+        }
+      });
+      console.log(response);
+      tempData = response.data;
+      console.log("tempData is ", tempData);
+      console.log("sign in success");
+    } catch (error) {
+      console.error(error);
+    } finally {
+
+    }
+  }
 
   const inputChange = (e) => {
     if (e.target.name === "name") {
@@ -255,7 +288,7 @@ export default function SigninEmail() {
         setEmailVisible("hidden");
       }
     } else if (e.target.name === "password") {
-      if (e.target.value.length >= 8) {
+      if (e.target.value.length >= 7) {
         checkValid.password = true;
         loginInfo.password = e.target.value;
         console.log("password is ", e.target.value);
@@ -263,7 +296,7 @@ export default function SigninEmail() {
       } else {
         checkValid.password = false;
         loginInfo.password = "";
-        console.log("password has to be more than 8 characters");
+        console.log("password has to be more than 7 characters");
         setPasswordVisible("hidden");
       }
     } else if (e.target.name === "passwordCheck") {

@@ -131,7 +131,7 @@ export default function ChangePW() {
       }
     } else {
       if (valid.pw === false)
-        setErrorMessage("비밀번호는 8자리 이상이어야 합니다.");
+        setErrorMessage("비밀번호는 7자리 이상이어야 합니다.");
       else if (valid.match === false)
         setErrorMessage("비밀번호가 일치하지 않습니다.");
     }
@@ -146,14 +146,14 @@ export default function ChangePW() {
       changePWInfo.password_now = e.target.value;
       console.log("passwordNow is ", e.target.value);
     } else if (e.target.name === "passwordNew") {
-      if (e.target.value.length >= 8) {
+      if (e.target.value.length >= 7) {
         changePWInfo.password_new = e.target.value;
         console.log("passwordNew is ", e.target.value);
         valid.pw = true;
       } else {
         valid.match = false;
-        console.log("password has to be over 8 characters");
-        setErrorMessage("비밀번호는 8자리 이상이어야 합니다.");
+        console.log("password has to be over 7 characters");
+        setErrorMessage("비밀번호는 7자리 이상이어야 합니다.");
       }
     } else if (e.target.name === "passwordCheck") {
       console.log("login password is ", changePWInfo.password_new);
