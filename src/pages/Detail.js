@@ -3,7 +3,7 @@ import Video from "components/Detail/Video";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import VideoInfo from "components/Detail/VideoInfo";
-import { GetBackendIP } from "../settings"
+import { GetBackendIP } from "../settings";
 
 import axios from "axios";
 import { getAllByDisplayValue } from "@testing-library/dom";
@@ -73,12 +73,14 @@ const videos = [
   },
 ];
 
-function Detail ({ match, login_info }) {
+function Detail({ match, login_info }) {
   const [videoId, usetVideoId] = useState(match.params.videoId);
 
-  useEffect(()=> {  //==componenetDidMount
+  useEffect(() => {
+    //==componenetDidMount
     getApi();
-  },[])
+    console.log("hi");
+  }, []);
 
   const [testVideos, setTestVideos] = useState([
     {
@@ -121,24 +123,28 @@ function Detail ({ match, login_info }) {
     console.log(backendip);
 
     try {
-      const response = await axios.get(backendip+"/api/video")
+      const response = await axios.get(backendip + "/api/video");
+      console.log("a");
       console.log(response);
       tempData = response.data;
       console.log("tempData is ", tempData);
       setTestVideos(tempData.content);
-
     } catch (error) {
       console.error(error);
+      console.log("error");
     }
   }
 
   return (
     <Container>
       {console.log("tesvideos is", testVideos)}
-      <Video data={videos.find((data) => data.video_id === videoId)} testdata={testVideos[videoId?videoId:0]} />
-      <VideoInfo testdata={testVideos[videoId?videoId:0]} />
+      <Video
+        data={videos.find((data) => data.video_id === videoId)}
+        testdata={testVideos[videoId ? videoId : 0]}
+      />
+      <VideoInfo testdata={testVideos[videoId ? videoId : 0]} />
     </Container>
   );
-};
+}
 
 export default Detail;

@@ -4,11 +4,19 @@ import styled from "styled-components";
 const Positioner = styled.div`
   width: 100%;
   padding: 100px 130px;
+
+  @media only screen and (max-width: 640px) {
+    padding: 100px 5vw 100px 5vw;
+  }
 `;
 
 const Heading = styled.div`
   font-size: 37px;
   font-weight: bold;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 20px;
+  }
 `;
 
 const Button = styled.button`
@@ -20,11 +28,22 @@ const Button = styled.button`
   font-weight: bold;
   margin: 50px auto 0px auto;
   text-decoration: none;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 12px;
+    padding: 15px 20px;
+    margin: 30px auto 0px auto;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
   margin-top: 40px;
+  overflow-x: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Box = styled.div`
@@ -36,12 +55,21 @@ const Image = styled.img`
   width: 180px;
   height: 180px;
   border-radius: 100%;
+
+  @media only screen and (max-width: 640px) {
+    width: 90px;
+    height: 90px;
+  }
 `;
 
 const Name = styled.div`
   font-weight: bold;
   font-size: 20px;
   margin-top: 10px;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 16px;
+  }
 `;
 
 const CreaterSection = ({ Scroll }) => {
@@ -74,7 +102,7 @@ const CreaterSection = ({ Scroll }) => {
           <Name>띠동갑형</Name>
         </Box>
       </Container>
-      <Button onClick={Scroll}>찾고 있는 크리에이터가 있나요?</Button>
+      <Button>찾고 있는 크리에이터가 있나요?</Button>
     </Positioner>
   );
 };
