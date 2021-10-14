@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router";
 import logo_white from "images/logo_white.png";
 import logo_black from "images/logo_black.png";
@@ -173,7 +173,152 @@ const LoginButton = styled(Link)`
   }
 `;
 
+const SidebarContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 4.5vw;
+  transform: ${(props) =>
+    props.checked ? "translateX(0)" : "translateX(63vw)"};
+  transition: all 0.3s;
+  z-index: 11;
+  @media only screen and (min-width: 640px) {
+    display: none;
+  }
+`;
+
+const Background = styled.div`
+  ${(props) => (props.checked ? "" : "display: none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${(props) => props.theme.backgroundGray};
+  z-index: 10;
+`;
+
+const MenuContainer = styled.div`
+  margin-top: 5.2vw;
+`;
+
+const MenuInput = styled.input.attrs({ type: "checkbox" })`
+  display: none;
+  :checked + label div {
+    background-color: white;
+  }
+  :checked + label div:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  :checked + label div:nth-child(2) {
+    opacity: 0;
+  }
+  :checked + label div:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+  }
+`;
+
+const MenuIcon = styled.label`
+  display: block;
+  width: 4.7vw;
+  height: 3.6vw;
+  position: relative;
+  cursor: pointer;
+  & div {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 5px;
+    background-color: ${(props) => (props.isHome ? "white" : "black")};
+    transition: all 0.3s;
+  }
+  & div:nth-child(1) {
+    top: 0;
+  }
+  & div:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  & div:nth-child(3) {
+    bottom: 0;
+  }
+`;
+
+const Sidebar = styled.div`
+  width: 63vw;
+  height: 100vh;
+  background-color: white;
+`;
+
+const SidebarContent = styled.div`
+  padding: 13.3vw 9.3vw 0 9.3vw;
+`;
+
+const SidebarTitle = styled.h4`
+  font-size: 4.3vw;
+  font-weight: bold;
+  margin-bottom: 2.7vw;
+`;
+
+const SidebarSmall = styled.small`
+  display: block;
+  font-size: 2.7vw;
+  color: ${(props) => props.theme.boxGray};
+  font-weight: normal;
+  margin-bottom: 1.5vw;
+`;
+
+const SidebarButton = styled(Link)`
+  background-color: ${(props) => props.theme.mainPink};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 9.5vw;
+  border-radius: 2vw;
+  text-decoration: none;
+  margin-bottom: 9vw;
+  & span {
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+  }
+  &:hover {
+    background-color: ${(props) => props.theme.mainPinkHover};
+  }
+`;
+
+const SidebarLink = styled(Link)`
+  display: block;
+  font-size: 3vw;
+  font-weight: normal;
+  color: black;
+  text-decoration: none;
+  margin-bottom: 2vw;
+  &:hover {
+    color: ${(props) => props.theme.boxGray};
+    cursor: pointer;
+  }
+`;
+
+const SidebarLinkA = styled.a`
+  display: block;
+  font-size: 3vw;
+  font-weight: normal;
+  color: black;
+  text-decoration: none;
+  margin-bottom: 2vw;
+  &:hover {
+    color: ${(props) => props.theme.boxGray};
+    cursor: pointer;
+  }
+`;
+
 const Navbar = ({ location: { pathname } }) => {
+  const [checked, setChecked] = useState(false);
   const isHome = pathname === "/";
   const onClick = () => window.scrollTo(0, 0);
   return (
@@ -207,6 +352,31 @@ const Navbar = ({ location: { pathname } }) => {
       <LoginButton to="/auth/main" onClick={onClick}>
         <span>로그인</span>
       </LoginButton>
+      <Background checked={checked} />
+      <SidebarContainer checked={checked}>
+        <MenuContainer>
+          <MenuInput id="menu" onClick={() => setChecked(!checked)} />
+          <MenuIcon for="menu" isHome={isHome}>
+            <div />
+            <div />
+            <div />
+          </MenuIcon>
+        </MenuContainer>
+        <Sidebar>
+          <SidebarContent>
+            <SidebarTitle>환영해요!</SidebarTitle>
+            <SidebarSmall>로그인 / 회원가입을 진행해주세요.</SidebarSmall>
+            <SidebarButton to="/auth/main">
+              <span>로그인/회원가입</span>
+            </SidebarButton>
+            <SidebarLink to="/">서비스 소개</SidebarLink>
+            <SidebarLink to="/experience">체험하기</SidebarLink>
+            <SidebarLinkA target="_blank" href="https://pf.kakao.com/_pLnhb">
+              문의하기
+            </SidebarLinkA>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarContainer>
     </Container>
   );
 };

@@ -150,6 +150,7 @@ const Transaction = () => {
   const [cookies, setCookie] = useCookies(["Authorization"]);
   const [histories, setHistories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const getHistories = async () => {
     let content;
@@ -161,7 +162,8 @@ const Transaction = () => {
       });
       content = response.data.content;
       setHistories(content);
-    } catch {
+    } catch (e) {
+      setError(e);
     } finally {
       setLoading(false);
     }
@@ -188,7 +190,9 @@ const Transaction = () => {
     userLogin();
   }, []);
 
-  return loading ? (
+  return error ? (
+    <Container>{JSON.stringify(error)}</Container>
+  ) : loading ? (
     <LoadingContainer>
       <Loading />
     </LoadingContainer>
