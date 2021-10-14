@@ -260,7 +260,7 @@ const UserWallet = () => {
         </span>
       </CurrentBalance>
       <Buttons>
-        <Link to={`/wallet/history`}>
+        <Link to={`/user/wallet/history`}>
           <HistoryButton>
             <span>거래내역</span>
           </HistoryButton>

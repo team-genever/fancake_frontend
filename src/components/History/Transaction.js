@@ -147,7 +147,7 @@ const SStrong = styled.strong`
 // ];
 
 const Transaction = () => {
-  const [cookies, setCookie] = useCookies(["Authorization"]);
+  const [cookies] = useCookies(["Authorization"]);
   const [histories, setHistories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -163,35 +163,18 @@ const Transaction = () => {
       content = response.data.content;
       setHistories(content);
     } catch (e) {
-      setError(e);
+      setError("거래내역을 가져오는 동안 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
   };
 
-  const userLogin = async () => {
-    let accessToken;
-    try {
-      const response = await api.get("user/login", {
-        params: {
-          id: "yoojm4718@outlook.com",
-          password: "123123123",
-        },
-      });
-      accessToken = response.data.accessToken;
-      setCookie("Authorization", accessToken);
-    } catch {
-    } finally {
-      getHistories();
-    }
-  };
-
   useEffect(() => {
-    userLogin();
+    getHistories();
   }, []);
 
   return error ? (
-    <Container>{JSON.stringify(error)}</Container>
+    <LoadingContainer>{error}</LoadingContainer>
   ) : loading ? (
     <LoadingContainer>
       <Loading />

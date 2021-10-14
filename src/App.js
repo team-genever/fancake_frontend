@@ -16,13 +16,16 @@ import ChangePW from "pages/Userpage/ChangePW";
 
 import Error from "pages/Error";
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import Navbar from "components/Navbar";
 import GlobalStyles from "components/GlobalStyles";
 import Footer from "components/Footer";
+import { useCookies } from "react-cookie";
 
 function App() {
+  const [cookie] = useCookies(["Authorization"]);
+  const loggedIn = cookie.Authorization !== undefined;
   return (
     <>
       <Navbar />
@@ -32,14 +35,22 @@ function App() {
         <Route exact path="/rooms/:slug" component={SingleRoom} />
         <Route exact path="/experience" component={Experience} />
         <Route path="/experience/detail/:videoId" component={Detail} />
-        <Route exact path="/wallet" component={Wallet} />
-        <Route path="/wallet/history" component={History} />
-        <Route path="/user/edit" component={UserEdit} />
+        <Route exact path="/user/wallet" component={Wallet}>
+          {loggedIn ? "" : <Redirect to="/" />}
+        </Route>
+        <Route path="/user/wallet/history" component={History}>
+          {loggedIn ? "" : <Redirect to="/" />}
+        </Route>
+        <Route path="/user/edit" component={UserEdit}>
+          {loggedIn ? "" : <Redirect to="/" />}
+        </Route>
         <Route exact path="/auth/main" component={LoginMain} />
         <Route exact path="/auth/SigninEmail" component={SigninEmail} />
         <Route exact path="/auth/FindID" component={FindID} />
         <Route exact path="/auth/FindPW" component={FindPW} />
-        <Route exact path="/user/:userID/changePW" component={ChangePW} />
+        <Route exact path="/user/:userID/changePW" component={ChangePW}>
+          {loggedIn ? "" : <Redirect to="/" />}
+        </Route>
         <Route component={Error} />
       </Switch>
       <Footer />
