@@ -15,7 +15,7 @@ export default function Home() {
       <Introduction2 />
       <Introduction3 />
       <FAQSection />
-      <NotificationSection />
+      {/*<NotificationSection />*/}
     </div>
   );
 }

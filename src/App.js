@@ -34,7 +34,7 @@ function App() {
         <Route path="/experience/detail/:videoId" component={Detail} />
         <Route exact path="/wallet" component={Wallet} />
         <Route path="/wallet/history" component={History} />
-        <Route path="/user/:userId/edit" component={UserEdit} />
+        <Route path="/user/edit" component={UserEdit} />
         <Route exact path="/auth/main" component={LoginMain} />
         <Route exact path="/auth/SigninEmail" component={SigninEmail} />
         <Route exact path="/auth/FindID" component={FindID} />

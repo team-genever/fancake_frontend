@@ -82,13 +82,15 @@ const videos = [
   },
 ];
 
-function Detail ({ match, login_info }) {
+function Detail({ match, login_info }) {
   const [videoId, usetVideoId] = useState(match.params.videoId);
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=> {  //==componenetDidMount
+  useEffect(() => {
+    //==componenetDidMount
     getApi();
-  },[])
+    console.log("hi");
+  }, []);
 
   const [testVideos, setTestVideos] = useState([
     {
@@ -136,7 +138,6 @@ function Detail ({ match, login_info }) {
       tempData = response.data;
       console.log("tempData is ", tempData);
       setTestVideos(tempData.content);
-
     } catch (error) {
       console.error(error);
     } finally {
@@ -151,10 +152,13 @@ function Detail ({ match, login_info }) {
   ) : (
     <Container>
       {console.log("tesvideos is", testVideos)}
-      <Video data={videos.find((data) => data.video_id === videoId)} testdata={testVideos[videoId?videoId:0]} />
-      <VideoInfo testdata={testVideos[videoId?videoId:0]} />
+      <Video
+        data={videos.find((data) => data.video_id === videoId)}
+        testdata={testVideos[videoId ? videoId : 0]}
+      />
+      <VideoInfo testdata={testVideos[videoId ? videoId : 0]} />
     </Container>
   );
-};
+}
 
 export default Detail;

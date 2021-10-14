@@ -1,16 +1,30 @@
 import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Videos from "components/Wallet/Videos";
+import WithVideo from "../Wallet/WithVideo";
 
 const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
-  padding: 100px 130px 100px 130px;
+  padding: 200px 10vw;
+  overflow: hidden;
+  width: 100%;
+  height: max-content;
+
+  @media only screen and (max-width: 640px) {
+    padding: 100px 10vw;
+  }
 `;
 
 const Heading = styled.div`
   font-size: 37px;
   font-weight: bold;
   margin-bottom: 30px;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 4.5vw;
+    margin-bottom: 12px;
+  }
 `;
 
 const GrayBox = styled.div`
@@ -21,6 +35,11 @@ const GrayBox = styled.div`
 const Thumbnail = styled.img`
   width: 688px;
   height: 387px;
+
+  @media only screen and (max-width: 640px) {
+    height: 50.625vw;
+    width: 90vw;
+  }
 `;
 
 const VideoTitle = styled.div``;
@@ -35,10 +54,19 @@ const Title = styled.div`
   font-size: 27px;
   width: 500px;
   margin: 7px 0px;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 16px;
+    overflow-wrap: normal;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
+
+  @media only screen and (max-width: 640px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -61,6 +89,10 @@ const ProgressBar = styled.div`
   width: 500px;
   border-radius: 30px;
   padding: 0px;
+
+  @media only screen and (max-width: 640px) {
+    height: 11px;
+  }
 `;
 
 const Progress = styled.div`
@@ -72,6 +104,10 @@ const Progress = styled.div`
     rgba(218, 34, 95, 0.8)
   );
   width: 400px;
+
+  @media only screen and (max-width: 640px) {
+    height: 11px;
+  }
 `;
 
 const GrayText = styled.div`
@@ -106,6 +142,11 @@ const FilterButton = styled.button`
   font-size: 12px;
   cursor: pointer;
   margin-right: 5px;
+
+  @media only screen and (max-width: 640px) {
+    font-size: 10px;
+    padding: 3px 15px;
+  }
 `;
 
 const Property = styled.div`
@@ -302,7 +343,8 @@ export default function VideoSection() {
         </FilterButton>
       </Container>
 
-      {video_component}
+      {/*video_component*/}
+      <Videos />
     </Positioner>
   );
 }
