@@ -173,19 +173,29 @@ const VideoButton = styled.button`
   }
 `;
 
-const OwningVideo = ({ title, channelName, tokenCount }) => (
+const OwningVideo = ({
+  videoId,
+  title,
+  channelTitle,
+  totalAmount,
+  size,
+  totalPrice,
+}) => (
   <Container>
     <VideoImg>
-      <img src={img} alt="blank" />
+      <img
+        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        alt="blank"
+      />
     </VideoImg>
     <VideoDescription>
       <VideoTitle>{title}</VideoTitle>
-      <VideoChannel>{channelName}</VideoChannel>
+      <VideoChannel>{channelTitle}</VideoChannel>
       <VideoTokenInfos>
         <VideoTokenInfo>
           <small>총 보유 조각</small>
           <span>
-            <strong className="pink">12</strong>/{tokenCount} 조각
+            <strong className="pink">{size}</strong>/{totalAmount} 조각
           </span>
         </VideoTokenInfo>
         <VideoTokenInfo>
@@ -195,7 +205,7 @@ const OwningVideo = ({ title, channelName, tokenCount }) => (
         <VideoTokenInfo>
           <small>누적 수익셰어 금액</small>
           <span>
-            <strong>1300</strong> 원
+            <strong>{totalPrice}</strong> 원
           </span>
         </VideoTokenInfo>
       </VideoTokenInfos>

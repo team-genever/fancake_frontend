@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import { api } from "settings";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -246,17 +248,18 @@ const PopupContainer = styled.div`
   }
 `;
 
-const UserWallet = () => {
+const UserWallet = ({ userInfo }) => {
   const [popup, setPopup] = useState(false);
+
   return (
     <Container>
       <WalletTitle>
-        <strong>백건우</strong>님의 지갑
+        <strong>{userInfo.name}</strong>님의 지갑
       </WalletTitle>
       <CurrentBalance>
         <span>현재 보유 금액</span>
         <span>
-          <strong>20,000</strong> 원
+          <strong>{userInfo.balance}</strong> 원
         </span>
       </CurrentBalance>
       <Buttons>

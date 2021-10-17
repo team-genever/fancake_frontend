@@ -63,15 +63,29 @@ const videos = [
   },
 ];
 
-const Videos = ({ title, videosType }) => (
+const Videos = ({ title, videosType, userStocks }) => (
   <Container>
     <Title>{title}</Title>
     <VideosGrid>
       {videosType === "own" ? (
         <>
-          <OwningVideo {...videos[0]} />
-          <OwningVideo {...videos[0]} />
-          <OwningVideo {...videos[0]} />
+          {userStocks ? (
+            userStocks.map((stock, index) => (
+              <OwningVideo
+                key={index}
+                videoId={stock.video.videoId}
+                title={stock.video.title}
+                channelTitle={stock.video.channel.channelTitle}
+                totalAmount={stock.video.totalAmount}
+                size={stock.size}
+                totalPrice={
+                  stock.video.pricePerShare * stock.video.currentAmount
+                }
+              />
+            ))
+          ) : (
+            <span>보유한 영상이 없습니다.</span>
+          )}
         </>
       ) : (
         <>
