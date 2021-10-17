@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { api } from "settings";
+import { useCookies } from "react-cookie";
+import { SmallLoading } from "components/Loading";
 
 const Container = styled.div`
   width: 100%;
@@ -92,17 +96,105 @@ const UserEdit = styled.div`
     font-size: 20px;
     font-weight: 500;
   }
+  & div {
+    display: flex;
+    align-items: center;
+  }
+  & .input-container {
+    display: inline-block;
+    text-align: center;
+    height: 40px;
+    margin-right: 18px;
+  }
+  & input {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    border: none;
+    padding: 5px 3px;
+    display: block;
+    background-color: transparent;
+    border-bottom: 1px solid ${(props) => props.theme.boxLightGray};
+    & :hover,
+    :active,
+    :focus {
+      outline: none;
+    }
+    & :hover + .input-border,
+    :active + .input-border,
+    :focus + .input-border {
+      width: 100%;
+    }
+  }
+  & .input-border {
+    display: inline-block;
+    width: 0;
+    height: 2px;
+    background-color: ${(props) => props.theme.mainPink};
+    position: relative;
+    bottom: 19px;
+    z-index: 3;
+    transition: all 0.2s ease-in-out;
+  }
+  & .changeBtn {
+    width: 40px;
+    height: 25px;
+    border: none;
+    background-color: ${(props) => props.theme.mainPink};
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    & span {
+      font-size: 14px;
+      color: white;
+      font-weight: 500;
+      text-align: center;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: ${(props) => props.theme.mainPinkHover};
+    }
+  }
+  & .changeBtn:last-child {
+    margin-left: 3px;
+  }
   & .changeLink {
+    all: unset;
     margin-left: 18px;
     font-size: 20px;
     font-weight: 500;
     color: ${(props) => props.theme.linkBlue};
     text-decoration: underline;
+    &:hover {
+      cursor: pointer;
+    }
   }
   @media only screen and (max-width: 1007px) {
     padding: 15px 0;
     & span {
       font-size: 17px;
+    }
+    & .input-container {
+      height: 30px;
+      margin-right: 15px;
+    }
+    & input {
+      font-size: 17px;
+      padding: 2px 2px;
+    }
+    & .input-border {
+      bottom: 19px;
+    }
+    & .changeBtn {
+      width: 40px;
+      height: 25px;
+      border-radius: 5px;
+      & span {
+        font-size: 14px;
+      }
     }
     & .changeLink {
       margin-left: 15px;
@@ -114,6 +206,28 @@ const UserEdit = styled.div`
     & span {
       font-size: 3vw;
     }
+    & .input-container {
+      height: 7vw;
+      margin-right: 2.5vw;
+    }
+    & input {
+      font-size: 3vw;
+      padding: 1vw 0.2vw;
+    }
+    & .input-border {
+      bottom: 19px;
+    }
+    & .changeBtn {
+      width: 7vw;
+      height: 4.5vw;
+      border-radius: 1vw;
+      & span {
+        font-size: 2.5vw;
+      }
+    }
+    & .changeBtn:last-child {
+      margin-left: 0.5vw;
+    }
     & .changeLink {
       margin-left: 1vw;
       font-size: 3vw;
@@ -122,6 +236,20 @@ const UserEdit = styled.div`
 `;
 
 const EditContainer = ({ title, infos, isDelivery }) => {
+  const [editMode, setEditMode] = useState(null);
+  const [input, setInput] = useState("");
+  const [inputTemp, setInputTemp] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [cookies] = useCookies(["Authorization"]);
+
+  useEffect(() => {
+    if (editMode) {
+      setInput(editMode.content);
+      setInputTemp(editMode.content);
+    }
+  }, [editMode]);
+
   return (
     <Container>
       <TitleContainer>
@@ -133,14 +261,108 @@ const EditContainer = ({ title, infos, isDelivery }) => {
         {infos.map((info, index) => (
           <UserEdit key={index}>
             <span className="type">{info.type}</span>
-            <div>
-              {info.content && <span className="content">{info.content}</span>}
-              {info.changeLink && (
-                <Link className="changeLink" to={info.changeLink}>
-                  변경
-                </Link>
-              )}
-            </div>
+            {editMode && editMode.type === info.type ? (
+              loading ? (
+                <SmallLoading />
+              ) : (
+                <div>
+                  <div className="input-container">
+                    <input
+                      type="input"
+                      value={input}
+                      onChange={(e) => {
+                        setInput(e.target.value);
+                      }}
+                      placeholder="수정내용 입력"
+                    />
+                    <span className="input-border"></span>
+                  </div>
+                  <button
+                    className="changeBtn"
+                    onClick={async () => {
+                      setLoading(true);
+                      info.content = input;
+                      if (info.type === "전화번호") {
+                        try {
+                          await api.put("user", null, {
+                            headers: {
+                              Authorization: cookies.Authorization,
+                            },
+                            params: {
+                              phoneNumber: encodeURIComponent(info.content),
+                            },
+                          });
+                        } catch {
+                          setError(
+                            "회원정보를 수정하는 동안 오류가 발생했습니다."
+                          );
+                        } finally {
+                          setLoading(false);
+                        }
+                      } else if (info.type === "계좌정보") {
+                        const account = info.content.split(" ");
+                        const [accountName, accountNumber, accountOwner] =
+                          account;
+                        try {
+                          await api.put("user", null, {
+                            headers: {
+                              Authorization: cookies.Authorization,
+                            },
+                            params: {
+                              accountName,
+                              accountNumber,
+                              accountOwner,
+                            },
+                          });
+                        } catch {
+                          setError(
+                            "회원정보를 수정하는 동안 오류가 발생했습니다."
+                          );
+                        } finally {
+                          setLoading(false);
+                        }
+                      }
+                      setEditMode(null);
+                    }}
+                  >
+                    <span>수정</span>
+                  </button>
+                  <button
+                    className="changeBtn"
+                    onClick={() => {
+                      info.content = inputTemp;
+                      setEditMode(null);
+                    }}
+                  >
+                    <span>취소</span>
+                  </button>
+                </div>
+              )
+            ) : (
+              <div>
+                {info.content && (
+                  <span className="content">{info.content}</span>
+                )}
+                {info.changeLink ? (
+                  info.type === "비밀번호" ? (
+                    <Link className="changeLink" to={info.changeLink}>
+                      변경
+                    </Link>
+                  ) : (
+                    <button
+                      className="changeLink"
+                      onClick={(e) =>
+                        setEditMode({ type: info.type, content: info.content })
+                      }
+                    >
+                      변경
+                    </button>
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
+            )}
           </UserEdit>
         ))}
       </UserEditContainer>
