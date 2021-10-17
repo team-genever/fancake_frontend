@@ -19,6 +19,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 9;
   border-bottom: 1px solid
     ${(props) => (props.isHome ? props.theme.navBarUnderGray : "black")};
 
@@ -248,6 +249,7 @@ const SidebarContainer = styled.div`
   right: 0;
   display: flex;
   gap: 4.5vw;
+  height: 4vw;
   transform: ${(props) =>
     props.checked ? "translateX(0)" : "translateX(63vw)"};
   transition: all 0.3s;
@@ -276,6 +278,7 @@ const Background = styled.div`
 
 const MenuContainer = styled.div`
   margin-top: 5.2vw;
+  height: 4vw;
 `;
 
 const MenuInput = styled.input.attrs({ type: "checkbox" })`
@@ -401,7 +404,7 @@ const SidebarLinkA = styled.a`
 
 const Navbar = ({ location: { pathname } }) => {
   const [cookies, _, removeCookie] = useCookies(["Authorization"]);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState();
   const [checked, setChecked] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const isHome = pathname === "/";
@@ -418,8 +421,10 @@ const Navbar = ({ location: { pathname } }) => {
   };
 
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    if (loggedIn) {
+      getUserInfo();
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     setLoggedIn(cookies.Authorization !== undefined);
