@@ -2,8 +2,9 @@ import React, { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { GetBackendIP } from "../../settings"
+import { GetBackendIP } from "../../settings";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const Container = styled.div`
   width: 100%;
@@ -23,7 +24,7 @@ const EmailInput = styled.input`
     color: #d8d8d8;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
     margin-bottom: 10px;
@@ -42,10 +43,10 @@ const PasswordInput = styled.input`
     color: #d8d8d8;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
-    margin-bottom: 15px
+    margin-bottom: 15px;
   }
 `;
 
@@ -58,14 +59,14 @@ const LoginButton = styled.button`
   background-color: #da225f;
   font-size: 24px;
   color: #fff;
-  border : none;
-  cursor: pointer;  
+  border: none;
+  cursor: pointer;
 
-  :hover{
-      background-color: #e34076;
+  :hover {
+    background-color: #e34076;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 20px;
     height: 55px;
   }
@@ -78,32 +79,32 @@ const ErrorMessage = styled.p`
   font-size: 18px;
   text-align: center;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 13px;
   }
 `;
 
 const LoginBox = () => {
-  let checkEmail = false ;
+  let checkEmail = false;
   const [errorMessage, setErrorMessage] = useState("");
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
   });
 
+  const [_, setCookie] = useCookies();
 
   const loginClicked = (e) => {
-    if (checkEmail === false){
+    if (checkEmail === false) {
       console.log("invalid email");
       setErrorMessage("이메일 형식이 잘못되었습니다.");
-    }
-    else if (loginInfo.password === "")
+    } else if (loginInfo.password === "")
       setErrorMessage("비밀번호를 입력해주세요");
     else {
       setErrorMessage("");
       login();
     }
-  }
+  };
 
   const inputChange = (e) => {
     setErrorMessage("");
@@ -115,44 +116,57 @@ const LoginBox = () => {
         //valid email address
         loginInfo.email = e.target.value;
         console.log("email is ", e.target.value);
-        checkEmail=true;
+        checkEmail = true;
       } else {
-        checkEmail=false;
+        checkEmail = false;
       }
     } else if (e.target.type === "password") {
       loginInfo.password = e.target.value;
       console.log("password is ", e.target.value);
     }
-  }
+  };
 
   async function login() {
     //let tempData;
     let backendip = GetBackendIP();
-    console.log(backendip+"user");
+    console.log(backendip + "user");
     console.log({
       id: loginInfo.email,
-      password: loginInfo.password
-    })
+      password: loginInfo.password,
+    });
     try {
-      const response = await axios.get(backendip+"user/login", {
+      const response = await axios.post(backendip + "user/login", null, {
         params: {
           id: loginInfo.email,
           password: loginInfo.password,
-        }
+        },
       });
       console.log(response);
       console.log("login success");
+
+      setCookie("Authorization", response.data.accessToken, {
+        expires: new Date(response.data.accessTokenExpiresIn),
+        path: "/",
+      });
     } catch (error) {
       console.error(error);
     } finally {
-
     }
   }
 
   return (
     <Container>
-      <EmailInput type="email" placeholder="이메일을 입력해주세요." onBlur={inputChange}/>
-      <PasswordInput type="password" placeholder="비밀번호를 입력해주세요." onBlur={inputChange} onChange={inputChange}/>
+      <EmailInput
+        type="email"
+        placeholder="이메일을 입력해주세요."
+        onBlur={inputChange}
+      />
+      <PasswordInput
+        type="password"
+        placeholder="비밀번호를 입력해주세요."
+        onBlur={inputChange}
+        onChange={inputChange}
+      />
       <ErrorMessage>{errorMessage}</ErrorMessage>
       <LoginButton name="login" onClick={loginClicked}>
         로그인

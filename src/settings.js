@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let backend_ip_address = "http://localhost:80/api/";
+let backend_ip_address = "http://psj2867.com/api/";
 //let backend_ip_address = "http://psj2867.com";
 
 export const GetBackendIP = () => {
