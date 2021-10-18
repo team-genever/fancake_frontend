@@ -33,6 +33,7 @@ class Wallet extends React.Component {
     loading: true,
     userInfo: {},
     userStocks: [],
+    userConfirmStocks: [],
     error: null,
   };
   getUserInfo = async () => {
@@ -50,22 +51,35 @@ class Wallet extends React.Component {
         headers: {
           Authorization: cookies.get("Authorization"),
         },
+        params: {
+          confirm: false,
+        },
+      });
+      const responseConfirmStock = await api.get("user/stocks", {
+        headers: {
+          Authorization: cookies.get("Authorization"),
+        },
+        params: {
+          confirm: true,
+        },
       });
       this.setState({ userInfo: responseInfo.data });
       this.setState({ userStocks: responseStock.data.content });
+      this.setState({ userConfirmStocks: responseConfirmStock.data.content });
     } catch {
       this.setState({ error: "정보를 가져오는 동안 오류가 발생했습니다." });
     } finally {
       this.setState({ loading: false });
     }
   };
+
   componentDidMount() {
     window.scrollTo(0, 0);
     this.getUserInfo();
   }
 
   render() {
-    const { userInfo, userStocks, loading } = this.state;
+    const { userInfo, userStocks, userConfirmStocks, loading } = this.state;
     return (
       <Container>
         {loading ? (
@@ -78,12 +92,12 @@ class Wallet extends React.Component {
             <Videos
               title="보유 중인 영상"
               videosType="own"
-              userStocks={userStocks}
+              userStocks={userConfirmStocks}
             />
             <Videos
               title="공동구매 중인 영상"
               videosType="with"
-              userInfo={userInfo}
+              userStocks={userStocks}
             />
           </>
         )}
