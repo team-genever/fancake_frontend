@@ -102,7 +102,7 @@ function Detail({ match, login_info }) {
         thubnailURL: "",
       },
       title: "temp Title1 (백엔드에서 못가져옴)",
-      totlaAmount: 100,
+      totalAmount: 100,
       currentAmount: 10,
       pricePerShare: 1000,
       marketCap: 100000,
@@ -118,7 +118,7 @@ function Detail({ match, login_info }) {
         thubnailURL: "",
       },
       title: "temp Title2 (백엔드에서 못가져옴)",
-      totlaAmount: 100,
+      totalAmount: 100,
       currentAmount: 10,
       pricePerShare: 1000,
       marketCap: 100000,
@@ -133,7 +133,7 @@ function Detail({ match, login_info }) {
     console.log(backendip);
 
     try {
-      const response = await axios.get(backendip+"video")
+      const response = await axios.get(backendip+"videos")
       console.log(response);
       tempData = response.data;
       console.log("tempData is ", tempData);

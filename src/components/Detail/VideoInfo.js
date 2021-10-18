@@ -166,7 +166,7 @@ const VideoInfo = ({ testdata }) => {
       thubnailURL: "",
     },
     title: "",
-    totlaAmount: 0,
+    totalAmount: 0,
     currentAmount: 0,
     pricePerShare: 0,
     marketCap: 0,
@@ -316,17 +316,17 @@ const VideoInfo = ({ testdata }) => {
                             width:
                               300 *
                                 (videoData.currentAmount /
-                                  videoData.totlaAmount) +
+                                  videoData.totalAmount) +
                               "px",
                           }}
                         />
                       </ProgressBar>
                     </ProgressContainer>
-                    {(videoData.currentAmount / videoData.totlaAmount) * 100}%
+                    {(videoData.currentAmount / videoData.totalAmount) * 100}%
                   </FlexContainer>
                   <GrayFont>
-                    총 {videoData.totlaAmount}조각 중{" "}
-                    {videoData.totlaAmount - videoData.currentAmount}조각 남음
+                    총 {videoData.totalAmount}조각 중{" "}
+                    {videoData.totalAmount - videoData.currentAmount}조각 남음
                   </GrayFont>
                 </Web>
               </PinkTd>
@@ -342,7 +342,7 @@ const VideoInfo = ({ testdata }) => {
                             width:
                               80 *
                                 (videoData.currentAmount /
-                                  videoData.totlaAmount) +
+                                  videoData.totalAmount) +
                               "vw",
                           }}
                         />
@@ -357,7 +357,7 @@ const VideoInfo = ({ testdata }) => {
                 <Mobile>{videoData.currentAmount}조각</Mobile>
               </BoldTd>
               <BlackTd>
-                <Mobile>총 {videoData.totlaAmount}조각</Mobile>
+                <Mobile>총 {videoData.totalAmount}조각</Mobile>
               </BlackTd>
             </tr>
             <tr>
