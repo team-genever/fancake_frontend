@@ -93,7 +93,6 @@ const UserEdit = () => {
       });
       setInfo(response.data);
     } catch (e) {
-      console.log(e);
       setError("정보를 가져오는 동안 오류가 발생했습니다.");
     } finally {
       setLoading(false);
@@ -101,13 +100,12 @@ const UserEdit = () => {
   };
 
   const setInfo = (info) => {
-    const noText = "추가해주세요";
     setBasicInfo([
-      { type: "이름", content: info.name ? info.name : noText },
+      { type: "이름", content: info.name ? info.name : null },
       { type: "아이디", content: info.userID && info.userID },
       {
         type: "전화번호",
-        content: info.phoneNumber ? info.phoneNumber : noText,
+        content: info.phoneNumber ? info.phoneNumber : null,
         changeLink: true,
       },
       { type: "비밀번호", changeLink: "./changepw" },
@@ -118,7 +116,7 @@ const UserEdit = () => {
           info.account.accountNumber &&
           info.account.accountOwner
             ? `${info.account.accountName} ${info.account.accountNumber} ${info.account.accountOwner}`
-            : noText,
+            : null,
         changeLink: true,
       },
     ]);
@@ -127,27 +125,30 @@ const UserEdit = () => {
         type: "수령인",
         content: info.address.addressRecipient
           ? info.address.addressRecipient
-          : noText,
+          : null,
+        changeLink: true,
       },
       {
         type: "전화번호",
         content: "010-2874-2457",
+        changeLink: true,
       },
       {
         type: "도로명 주소",
-        content: info.address.address ? info.address.address : noText,
+        content: info.address.address ? info.address.address : null,
+        changeLink: true,
       },
       {
         type: "상세주소",
-        content: info.address.addressDetail
-          ? info.address.addressDetail
-          : noText,
+        content: info.address.addressDetail ? info.address.addressDetail : null,
+        changeLink: true,
       },
       {
         type: "우편번호",
         content: info.address.addressZipCode
           ? info.address.addressZipCode
-          : noText,
+          : null,
+        changeLink: true,
       },
     ]);
   };
