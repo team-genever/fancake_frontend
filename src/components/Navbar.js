@@ -183,10 +183,10 @@ const LoggedInProfile = styled(Link)`
   height: 48px;
   border-radius: 50px;
   border-color: white;
-  padding:10px;
-  margin-right:20px;
-  letter-spacing:0.7px;
-  text-decoration:none;
+  padding: 10px;
+  margin-right: 20px;
+  letter-spacing: 0.7px;
+  text-decoration: none;
   & span {
     color: ${(props) => (props.isHome ? "white" : "black")};
     font-size: 16px;
@@ -194,14 +194,13 @@ const LoggedInProfile = styled(Link)`
   }
   &:hover {
     cursor: pointer;
-    background-color: ${(props) =>
-      props.isHome ? "#4f4f4f" : "#dbdbd9"};
+    background-color: ${(props) => (props.isHome ? "#4f4f4f" : "#dbdbd9")};
   }
   @media only screen and (max-width: 1007px) {
     height: 35px;
     border-radius: 35px;
-    padding:10px;
-    margin-right:10px;
+    padding: 10px;
+    margin-right: 10px;
     & span {
       font-size: 12px;
     }
@@ -486,7 +485,10 @@ const Navbar = ({ location: { pathname } }) => {
   };
 
   const onLogout = () => {
-    removeCookie("Authorization");
+    removeCookie("Authorization", {
+      expires: "Thu, 01 Jan 1970 00:00:00 UTC",
+      path: "/",
+    });
   };
 
   return (
@@ -518,7 +520,7 @@ const Navbar = ({ location: { pathname } }) => {
         </Navigator>
       </NavFront>
       {loggedIn ? (
-        <div style={{display:'flex'}}>
+        <div style={{ display: "flex" }}>
           <LoggedInProfile isHome={isHome} to="/user/wallet">
             <span>{userInfo.name}</span>
           </LoggedInProfile>
