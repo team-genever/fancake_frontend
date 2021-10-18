@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import blank from '../../images/blank.png';
+import quote from '../../images/quote.png';
 
 const Positioner = styled.div`
   width: 100%;
@@ -58,13 +60,14 @@ const Text1 = styled.div`
 const Text2 = styled.div`
   text-align: left;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 23px;
 `;
 
 const Image = styled.img`
   width: 700px;
-  border: 1px white solid;
+  height: 500px;
+  object-fit: cover;
 `;
 
 const ProfileImg = styled.img`
@@ -82,6 +85,7 @@ const GrayBox = styled.div`
   margin: 12px;
   border-radius: 20px;
   padding: 20px;
+  text-align: left;
 `;
 
 const CreaterName = styled.div`
@@ -93,11 +97,10 @@ const Subscribers = styled.div`
   color: ${(props) => props.theme.boxGray};
 `;
 
-const QuoteIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  border: 1px solid white; //임시
-  margin: 15px 0px;
+const QuoteIcon = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: 15px 0px 15px 0;
 `;
 
 export default class Introduction1 extends Component {
@@ -114,19 +117,19 @@ export default class Introduction1 extends Component {
               이것은 샘플 텍스트입니다.
             </Text1>
           </TextContainer>
-          <Image src="blank.png"></Image>
+          <Image src={blank}></Image>
         </Container>
         <Heading2>크리에이터와 팬 모두가 만족하는 서비스</Heading2>
         <Container>
           <GrayBox>
             <Container style={{ justifyContent: "left" }}>
-              <ProfileImg src="blank.png" />
+              <ProfileImg src={blank} />
               <Container2>
                 <CreaterName>크리에이터</CreaterName>
                 <Subscribers>368k subscribers</Subscribers>
               </Container2>
             </Container>
-            <QuoteIcon src="blank.png" />
+            <QuoteIcon src={quote} />
             <Text2>
               오래된 영상은 몇몇을 제외하고는 거의 수익이 발생하지 않아요.
               <br />
@@ -135,13 +138,13 @@ export default class Introduction1 extends Component {
           </GrayBox>
           <GrayBox>
             <Container style={{ justifyContent: "left" }}>
-              <ProfileImg src="blank.png" />
+              <ProfileImg src={blank} />
               <Container2>
                 <CreaterName>크리에이터</CreaterName>
                 <Subscribers>368k subscribers</Subscribers>
               </Container2>
             </Container>
-            <QuoteIcon src="blank.png" />
+            <QuoteIcon src={quote} />
             <Text2>
               오래된 영상은 몇몇을 제외하고는 거의 수익이 발생하지 않아요.
               <br />
@@ -150,13 +153,13 @@ export default class Introduction1 extends Component {
           </GrayBox>
           <GrayBox>
             <Container style={{ justifyContent: "left" }}>
-              <ProfileImg src="blank.png" />
+              <ProfileImg src={blank} />
               <Container2>
                 <CreaterName>크리에이터</CreaterName>
                 <Subscribers>368k subscribers</Subscribers>
               </Container2>
             </Container>
-            <QuoteIcon src="blank.png" />
+            <QuoteIcon src={quote} />
             <Text2>
               오래된 영상은 몇몇을 제외하고는 거의 수익이 발생하지 않아요.
               <br />
@@ -165,13 +168,13 @@ export default class Introduction1 extends Component {
           </GrayBox>
           <GrayBox>
             <Container style={{ justifyContent: "left" }}>
-              <ProfileImg src="blank.png" />
+              <ProfileImg src={blank} />
               <Container2>
                 <CreaterName>크리에이터</CreaterName>
                 <Subscribers>368k subscribers</Subscribers>
               </Container2>
             </Container>
-            <QuoteIcon src="blank.png" />
+            <QuoteIcon src={quote} />
             <Text2>
               오래된 영상은 몇몇을 제외하고는 거의 수익이 발생하지 않아요.
               <br />

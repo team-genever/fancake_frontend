@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import blank from '../../images/blank.png';
 
 const Positioner = styled.div`
   width: 100%;
@@ -28,7 +29,7 @@ const Container = styled.div`
 `;
 
 const WhiteBox = styled.div`
-  border-radius: 7px;
+  border-radius: 10px;
   background-color: white;
   padding: 30px;
   margin: 10px auto;
@@ -61,21 +62,21 @@ export default class Introduction3 extends Component {
         <Container>
           <GrayBox>
             <WhiteBox>
-              <Image src="details-4.jpeg" alt=""></Image>
+              <Image src={blank} alt=""></Image>
             </WhiteBox>
             <Text1>수익셰어</Text1>
             <Text2>매분기별 크리에이터와 영상에서 발생하는 수익을 공유</Text2>
           </GrayBox>
           <GrayBox>
             <WhiteBox>
-              <Image src="details-4.jpeg" alt=""></Image>
+              <Image src={blank} alt=""></Image>
             </WhiteBox>
             <Text1>수익셰어</Text1>
             <Text2>매분기별 크리에이터와 영상에서 발생하는 수익을 공유</Text2>
           </GrayBox>
           <GrayBox>
             <WhiteBox>
-              <Image src="details-4.jpeg" alt=""></Image>
+              <Image src={blank} alt=""></Image>
             </WhiteBox>
             <Text1>수익셰어</Text1>
             <Text2>매분기별 크리에이터와 영상에서 발생하는 수익을 공유</Text2>
