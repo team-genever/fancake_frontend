@@ -42,25 +42,25 @@ const Title = styled.h2`
   }
 `;
 
-const EditButton = styled.button`
-  border: none;
-  text-decoration: underline;
-  color: ${(props) => props.theme.linkBlue};
-  font-size: 20px;
-  font-weight: bold;
-  background-color: transparent;
-  margin-right: 10%;
-  &:hover {
-    cursor: pointer;
-  }
-  @media only screen and (max-width: 1007px) {
-    font-size: 17px;
-  }
-  @media only screen and (max-width: 640px) {
-    font-size: 3vw;
-    margin: 0;
-  }
-`;
+// const EditButton = styled.button`
+//   border: none;
+//   text-decoration: underline;
+//   color: ${(props) => props.theme.linkBlue};
+//   font-size: 20px;
+//   font-weight: bold;
+//   background-color: transparent;
+//   margin-right: 10%;
+//   &:hover {
+//     cursor: pointer;
+//   }
+//   @media only screen and (max-width: 1007px) {
+//     font-size: 17px;
+//   }
+//   @media only screen and (max-width: 640px) {
+//     font-size: 3vw;
+//     margin: 0;
+//   }
+// `;
 
 const DarkLine = styled.div`
   width: 100%;
@@ -235,13 +235,34 @@ const UserEdit = styled.div`
   }
 `;
 
+const DataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+`;
+
+const ErrorMessage = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  color: ${(props) => props.theme.errorRed};
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const EditContainer = ({ title, infos, isDelivery }) => {
+  const findContent = (type) =>
+    infos.find((info) => info.type === type).content;
+
   const [editMode, setEditMode] = useState(null);
   const [input, setInput] = useState("");
   const [inputTemp, setInputTemp] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [cookies] = useCookies(["Authorization"]);
+
+  const noText = "추가해주세요";
 
   useEffect(() => {
     if (editMode) {
@@ -250,11 +271,36 @@ const EditContainer = ({ title, infos, isDelivery }) => {
     }
   }, [editMode]);
 
+  useEffect(
+    () =>
+      setTimeout(() => {
+        setError(null);
+      }, 5000),
+    [error]
+  );
+
+  const putUserInfo = async (paramsSchema) => {
+    setLoading(true);
+    try {
+      const res = await api.put("user", null, {
+        headers: {
+          Authorization: cookies.Authorization,
+        },
+        params: paramsSchema,
+      });
+      console.log(res);
+      setEditMode(null);
+    } catch {
+      setError("회원정보를 수정하는 동안 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Container>
       <TitleContainer>
         <Title>{title}</Title>
-        {isDelivery && <EditButton>변경</EditButton>}
       </TitleContainer>
       <DarkLine />
       <UserEditContainer>
@@ -265,84 +311,121 @@ const EditContainer = ({ title, infos, isDelivery }) => {
               loading ? (
                 <SmallLoading />
               ) : (
-                <div>
-                  <div className="input-container">
-                    <input
-                      type="input"
-                      value={input}
-                      onChange={(e) => {
-                        setInput(e.target.value);
-                      }}
-                      placeholder="수정내용 입력"
-                    />
-                    <span className="input-border"></span>
-                  </div>
-                  <button
-                    className="changeBtn"
-                    onClick={async () => {
-                      setLoading(true);
-                      info.content = input;
-                      if (info.type === "전화번호") {
-                        try {
-                          await api.put("user", null, {
-                            headers: {
-                              Authorization: cookies.Authorization,
-                            },
-                            params: {
+                <DataContainer>
+                  <div>
+                    <div className="input-container">
+                      <input
+                        type="input"
+                        value={input ? input : ""}
+                        onChange={(e) => {
+                          setInput(e.target.value);
+                        }}
+                        placeholder="수정내용 입력"
+                      />
+                      <span className="input-border"></span>
+                    </div>
+                    <button
+                      className="changeBtn"
+                      onClick={async () => {
+                        info.content = input;
+                        if (isDelivery) {
+                          const deliverySchema = {
+                            recipient: findContent("수령인"),
+                            address: findContent("도로명 주소"),
+                            addressDetail: findContent("상세주소"),
+                            addressZipCode: findContent("우편번호"),
+                          };
+                          if (info.type === "전화번호") {
+                            const regPhone =
+                              /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+                            if (
+                              !regPhone.test(info.content) &&
+                              info.content.length !== 0
+                            ) {
+                              setError(
+                                "전화번호 형식을 맞춰주세요. (예시: 010-0000-0000)"
+                              );
+                            } else {
+                              putUserInfo(deliverySchema);
+                            }
+                          } else if (info.type === "우편번호") {
+                            const regZip = /([0-9]{5})$/;
+                            if (
+                              (!regZip.test(info.content) &&
+                                info.content.length !== 0) ||
+                              info.content.length > 5
+                            ) {
+                              setError(
+                                "우편번호 형식을 맞춰주세요. (숫자 5자리)"
+                              );
+                            } else {
+                              putUserInfo(deliverySchema);
+                            }
+                          } else {
+                            putUserInfo(deliverySchema);
+                          }
+                        } else if (info.type === "전화번호") {
+                          const regPhone =
+                            /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+                          if (
+                            !regPhone.test(info.content) &&
+                            info.content.length !== 0
+                          ) {
+                            setError(
+                              "전화번호 형식을 맞춰주세요. (예시: 010-0000-0000)"
+                            );
+                          } else {
+                            putUserInfo({
                               phoneNumber: encodeURIComponent(info.content),
-                            },
-                          });
-                        } catch {
-                          setError(
-                            "회원정보를 수정하는 동안 오류가 발생했습니다."
-                          );
-                        } finally {
-                          setLoading(false);
-                        }
-                      } else if (info.type === "계좌정보") {
-                        const account = info.content.split(" ");
-                        const [accountName, accountNumber, accountOwner] =
-                          account;
-                        try {
-                          await api.put("user", null, {
-                            headers: {
-                              Authorization: cookies.Authorization,
-                            },
-                            params: {
+                            });
+                          }
+                        } else if (info.type === "계좌정보") {
+                          const regAccount =
+                            /([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+) ([0-9]+) ([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+)/;
+                          if (
+                            !regAccount.test(info.content) &&
+                            info.content.length !== 0
+                          ) {
+                            setError(
+                              "계좌정보 형식을 맞춰주세요. (형식: 은행이름 계좌번호 계좌명의)"
+                            );
+                          } else {
+                            const account = info.content.split(" ");
+                            const [accountName, accountNumber, accountOwner] =
+                              account;
+                            putUserInfo({
                               accountName,
                               accountNumber,
                               accountOwner,
-                            },
-                          });
-                        } catch {
-                          setError(
-                            "회원정보를 수정하는 동안 오류가 발생했습니다."
-                          );
-                        } finally {
-                          setLoading(false);
+                            });
+                          }
                         }
-                      }
-                      setEditMode(null);
-                    }}
-                  >
-                    <span>수정</span>
-                  </button>
-                  <button
-                    className="changeBtn"
-                    onClick={() => {
-                      info.content = inputTemp;
-                      setEditMode(null);
-                    }}
-                  >
-                    <span>취소</span>
-                  </button>
-                </div>
+                      }}
+                    >
+                      <span>수정</span>
+                    </button>
+                    <button
+                      className="changeBtn"
+                      onClick={() => {
+                        info.content = inputTemp;
+                        setEditMode(null);
+                      }}
+                    >
+                      <span>취소</span>
+                    </button>
+                  </div>
+                  {error && <ErrorMessage>{error}</ErrorMessage>}
+                </DataContainer>
               )
             ) : (
               <div>
-                {info.content && (
-                  <span className="content">{info.content}</span>
-                )}
+                <span className="content">
+                  {info.content
+                    ? info.content
+                    : info.type !== "비밀번호"
+                    ? noText
+                    : ""}
+                </span>
                 {info.changeLink ? (
                   info.type === "비밀번호" ? (
                     <Link className="changeLink" to={info.changeLink}>
@@ -355,7 +438,7 @@ const EditContainer = ({ title, infos, isDelivery }) => {
                         setEditMode({ type: info.type, content: info.content })
                       }
                     >
-                      변경
+                      {info.content ? "변경" : "추가"}
                     </button>
                   )
                 ) : (
