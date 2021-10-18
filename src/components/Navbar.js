@@ -172,6 +172,45 @@ const LoginButton = styled(Link)`
   }
 `;
 
+const LoggedInProfile = styled(Link)`
+  background-color: ${(props) =>
+    props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  height: 48px;
+  border-radius: 50px;
+  border-color: white;
+  padding:10px;
+  margin-right:20px;
+  letter-spacing:0.7px;
+  text-decoration:none;
+  & span {
+    color: ${(props) => (props.isHome ? "white" : "black")};
+    font-size: 16px;
+    font-weight: bold;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: ${(props) =>
+      props.isHome ? "#4f4f4f" : "#dbdbd9"};
+  }
+  @media only screen and (max-width: 1007px) {
+    height: 35px;
+    border-radius: 35px;
+    padding:10px;
+    margin-right:10px;
+    & span {
+      font-size: 12px;
+    }
+  }
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
+`;
+
 const LoggedInButton = styled.div`
   background-color: ${(props) =>
     props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
@@ -181,8 +220,8 @@ const LoggedInButton = styled.div`
   align-items: center;
   width: 190px;
   height: 48px;
-  border-radius: 15px;
-  border: 1px solid ${(props) => (props.isHome ? "white" : "black")};
+  border-radius: 30px;
+  border: 1px solid ${(props) => (props.isHome ? "white" : "#414446")};
   & span {
     color: ${(props) => (props.isHome ? "white" : "black")};
     font-size: 18px;
@@ -417,7 +456,11 @@ const Navbar = ({ location: { pathname } }) => {
         },
       });
       setUserInfo(response.data);
-    } catch (e) {}
+      console.log("navbar - got user info");
+      console.log("navbar - user info is ", response);
+    } catch (e) {
+      console.log("navbar - did not get user info");
+    }
   };
 
   useEffect(() => {
@@ -475,16 +518,21 @@ const Navbar = ({ location: { pathname } }) => {
         </Navigator>
       </NavFront>
       {loggedIn ? (
-        <LoggedInButton isHome={isHome}>
-          <span>나의 정보</span>
-          <LoggedInList id="LoggedInList">
-            <LoggedInLink to="/user/edit">회원정보수정</LoggedInLink>
-            <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>
-            <LoggedInLink to="/" onClick={onLogout}>
-              로그아웃
-            </LoggedInLink>
-          </LoggedInList>
-        </LoggedInButton>
+        <div style={{display:'flex'}}>
+          <LoggedInProfile isHome={isHome} to="/user/wallet">
+            <span>{userInfo.name}</span>
+          </LoggedInProfile>
+          <LoggedInButton isHome={isHome}>
+            <span>&nbsp;나의 정보 ▼</span>
+            <LoggedInList id="LoggedInList">
+              <LoggedInLink to="/user/edit">회원정보수정</LoggedInLink>
+              <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>
+              <LoggedInLink to="/" onClick={onLogout}>
+                로그아웃
+              </LoggedInLink>
+            </LoggedInList>
+          </LoggedInButton>
+        </div>
       ) : (
         <LoginButton to="/auth/main" onClick={onClick}>
           <span>로그인</span>
