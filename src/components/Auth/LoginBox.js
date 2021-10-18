@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { GetBackendIP } from "../../settings";
@@ -93,6 +93,7 @@ const LoginBox = () => {
   });
 
   const [_, setCookie] = useCookies();
+  const history = useHistory();
 
   const loginClicked = (e) => {
     if (checkEmail === false) {
@@ -148,9 +149,11 @@ const LoginBox = () => {
         expires: new Date(response.data.accessTokenExpiresIn),
         path: "/",
       });
+      history.push('../');
     } catch (error) {
       console.error(error);
     } finally {
+      
     }
   }
 
