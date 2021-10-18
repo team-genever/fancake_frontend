@@ -3,7 +3,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
-import ChangePWBtn from "components/User/ChangePWBtn";
+import { useCookies } from "react-cookie";
+import { api } from "settings";
 
 const Container = styled.div`
   width: 100%;
@@ -97,39 +98,88 @@ const ErrorMessage = styled.p`
   }
 `;
 
+const LoginButton = styled.button`
+  width: 100%;
+  height: 70px;
+  margin: 10px 0 0 0;
+  //padding: 37px 348px 37px 347px;
+  border-radius: 60px;
+  background-color: #da225f;
+  font-size: 24px;
+  color: #fff;
+  border : none;
+  cursor: pointer;  
+
+  :hover{
+      background-color: #e34076;
+  }
+
+  @media only screen and (max-width:640px) {
+    font-size: 20px;
+    height: 55px;
+  }
+`;
+
 export default function ChangePW() {
-  let { userID } = useParams();
-  console.log("userID is ", userID);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [changePWInfo, setChangePWInfo] = useState({
-    user_id: userID ? userID : "",
     password_now: "",
     password_new: "",
   });
-
+  const [cookies] = useCookies(["Authorization"]);
+  const [loginable, setLoginable] = useState(false);
+  const [loginColor, setLoginColor] = useState("#878485");
+  const [errorMessage, setErrorMessage] = useState("");
   const [valid, setValid] = useState({
     pw: false,
     match: false,
   });
-  const [loginable, setLoginable] = useState(false);
-  const [loginColor, setLoginColor] = useState("#878485");
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const loginClicked = async (e) => {
+  let backendResponse = "";
+
+  const history = useHistory();
+
+  const setPassword = async () => {
+    try {
+      const response = await api.put("user/password", null, {
+        headers: {
+          Authorization: cookies.Authorization,
+        },
+        //changePWInfo, // == params
+        params: {
+          //old_password: changePWInfo.password_now,
+          password: changePWInfo.password_new,
+        },
+      });
+      backendResponse = response.data;
+      console.log("response from back is ", response.data);
+    } catch (e) {
+      console.error(e);
+    } finally { }
+  };
+
+  const ButtonClicked = (e) => {
     if (loginable === true) {
       //백엔드와 통신 코드
-      //await
+      setPassword();
 
       //현재 비밀번호가 잘못된 경우:
       let tempPasswordNowWrong = false;
+      console.log("3");
       if (tempPasswordNowWrong === true) {
         setErrorMessage("현재 비밀번호가 잘못되었습니다.");
       } else {
+        console.log("4");
         setErrorMessage("");
         console.log("sign in success");
         console.log("hihi");
+        history.push('../');
       }
     } else {
+      console.log("5");
       if (valid.pw === false)
         setErrorMessage("비밀번호는 7자리 이상이어야 합니다.");
       else if (valid.match === false)
@@ -176,23 +226,6 @@ export default function ChangePW() {
     console.log("loginable is ", loginable);
   };
 
-  //   let changepwbutton;
-  //   if(loginable){
-  //       changepwbutton = (
-  //         <Link to=".">
-  //             <LoginButton onClick={loginClicked} style={{backgroundColor:loginColor}}>
-  //             비밀번호 변경하기
-  //             </LoginButton>
-  //         </Link>
-  //       )
-  //   } else {
-  //       changepwbutton = (
-  //         <LoginButton onClick={loginClicked} style={{backgroundColor:loginColor}}>
-  //         비밀번호 변경하기
-  //         </LoginButton>
-  //       )
-  //   }
-
   return (
     <Container>
       <LoginDiv>
@@ -222,12 +255,9 @@ export default function ChangePW() {
           onBlur={inputChange}
         />
         <ErrorMessage>{errorMessage}</ErrorMessage>
-        {/* {changepwbutton} */}
-        <ChangePWBtn
-          loginable={loginable}
-          loginClicked={loginClicked}
-          loginColor={loginColor}
-        />
+        <LoginButton onClick={ButtonClicked} style={{backgroundColor:loginColor}}>
+            비밀번호 변경하기
+        </LoginButton>
       </LoginDiv>
     </Container>
   );

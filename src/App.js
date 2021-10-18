@@ -48,7 +48,7 @@ function App() {
         <Route exact path="/auth/SigninEmail" component={SigninEmail} />
         <Route exact path="/auth/FindID" component={FindID} />
         <Route exact path="/auth/FindPW" component={FindPW} />
-        <Route exact path="/user/:userID/changePW" component={ChangePW}>
+        <Route exact path="/user/changePW" component={ChangePW}>
           {loggedIn ? "" : <Redirect to="/" />}
         </Route>
         <Route component={Error} />

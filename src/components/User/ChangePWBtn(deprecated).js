@@ -1,3 +1,5 @@
+//deprecated (더이상 사용 x) - yb
+
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
