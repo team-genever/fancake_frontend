@@ -66,34 +66,51 @@ const videos = [
 const Videos = ({ title, videosType, userStocks }) => (
   <Container>
     <Title>{title}</Title>
-    <VideosGrid>
-      {videosType === "own" ? (
-        <>
-          {userStocks ? (
-            userStocks.map((stock, index) => (
-              <OwningVideo
-                key={index}
-                videoId={stock.video.videoId}
-                title={stock.video.title}
-                channelTitle={stock.video.channel.channelTitle}
-                totalAmount={stock.video.totalAmount}
-                size={stock.size}
-                totalPrice={
-                  stock.video.pricePerShare * stock.video.currentAmount
-                }
-              />
-            ))
-          ) : (
-            <span>보유한 영상이 없습니다.</span>
-          )}
-        </>
+    {videosType === "own" ? (
+      userStocks && userStocks.length !== 0 ? (
+        <VideosGrid>
+          {userStocks.map((stock, index) => (
+            <OwningVideo
+              key={index}
+              videoId={stock.video.videoId}
+              title={stock.video.title}
+              channelTitle={stock.video.channel.channelTitle}
+              totalAmount={stock.video.totalAmount}
+              size={stock.size}
+              totalPrice={stock.video.pricePerShare * stock.video.currentAmount}
+            />
+          ))}
+        </VideosGrid>
       ) : (
-        <>
-          <WithVideo {...videos[0]} />
-          <WithVideo {...videos[1]} />
-        </>
-      )}
-    </VideosGrid>
+        <span>보유한 영상이 없습니다.</span>
+      )
+    ) : userStocks && userStocks.length !== 0 ? (
+      <VideosGrid>
+        {userStocks.map((stock, index) => (
+          <WithVideo
+            key={index}
+            types={[
+              {
+                id: "youtube",
+                name:
+                  stock.video.channel.channelUrl.includes("youtube") &&
+                  "유튜브",
+              },
+              { id: "onsale", name: "판매중" },
+            ]}
+            title={stock.video.title}
+            videoId={stock.video.videoId}
+            channelTitle={stock.video.channel.channelTitle}
+            totalAmount={stock.video.totalAmount}
+            currentAmount={stock.video.currentAmount}
+            price={stock.video.pricePerShare}
+            expirationDate={stock.video.expirationDate}
+          />
+        ))}
+      </VideosGrid>
+    ) : (
+      <span>구매중인 영상이 없습니다.</span>
+    )}
   </Container>
 );
 

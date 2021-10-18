@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import React from "react";
-import img from "images/blank.png";
+import React, { useEffect, useState } from "react";
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.fontSmallGray};
@@ -150,7 +149,7 @@ const Progress = styled.div`
     rgba(218, 34, 95, 0),
     rgba(218, 34, 95, 0.8)
   );
-  width: 84%;
+  width: ${(props) => props.progress}%;
   @media only screen and (max-width: 1007px) {
     height: 15px;
   }
@@ -210,43 +209,82 @@ const VideoTokenInfo = styled.div`
   }
 `;
 
-const WithVideo = ({ types, title, channelName, tokenCount, price }) => (
-  <Container>
-    <Thumbnail src={img} />
-    <TextContainer>
-      <PropertiesGrid>
-        {types.map((type, index) => (
-          <Property key={index} type={type.id}>
-            <span>{type.name}</span>
-          </Property>
-        ))}
-      </PropertiesGrid>
+const WithVideo = ({
+  types,
+  title,
+  videoId,
+  channelTitle,
+  totalAmount,
+  currentAmount,
+  price,
+  expirationDate,
+}) => {
+  const [leftTime, setLeftTime] = useState("");
+  const expire = new Date(expirationDate);
+  const percent = Math.floor((currentAmount / totalAmount) * 100);
 
-      <Title>{title}</Title>
-      <ChannelName>{channelName}</ChannelName>
-      <ProgressBar>
-        <Progress />
-      </ProgressBar>
-      <VideoTokenInfos>
-        <VideoTokenInfo>
-          <small>총 {tokenCount} 조각</small>
-          <span>
-            <strong>84%</strong>
-          </span>
-        </VideoTokenInfo>
-        <VideoTokenInfo>
-          <small>조각당 가격</small>
-          <small>{price}원</small>
-        </VideoTokenInfo>
-        <VideoTokenInfo>
-          <small>남은 시간</small>
-          <span>
-            <strong>3일 12:11:05</strong>
-          </span>
-        </VideoTokenInfo>
-      </VideoTokenInfos>
-    </TextContainer>
-  </Container>
-);
+  const changeLeftDate = () => {
+    const today = new Date();
+    const left = expire.getTime() - today.getTime();
+    const leftDay = Math.floor(left / (1000 * 60 * 60 * 24));
+    const leftHours = Math.floor(
+      (left % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const leftMinutes = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
+    const leftSeconds = Math.floor((left % (1000 * 60)) / 1000);
+    setLeftTime(
+      `${leftDay}일 ${leftHours.toString().padStart(2, "0")}:${leftMinutes
+        .toString()
+        .padStart(2, "0")}:${leftSeconds.toString().padStart(2, "0")}`
+    );
+  };
+
+  useEffect(() => {
+    changeLeftDate();
+    setInterval(changeLeftDate, 1000);
+  }, []);
+
+  return (
+    <Container>
+      <Thumbnail
+        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        alt={`thumbnail_${videoId}`}
+      />
+      <TextContainer>
+        <PropertiesGrid>
+          {types.map((type, index) => (
+            <Property key={index} type={type.id}>
+              <span>{type.name}</span>
+            </Property>
+          ))}
+        </PropertiesGrid>
+
+        <Title>{title}</Title>
+        <ChannelName>{channelTitle}</ChannelName>
+        <ProgressBar>
+          <Progress progress={percent} />
+        </ProgressBar>
+        <VideoTokenInfos>
+          <VideoTokenInfo>
+            <small>총 {totalAmount} 조각</small>
+            <span>
+              <strong>{percent}%</strong>
+            </span>
+          </VideoTokenInfo>
+          <VideoTokenInfo>
+            <small>조각당 가격</small>
+            <small>{price}원</small>
+          </VideoTokenInfo>
+          <VideoTokenInfo>
+            <small>남은 시간</small>
+            <span>
+              <strong>{leftTime}</strong>
+            </span>
+          </VideoTokenInfo>
+        </VideoTokenInfos>
+      </TextContainer>
+    </Container>
+  );
+};
 
 export default WithVideo;
