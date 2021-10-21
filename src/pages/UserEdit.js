@@ -130,7 +130,9 @@ const UserEdit = () => {
       },
       {
         type: "전화번호",
-        content: "010-2874-2457",
+        content: info.address.addressPhoneNumber
+          ? info.address.addressPhoneNumber
+          : null,
         changeLink: true,
       },
       {

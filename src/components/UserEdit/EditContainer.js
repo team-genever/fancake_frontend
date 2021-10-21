@@ -330,10 +330,11 @@ const EditContainer = ({ title, infos, isDelivery }) => {
                         info.content = input;
                         if (isDelivery) {
                           const deliverySchema = {
-                            recipient: findContent("수령인"),
+                            addressRecipient: findContent("수령인"),
                             address: findContent("도로명 주소"),
+                            addressPhoneNumber: findContent("전화번호"),
                             addressDetail: findContent("상세주소"),
-                            addressZipCode: findContent("우편번호"),
+                            zipCode: findContent("우편번호"),
                           };
                           if (info.type === "전화번호") {
                             const regPhone =
