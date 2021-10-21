@@ -219,7 +219,7 @@ const LoggedInButton = styled.div`
   align-items: center;
   width: 190px;
   height: 48px;
-  border-radius: 30px;
+  border-radius: 15px;
   border: 1px solid ${(props) => (props.isHome ? "white" : "#414446")};
   & span {
     color: ${(props) => (props.isHome ? "white" : "black")};

@@ -51,6 +51,20 @@ const HistoryContainer = styled.div`
   }
 `;
 
+const NoContent = styled.span`
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 20px;
+  @media only screen and (max-width: 1007px) {
+    font-size: 15px;
+    margin-top: 15px;
+  }
+  @media only screen and (max-width: 640px) {
+    font-size: 3vw;
+  }
+`;
+
 const History = styled.div`
   display: grid;
   width: 100%;
@@ -183,34 +197,38 @@ const Transaction = () => {
     <Container>
       <Title>거래내역</Title>
       <DarkLine />
-      <HistoryContainer>
-        {histories.map((history, index) => {
-          const createdDate = new Date(history.createdDate);
-          return (
-            <History key={index}>
-              <span>{`${
-                createdDate.getMonth() + 1
-              }/${createdDate.getDate()}`}</span>
-              <div>
-                {history.videoTitle ? <h5>{history.videoTitle}</h5> : ""}
-                {history.type === "BUY" ? (
-                  <small>{`구매(${history.size}조각)`}</small>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div>
-                <SStrong number={history.number}>
-                  {history.type === "BUY"
-                    ? `-${history.price * history.size} `
-                    : `+${history.price * history.size} `}
-                </SStrong>
-                원
-              </div>
-            </History>
-          );
-        })}
-      </HistoryContainer>
+      {histories.length === 0 ? (
+        <NoContent>거래내역이 없습니다.</NoContent>
+      ) : (
+        <HistoryContainer>
+          {histories.map((history, index) => {
+            const createdDate = new Date(history.createdDate);
+            return (
+              <History key={index}>
+                <span>{`${
+                  createdDate.getMonth() + 1
+                }/${createdDate.getDate()}`}</span>
+                <div>
+                  {history.videoTitle ? <h5>{history.videoTitle}</h5> : ""}
+                  {history.type === "BUY" ? (
+                    <small>{`구매(${history.size}조각)`}</small>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  <SStrong number={history.number}>
+                    {history.type === "BUY"
+                      ? `-${history.price * history.size} `
+                      : `+${history.price * history.size} `}
+                  </SStrong>
+                  원
+                </div>
+              </History>
+            );
+          })}
+        </HistoryContainer>
+      )}
     </Container>
   );
 };
