@@ -125,6 +125,15 @@ const Footer = () => {
     <Container>
       <FooterGrid>
         <Section>
+          <h5>POLICIES</h5>
+          <Link to="/policy/terms" onClick={onClick}>
+            이용약관
+          </Link>
+          <Link to="/policy/privacy" onClick={onClick}>
+            개인정보처리방침
+          </Link>
+        </Section>
+        <Section>
           <h5>fanCake</h5>
           <Link to="/" onClick={onClick}>
             서비스 소개
@@ -132,11 +141,6 @@ const Footer = () => {
           <Link to="/experience" onClick={onClick}>
             체험하기
           </Link>
-        </Section>
-        <Section>
-          <h5>BANK INFO</h5>
-          <span>입금계좌: 카카오뱅크 333302-04-03939</span>
-          <span>예금주: 백건우</span>
         </Section>
         <Section>
           <h5>문의하기</h5>

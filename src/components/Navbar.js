@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import logo_white from "images/logo_white.png";
-import logo_black from "images/logo_black.png";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import { api } from "settings";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   width: 100%;
@@ -14,14 +15,11 @@ const Container = styled.div`
   top: 0;
   left: 0;
   padding: 0 50px 0 30px;
-  background-color: ${(props) =>
-    props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
+  background-color: rgba(0, 0, 0, 0.41);
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 9;
-  border-bottom: 1px solid
-    ${(props) => (props.isHome ? props.theme.navBarUnderGray : "black")};
 
   @media only screen and (max-width: 1007px) {
     height: 60px;
@@ -32,8 +30,7 @@ const Container = styled.div`
     height: 14vw;
     padding: 0 5vw;
     border-bottom: none;
-    background-color: ${(props) =>
-      props.isHome ? "rgba(0, 0, 0, 0.41)" : "rgba(255, 255, 255, 0.41)"};
+    background-color: rgba(0, 0, 0, 0.41);
   }
 `;
 
@@ -91,33 +88,18 @@ const SLink = styled(Link)`
   justify-content: center;
   text-decoration: none;
   border-bottom: ${(props) =>
-    props.selected
-      ? `1px solid ${props.isHome ? props.theme.boxVeryLightGray : "black"}`
-      : "none"};
+    props.selected ? `1px solid ${props.theme.boxVeryLightGray}` : "none"};
   & span {
     color: ${(props) =>
-      props.selected
-        ? props.isHome
-          ? props.theme.boxVeryLightGray
-          : "black"
-        : props.isHome
-        ? props.theme.boxLightGray
-        : props.theme.boxDarkGray};
+      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
     font-size: 17px;
     font-weight: normal;
   }
   &:hover {
-    background-color: ${(props) =>
-      props.isHome ? "rgba(255, 255, 255, 0.3)" : props.theme.boxVeryLightGray};
+    background-color: rgba(255, 255, 255, 0.3);
     border-bottom: 1px solid;
     border-bottom-color: ${(props) =>
-      props.selected
-        ? props.isHome
-          ? props.theme.boxVeryLightGray
-          : "black"
-        : props.isHome
-        ? props.theme.boxLightGray
-        : props.theme.boxDarkGray};
+      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
   }
 
   @media only screen and (max-width: 1007px) {
@@ -154,7 +136,7 @@ const LoginButton = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 190px;
+  width: 180px;
   height: 48px;
   border-radius: 15px;
   text-decoration: none;
@@ -182,8 +164,7 @@ const LoginButton = styled(Link)`
 `;
 
 const LoggedInProfile = styled(Link)`
-  background-color: ${(props) =>
-    props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
+  background-color: transparent;
   position: relative;
   display: flex;
   justify-content: center;
@@ -197,13 +178,13 @@ const LoggedInProfile = styled(Link)`
   letter-spacing: 0.7px;
   text-decoration: none;
   & span {
-    color: ${(props) => (props.isHome ? "white" : "black")};
+    color: white;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
   }
   &:hover {
     cursor: pointer;
-    background-color: ${(props) => (props.isHome ? "#4f4f4f" : "#dbdbd9")};
+    background-color: rgba(0, 0, 0, 0.41);
   }
   @media only screen and (max-width: 1007px) {
     height: 35px;
@@ -220,20 +201,25 @@ const LoggedInProfile = styled(Link)`
 `;
 
 const LoggedInButton = styled.div`
-  background-color: ${(props) =>
-    props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
+  background-color: rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 190px;
+  width: 180px;
   height: 48px;
   border-radius: 15px;
-  border: 1px solid ${(props) => (props.isHome ? "white" : "#414446")};
+  border: 0.5px solid white;
   & span {
-    color: ${(props) => (props.isHome ? "white" : "black")};
+    color: white;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 500;
+  }
+  & svg {
+    right: 15px;
+    font-size: 22px;
+    color: white;
+    position: absolute;
   }
   &:hover {
     cursor: pointer;
@@ -249,6 +235,10 @@ const LoggedInButton = styled.div`
     border-radius: 10px;
     & span {
       font-size: 13px;
+    }
+    & svg {
+      right: 10px;
+      font-size: 17px;
     }
   }
 
@@ -357,7 +347,7 @@ const MenuIcon = styled.label`
     width: 100%;
     height: 2px;
     border-radius: 5px;
-    background-color: ${(props) => (props.isHome ? "white" : "black")};
+    background-color: white;
     transition: all 0.3s;
   }
   & div:nth-child(1) {
@@ -504,10 +494,7 @@ const Navbar = ({ location: { pathname } }) => {
     <Container isHome={isHome}>
       <NavFront>
         <HomeLink to="/" onClick={onClick}>
-          <img
-            src={isHome ? logo_white : logo_black}
-            alt={isHome ? "logo_white" : "logo_black"}
-          />
+          <img src={logo_white} alt="logo_white" />
         </HomeLink>
         <Navigator>
           <SLink
@@ -534,7 +521,8 @@ const Navbar = ({ location: { pathname } }) => {
             <span>{userInfo.name}</span>
           </LoggedInProfile>
           <LoggedInButton isHome={isHome}>
-            <span>&nbsp;나의 정보 ▼</span>
+            <span>나의 정보</span>
+            <FontAwesomeIcon icon={faCaretDown} />
             <LoggedInList id="LoggedInList">
               <LoggedInLink to="/user/edit">회원정보수정</LoggedInLink>
               <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>

@@ -51,6 +51,8 @@ function App() {
         <Route exact path="/user/changePW" component={ChangePW}>
           {loggedIn ? "" : <Redirect to="/" />}
         </Route>
+        <Route exact path="/policy/terms" component={"이용약관"} />
+        <Route exact path="/policy/privacy" component={"개인정보처리방침"} />
         <Route component={Error} />
       </Switch>
       <Footer />
