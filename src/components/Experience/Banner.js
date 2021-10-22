@@ -1,16 +1,27 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import banner from "images/banner.jpg";
 
 const Positioner = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.boxLightGray};
-  padding: 200px 10vw;
+  padding: 40vh 20vw;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33)),
+    url(${banner});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  @media only screen and (max-width: 640px) {
+    padding: 40vh 10vw;
+  }
 `;
 
 const Heading = styled.div`
   font-weight: bold;
   font-size: 35px;
   margin-bottom: 10px;
+  color: white;
 
   @media only screen and (max-width: 640px) {
     font-size: 6vw;
@@ -20,6 +31,7 @@ const Heading = styled.div`
 const Heading2 = styled.div`
   font-weight: bold;
   font-size: 30px;
+  color: white;
 
   @media only screen and (max-width: 640px) {
     font-size: 4.5vw;
