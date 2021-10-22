@@ -257,7 +257,8 @@ const VideoInfo = ({ testdata }) => {
             <BoldFont>
               {totalPrice
                 .toString()
-                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                //.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                }
               원
             </BoldFont>
           </FlexContainer>
