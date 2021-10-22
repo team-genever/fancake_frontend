@@ -13,7 +13,7 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0 50px;
+  padding: 0 50px 0 30px;
   background-color: ${(props) =>
     props.isHome ? "rgba(0, 0, 0, 0.41)" : "white"};
   display: flex;
@@ -64,13 +64,22 @@ const HomeLink = styled(Link)`
   justify-content: center;
   align-items: center;
   margin-right: 50px;
+  & img {
+    height: 41px;
+  }
 
   @media only screen and (max-width: 1007px) {
     margin-right: 35px;
+    & img {
+      height: 30px;
+    }
   }
 
   @media only screen and (max-width: 640px) {
     // margin-right: 25px;
+    & img {
+      height: 6.5vw;
+    }
   }
 `;
 
