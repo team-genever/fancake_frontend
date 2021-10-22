@@ -98,6 +98,7 @@ class Wallet extends React.Component {
               title="공동구매 중인 영상"
               videosType="with"
               userStocks={userStocks}
+              creater="all"
             />
           </>
         )}

@@ -63,7 +63,7 @@ const videos = [
   },
 ];
 
-const Videos = ({ title, videosType, userStocks }) => (
+const Videos = ({ title, videosType, userStocks, creater }) => (
   <Container>
     <Title>{title}</Title>
     {videosType === "own" ? (
@@ -86,27 +86,33 @@ const Videos = ({ title, videosType, userStocks }) => (
       )
     ) : userStocks && userStocks.length !== 0 ? (
       <VideosGrid>
-        {userStocks.map((stock, index) => (
-          <WithVideo
-            key={index}
-            types={[
-              {
-                id: "youtube",
-                name:
-                  stock.video.channel.channelUrl.includes("youtube") &&
-                  "유튜브",
-              },
-              { id: "onsale", name: "판매중" },
-            ]}
-            title={stock.video.title}
-            videoId={stock.video.videoId}
-            channelTitle={stock.video.channel.channelTitle}
-            totalAmount={stock.video.totalAmount}
-            currentAmount={stock.video.currentAmount}
-            price={stock.video.pricePerShare}
-            expirationDate={stock.video.expirationDate}
-          />
-        ))}
+        {userStocks
+          .filter((stock) => {
+            if (creater === "all") return true;
+            if (creater === stock.video.channel.channelTitle) return true;
+            return false;
+          })
+          .map((stock, index) => (
+            <WithVideo
+              key={index}
+              types={[
+                {
+                  id: "youtube",
+                  name:
+                    stock.video.channel.channelUrl.includes("youtube") &&
+                    "유튜브",
+                },
+                { id: "onsale", name: "판매중" },
+              ]}
+              title={stock.video.title}
+              videoId={stock.video.videoId}
+              channelTitle={stock.video.channel.channelTitle}
+              totalAmount={stock.video.totalAmount}
+              currentAmount={stock.video.currentAmount}
+              price={stock.video.pricePerShare}
+              expirationDate={stock.video.expirationDate}
+            />
+          ))}
       </VideosGrid>
     ) : (
       <span>구매중인 영상이 없습니다.</span>

@@ -179,7 +179,7 @@ const PropertiesGrid = styled.div`
   gap: 10px;
 `;
 
-export default function VideoSection() {
+export default function VideoSection({ creater, userStocks }) {
   const [video_info, setData] = useState([
     {
       video_id: "1",
@@ -260,6 +260,7 @@ export default function VideoSection() {
   };
 
   useEffect(() => {
+    console.log(userStocks);
     setComponent(
       video_info
         .filter((data) => {
@@ -344,7 +345,7 @@ export default function VideoSection() {
       </Container>
 
       {/*video_component*/}
-      <Videos />
+      <Videos creater={creater} userStocks={userStocks} />
     </Positioner>
   );
 }
