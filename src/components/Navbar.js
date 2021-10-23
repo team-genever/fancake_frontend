@@ -510,7 +510,7 @@ const Navbar = ({ location: { pathname } }) => {
     setChecked(e.target.checked);
   };
 
-  const onClick = () => window.scrollTo(0, 0);
+  const onClick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const onLinkClick = () => {
     const input = document.getElementById("menu");

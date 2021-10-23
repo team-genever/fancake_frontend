@@ -100,6 +100,17 @@ const Box = styled.div`
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
   }
+  @media only screen and (max-width: 640px) {
+    padding: 1vw;
+    padding-right: 4vw;
+    height: 10vw;
+    border-radius: 5vw;
+    ${(props) =>
+      props.name === "all" &&
+      css`
+        padding-left: 4vw;
+      `}
+  }
 `;
 
 const Image = styled.img`
@@ -107,18 +118,22 @@ const Image = styled.img`
   aspect-ratio: 1 / 1;
   border-radius: 100%;
   margin-right: 10px;
+  @media only screen and (max-width: 640px) {
+    margin-right: 2vw;
+  }
 `;
 
 const Name = styled.div`
   font-weight: 500;
   font-size: 14px;
+  min-width: max-content;
 
   @media only screen and (max-width: 640px) {
     font-size: 2.5vw;
   }
 `;
 
-const CreaterSection = ({ creater, setCreater }) => {
+const CreaterSection = ({ creater, setCreater, setCurrentVideo }) => {
   const scrollRef = useRef(null);
 
   const [isDrag, setIsDrag] = useState(false);
@@ -145,6 +160,7 @@ const CreaterSection = ({ creater, setCreater }) => {
     const target = e.currentTarget.getAttribute("name");
     const stepTwo = document.getElementById("step_two");
     setCreater(target);
+    setCurrentVideo(null);
     stepTwo &&
       stepTwo.scrollIntoView({
         behavior: "smooth",

@@ -111,7 +111,7 @@ const Footer = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [isMobile]);
-  const onClick = () => window.scrollTo(0, 0);
+  const onClick = () => window.scrollTo({ top: 0, behavior: "smooth" });
   return isMobile ? (
     <MobileContainer>
       <MobileInnerContainer>

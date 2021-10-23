@@ -13,6 +13,17 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const TotalPage = styled.span`
+  display: block;
+  font-size: 15px;
+  align-self: flex-start;
+  margin-bottom: 10px;
+  font-weight: 500;
+  & strong {
+    color: ${(props) => props.theme.mainPink};
+  }
+`;
+
 const VideosGrid = styled.div`
   display: grid;
   width: 100%;
@@ -96,11 +107,6 @@ const VideosPage = styled.div`
   }
 `;
 
-const VideoLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-`;
-
 const NotFound = styled.span`
   display: block;
   margin-bottom: 40px;
@@ -109,9 +115,10 @@ const NotFound = styled.span`
   }
 `;
 
-const Videos = ({ videosType, userStocks, creater }) => {
+const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
   const [filteredStocks, setStocks] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
+  const [totalVideos, setTotalVideos] = useState(userStocks.length);
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState(window.innerWidth > 640 ? 8 : 4);
   useEffect(() => {
@@ -126,11 +133,15 @@ const Videos = ({ videosType, userStocks, creater }) => {
         return false;
       });
     }
+    setTotalVideos(stocks.length);
     setTotalPage(stocks.length <= 0 ? 1 : Math.ceil(stocks.length / maxPage));
     setStocks(stocks.slice((currentPage - 1) * maxPage, currentPage * maxPage));
-  }, [maxPage, currentPage, creater, videosType]);
+  }, [maxPage, currentPage, creater, videosType, totalVideos]);
   return (
     <Container>
+      <TotalPage>
+        전체 영상: <strong>{totalVideos}</strong>개
+      </TotalPage>
       {videosType === "own" ? (
         userStocks && userStocks.length !== 0 ? (
           <VideosGrid>
@@ -157,9 +168,18 @@ const Videos = ({ videosType, userStocks, creater }) => {
       ) : userStocks && userStocks.length !== 0 ? (
         <VideosGrid>
           {filteredStocks.map((stock, index) => (
-            <VideoLink
+            <div
               key={index}
-              to={`/experience/detail/${stock.video.videoId}`}
+              onClick={() => {
+                setCurrentVideo(stock.video.videoId);
+                setTimeout(() => {
+                  const stepThree = document.getElementById("step_three");
+                  stepThree &&
+                    stepThree.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                }, 100);
+              }}
             >
               <WithVideo
                 types={[
@@ -179,7 +199,7 @@ const Videos = ({ videosType, userStocks, creater }) => {
                 price={stock.video.pricePerShare}
                 expirationDate={stock.video.expirationDate}
               />
-            </VideoLink>
+            </div>
           ))}
         </VideosGrid>
       ) : (

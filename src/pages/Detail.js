@@ -3,7 +3,7 @@ import Video from "components/Detail/Video";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import VideoInfo from "components/Detail/VideoInfo";
-import { GetBackendIP } from "../settings"
+import { GetBackendIP } from "../settings";
 import Loading from "components/Loading";
 
 import axios from "axios";
@@ -82,8 +82,8 @@ const videos = [
   },
 ];
 
-function Detail({ match, login_info }) {
-  const [videoId, usetVideoId] = useState(match.params.videoId);
+function Detail({ match, login_info, currentVideoId }) {
+  const [videoId, usetVideoId] = useState(currentVideoId);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -133,7 +133,7 @@ function Detail({ match, login_info }) {
     console.log(backendip);
 
     try {
-      const response = await axios.get(backendip+"videos")
+      const response = await axios.get(backendip + "videos");
       console.log(response);
       tempData = response.data;
       console.log("tempData is ", tempData);
@@ -147,7 +147,7 @@ function Detail({ match, login_info }) {
 
   return loading ? (
     <LoadingContainer>
-      <Loading/>
+      <Loading />
     </LoadingContainer>
   ) : (
     <Container>

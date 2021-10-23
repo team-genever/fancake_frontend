@@ -10,6 +10,7 @@ const Container = styled.div`
   &:hover {
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.1s ease-in-out;
+    cursor: pointer;
   }
   @media screen and (max-width: 640px) {
     flex-direction: column;

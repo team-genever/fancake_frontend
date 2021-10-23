@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Videos from "components/Wallet/Videos";
 import WithVideo from "../Wallet/WithVideo";
+import Detail from "pages/Detail";
 
 const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
@@ -12,7 +13,7 @@ const Positioner = styled.div`
   height: max-content;
 
   @media only screen and (max-width: 640px) {
-    padding: 15vw 10vw;
+    padding: 15vw 5vw;
   }
 `;
 
@@ -38,7 +39,7 @@ const Step = styled.h3`
   @media only screen and (max-width: 640px) {
     font-size: 3.5vw;
     & strong {
-      font-size: 5vw;
+      font-size: 4vw;
     }
   }
 `;
@@ -65,6 +66,24 @@ const StepTwoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-bottom: 40px;
+  @media only screen and (max-width: 640px) {
+    padding: 4vw 5vw;
+    margin-bottom: 3vw;
+  }
+`;
+
+const StepThreeContainer = styled.div`
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 40px;
+  @media only screen and (max-width: 640px) {
+    padding: 4vw 5vw;
+    margin-bottom: 3vw;
+  }
 `;
 
 const GrayBox = styled.div`
@@ -219,7 +238,13 @@ const PropertiesGrid = styled.div`
   gap: 10px;
 `;
 
-export default function VideoSection({ children, creater, userStocks }) {
+export default function VideoSection({
+  children,
+  creater,
+  userStocks,
+  setCurrentVideo,
+  currentVideo,
+}) {
   const [video_info, setData] = useState([
     {
       video_id: "1",
@@ -395,8 +420,21 @@ export default function VideoSection({ children, creater, userStocks }) {
       </Container> */}
 
         {/*video_component*/}
-        <Videos creater={creater} userStocks={userStocks} videosType="with" />
+        <Videos
+          creater={creater}
+          userStocks={userStocks}
+          videosType="with"
+          setCurrentVideo={setCurrentVideo}
+        />
       </StepTwoContainer>
+      {currentVideo && (
+        <StepThreeContainer id="step_three">
+          <Step>
+            <strong>STEP 3.</strong> 영상 조각을 원하는 갯수만큼 구매하세요.
+          </Step>
+          <Detail currentVideoId={currentVideo} />
+        </StepThreeContainer>
+      )}
     </Positioner>
   );
 }

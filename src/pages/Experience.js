@@ -15,6 +15,8 @@ import { withCookies } from "react-cookie";
 const Experience = () => {
   const myRef = useRef(null);
 
+  const [currentVideo, setCurrentVideo] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   const [creater, setCreater] = useState("all");
@@ -37,7 +39,7 @@ const Experience = () => {
     {
       video: {
         title: "title1",
-        videoId: "videoId",
+        videoId: "1",
         channel: {
           channelTitle: "야식이",
           channelUrl: "https://www.youtube.com/c/yasigi",
@@ -51,7 +53,7 @@ const Experience = () => {
     {
       video: {
         title: "title2",
-        videoId: "videoId",
+        videoId: "2",
         channel: {
           channelTitle: "야식이",
           channelUrl: "https://www.youtube.com/c/yasigi",
@@ -65,7 +67,7 @@ const Experience = () => {
     {
       video: {
         title: "title3",
-        videoId: "videoId",
+        videoId: "3",
         channel: {
           channelTitle: "야식이",
           channelUrl: "https://www.youtube.com/c/yasigi",
@@ -79,7 +81,7 @@ const Experience = () => {
     {
       video: {
         title: "title4",
-        videoId: "videoId",
+        videoId: "4",
         channel: {
           channelTitle: "야식이",
           channelUrl: "https://www.youtube.com/c/yasigi",
@@ -93,7 +95,7 @@ const Experience = () => {
     {
       video: {
         title: "title5",
-        videoId: "videoId",
+        videoId: "5",
         channel: {
           channelTitle: "바다 중독자",
           channelUrl: "https://www.youtube.com/user/helladope12",
@@ -107,7 +109,7 @@ const Experience = () => {
     {
       video: {
         title: "title6",
-        videoId: "videoId",
+        videoId: "6",
         channel: {
           channelTitle: "야식이",
           channelUrl: "https://www.youtube.com/c/yasigi",
@@ -121,7 +123,7 @@ const Experience = () => {
     {
       video: {
         title: "title7",
-        videoId: "videoId",
+        videoId: "7",
         channel: {
           channelTitle: "뻘짓 연구소",
           channelUrl: "https://www.youtube.com/c/BullsLab",
@@ -135,7 +137,7 @@ const Experience = () => {
     {
       video: {
         title: "title8",
-        videoId: "videoId",
+        videoId: "8",
         channel: {
           channelTitle: "뻘짓 연구소",
           channelUrl: "https://www.youtube.com/c/BullsLab",
@@ -149,7 +151,7 @@ const Experience = () => {
     {
       video: {
         title: "title9",
-        videoId: "videoId",
+        videoId: "9",
         channel: {
           channelTitle: "맛있는 생각",
           channelUrl:
@@ -215,8 +217,17 @@ const Experience = () => {
   return (
     <div>
       <Banner />
-      <VideoSection creater={creater} userStocks={userStocks}>
-        <CreaterSection creater={creater} setCreater={setCreater} />
+      <VideoSection
+        creater={creater}
+        userStocks={userStocks}
+        currentVideo={currentVideo}
+        setCurrentVideo={setCurrentVideo}
+      >
+        <CreaterSection
+          creater={creater}
+          setCreater={setCreater}
+          setCurrentVideo={setCurrentVideo}
+        />
       </VideoSection>
       {/*<RequestSection myRef={myRef} />*/}
     </div>
