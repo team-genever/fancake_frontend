@@ -345,7 +345,7 @@ export default function VideoSection({ creater, userStocks }) {
       </Container>
 
       {/*video_component*/}
-      <Videos creater={creater} userStocks={userStocks} />
+      <Videos creater={creater} userStocks={userStocks} videosType="with" />
     </Positioner>
   );
 }

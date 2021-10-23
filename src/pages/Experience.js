@@ -53,8 +53,8 @@ const Experience = () => {
         title: "title2",
         videoId: "videoId",
         channel: {
-          channelTitle: "바다 중독자",
-          channelUrl: "https://www.youtube.com/user/helladope12",
+          channelTitle: "야식이",
+          channelUrl: "https://www.youtube.com/c/yasigi",
         },
         totalAmount: 10,
         currentAmount: 1,
@@ -81,8 +81,8 @@ const Experience = () => {
         title: "title4",
         videoId: "videoId",
         channel: {
-          channelTitle: "뻘짓 연구소",
-          channelUrl: "https://www.youtube.com/c/BullsLab",
+          channelTitle: "야식이",
+          channelUrl: "https://www.youtube.com/c/yasigi",
         },
         totalAmount: 10,
         currentAmount: 1,
@@ -93,6 +93,34 @@ const Experience = () => {
     {
       video: {
         title: "title5",
+        videoId: "videoId",
+        channel: {
+          channelTitle: "바다 중독자",
+          channelUrl: "https://www.youtube.com/user/helladope12",
+        },
+        totalAmount: 10,
+        currentAmount: 1,
+        pricePerShare: 1000,
+        expirationDate: "2022-2-22",
+      },
+    },
+    {
+      video: {
+        title: "title6",
+        videoId: "videoId",
+        channel: {
+          channelTitle: "야식이",
+          channelUrl: "https://www.youtube.com/c/yasigi",
+        },
+        totalAmount: 10,
+        currentAmount: 1,
+        pricePerShare: 1000,
+        expirationDate: "2022-2-22",
+      },
+    },
+    {
+      video: {
+        title: "title7",
         videoId: "videoId",
         channel: {
           channelTitle: "뻘짓 연구소",
@@ -106,7 +134,21 @@ const Experience = () => {
     },
     {
       video: {
-        title: "title6",
+        title: "title8",
+        videoId: "videoId",
+        channel: {
+          channelTitle: "뻘짓 연구소",
+          channelUrl: "https://www.youtube.com/c/BullsLab",
+        },
+        totalAmount: 10,
+        currentAmount: 1,
+        pricePerShare: 1000,
+        expirationDate: "2022-2-22",
+      },
+    },
+    {
+      video: {
+        title: "title9",
         videoId: "videoId",
         channel: {
           channelTitle: "맛있는 생각",
