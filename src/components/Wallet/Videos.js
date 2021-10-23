@@ -11,33 +11,17 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 120px;
-  @media screen and (max-width: 640px) {
-    margin-bottom: 20vw;
-  }
-`;
-
-const Title = styled.h2`
-  font-size: 40px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  @media screen and (max-width: 640px) {
-    font-size: 5vw;
-    margin-bottom: 5vw;
-  }
 `;
 
 const VideosGrid = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  grid-auto-rows: 400px;
   gap: 15px;
   margin-bottom: 20px;
   @media screen and (max-width: 640px) {
     grid-template-columns: 1fr;
-    gap: 8vw;
-    grid-auto-rows: 90vw;
+    gap: 3vw;
   }
 `;
 
@@ -60,6 +44,8 @@ const VideosPage = styled.div`
         props.currentPage > 1 ? "black" : props.theme.boxLightGray};
       :hover {
         cursor: ${(props) => (props.currentPage > 1 ? "pointer" : "default")};
+        ${(props) =>
+          props.currentPage > 1 ? `color: ${props.theme.mainPink};` : ""}
       }
     }
     &:last-child {
@@ -70,6 +56,10 @@ const VideosPage = styled.div`
       :hover {
         cursor: ${(props) =>
           props.currentPage < props.totalPage ? "pointer" : "default"};
+        ${(props) =>
+          props.currentPage < props.totalPage
+            ? `color: ${props.theme.mainPink};`
+            : ""}
       }
     }
   }
@@ -95,13 +85,13 @@ const VideosPage = styled.div`
     }
   }
   @media screen and (max-width: 640px) {
-    border-radius: 20px;
-    width: 150px;
-    height: 50px;
+    border-radius: 15vw;
+    width: 25vw;
+    height: 9vw;
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
-    gap: 10px;
+    gap: 2vw;
     & button {
-      font-size: 20px;
+      font-size: 4vw;
     }
   }
 `;
@@ -119,7 +109,7 @@ const NotFound = styled.span`
   }
 `;
 
-const Videos = ({ title, videosType, userStocks, creater }) => {
+const Videos = ({ videosType, userStocks, creater }) => {
   const [filteredStocks, setStocks] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -141,7 +131,6 @@ const Videos = ({ title, videosType, userStocks, creater }) => {
   }, [maxPage, currentPage, creater, videosType]);
   return (
     <Container>
-      <Title>{title}</Title>
       {videosType === "own" ? (
         userStocks && userStocks.length !== 0 ? (
           <VideosGrid>
@@ -168,9 +157,11 @@ const Videos = ({ title, videosType, userStocks, creater }) => {
       ) : userStocks && userStocks.length !== 0 ? (
         <VideosGrid>
           {filteredStocks.map((stock, index) => (
-            <VideoLink to={`/experience/detail/${stock.video.videoId}`}>
+            <VideoLink
+              key={index}
+              to={`/experience/detail/${stock.video.videoId}`}
+            >
               <WithVideo
-                key={index}
                 types={[
                   {
                     id: "youtube",

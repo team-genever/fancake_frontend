@@ -28,6 +28,20 @@ const LoadingContainer = styled.div`
   justify-content: center;
 `;
 
+const VideosContainer = styled.div`
+  margin-bottom: 100px;
+`;
+
+const Title = styled.h2`
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  @media screen and (max-width: 640px) {
+    font-size: 5vw;
+    margin-bottom: 5vw;
+  }
+`;
+
 class Wallet extends React.Component {
   state = {
     loading: true,
@@ -89,18 +103,18 @@ class Wallet extends React.Component {
         ) : (
           <>
             <UserWallet userInfo={userInfo} />
-            <Videos
-              title="보유 중인 영상"
-              videosType="own"
-              userStocks={userConfirmStocks}
-              creater="all"
-            />
-            <Videos
-              title="공동구매 중인 영상"
-              videosType="with"
-              userStocks={userStocks}
-              creater="all"
-            />
+            <VideosContainer>
+              <Title>보유 중인 영상</Title>
+              <Videos
+                videosType="own"
+                userStocks={userConfirmStocks}
+                creater="all"
+              />
+            </VideosContainer>
+            <VideosContainer>
+              <Title>공동구매 중인 영상</Title>
+              <Videos videosType="with" userStocks={userStocks} creater="all" />
+            </VideosContainer>
           </>
         )}
       </Container>

@@ -6,25 +6,65 @@ import WithVideo from "../Wallet/WithVideo";
 
 const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
-  padding: 150px 10vw;
+  padding: 80px 10vw;
   overflow: hidden;
   width: 100%;
   height: max-content;
 
   @media only screen and (max-width: 640px) {
-    padding: 100px 10vw;
+    padding: 15vw 10vw;
   }
 `;
 
 const Heading = styled.div`
   font-size: 37px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 
   @media only screen and (max-width: 640px) {
-    font-size: 4.5vw;
-    margin-bottom: 12px;
+    font-size: 5.5vw;
+    margin-bottom: 5vw;
   }
+`;
+
+const Step = styled.h3`
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  & strong {
+    font-size: 25px;
+    color: ${(props) => props.theme.mainPink};
+  }
+  @media only screen and (max-width: 640px) {
+    font-size: 3.5vw;
+    & strong {
+      font-size: 5vw;
+    }
+  }
+`;
+
+const StepOneContainer = styled.div`
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
+  @media only screen and (max-width: 640px) {
+    padding: 4vw 5vw;
+    margin-bottom: 3vw;
+  }
+`;
+
+const StepTwoContainer = styled.div`
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 40px;
 `;
 
 const GrayBox = styled.div`
@@ -179,7 +219,7 @@ const PropertiesGrid = styled.div`
   gap: 10px;
 `;
 
-export default function VideoSection({ creater, userStocks }) {
+export default function VideoSection({ children, creater, userStocks }) {
   const [video_info, setData] = useState([
     {
       video_id: "1",
@@ -329,7 +369,17 @@ export default function VideoSection({ creater, userStocks }) {
   return (
     <Positioner>
       <Heading>영상의 첫 번째 주인이 되세요!</Heading>
-      <Container>
+      <StepOneContainer>
+        <Step>
+          <strong>STEP 1.</strong> 좋아하는 크리에이터를 선택하세요.
+        </Step>
+        {children}
+      </StepOneContainer>
+      <StepTwoContainer id="step_two">
+        <Step>
+          <strong>STEP 2.</strong> 구매하고자 하는 영상을 선택하세요.
+        </Step>
+        {/* <Container>
         <FilterButton clicked={all} name="전체" onClick={ButtonClicked}>
           전체
         </FilterButton>
@@ -342,10 +392,11 @@ export default function VideoSection({ creater, userStocks }) {
         <FilterButton clicked={closed} name="종료" onClick={ButtonClicked}>
           종료
         </FilterButton>
-      </Container>
+      </Container> */}
 
-      {/*video_component*/}
-      <Videos creater={creater} userStocks={userStocks} videosType="with" />
+        {/*video_component*/}
+        <Videos creater={creater} userStocks={userStocks} videosType="with" />
+      </StepTwoContainer>
     </Positioner>
   );
 }

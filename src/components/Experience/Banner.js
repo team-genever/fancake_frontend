@@ -5,16 +5,13 @@ import banner from "images/banner.jpg";
 const Positioner = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.boxLightGray};
-  padding: 40vh 20vw;
-  height: 100vh;
+  padding: 20vh 10vw;
+  height: 50vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33)),
     url(${banner});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  @media only screen and (max-width: 640px) {
-    padding: 40vh 10vw;
-  }
 `;
 
 const Heading = styled.div`

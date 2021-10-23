@@ -4,9 +4,13 @@ import React, { useEffect, useState } from "react";
 const Container = styled.div`
   background-color: ${(props) => props.theme.fontSmallGray};
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.1s ease-in-out;
+  }
   @media screen and (max-width: 640px) {
     flex-direction: column;
   }

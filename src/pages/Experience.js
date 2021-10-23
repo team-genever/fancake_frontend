@@ -215,8 +215,9 @@ const Experience = () => {
   return (
     <div>
       <Banner />
-      <CreaterSection creater={creater} setCreater={setCreater} />
-      <VideoSection creater={creater} userStocks={userStocks} />
+      <VideoSection creater={creater} userStocks={userStocks}>
+        <CreaterSection creater={creater} setCreater={setCreater} />
+      </VideoSection>
       {/*<RequestSection myRef={myRef} />*/}
     </div>
   );

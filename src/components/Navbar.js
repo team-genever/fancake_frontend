@@ -116,6 +116,42 @@ const SLink = styled(Link)`
   }
 `;
 
+const SHomeLink = styled.a`
+  height: 100%;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-bottom: ${(props) =>
+    props.selected ? `1px solid ${props.theme.boxVeryLightGray}` : "none"};
+  & span {
+    color: ${(props) =>
+      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
+    font-size: 17px;
+    font-weight: normal;
+  }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid;
+    border-bottom-color: ${(props) =>
+      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
+  }
+
+  @media only screen and (max-width: 1007px) {
+    & span {
+      font-size: 14px;
+    }
+  }
+
+  @media only screen and (max-width: 640px) {
+    display: none;
+    /* & span {
+      font-size: 8px;
+    } */
+  }
+`;
+
 const Navigator = styled.div`
   height: 100%;
   display: flex;
@@ -444,7 +480,6 @@ const Navbar = ({ location: { pathname } }) => {
   const [loggedIn, setLoggedIn] = useState();
   const [checked, setChecked] = useState(false);
   const [userInfo, setUserInfo] = useState({});
-  const isHome = pathname === "/";
 
   const getUserInfo = async () => {
     try {
@@ -491,24 +526,18 @@ const Navbar = ({ location: { pathname } }) => {
   };
 
   return (
-    <Container isHome={isHome}>
+    <Container>
       <NavFront>
         <HomeLink to="/" onClick={onClick}>
           <img src={logo_white} alt="logo_white" />
         </HomeLink>
         <Navigator>
-          <SLink
-            to="/"
-            selected={pathname === "/"}
-            isHome={isHome}
-            onClick={onClick}
-          >
+          <SLink to="/" selected={pathname === "/"} onClick={onClick}>
             <span>서비스 소개</span>
           </SLink>
           <SLink
             to="/experience"
             selected={pathname === "/experience"}
-            isHome={isHome}
             onClick={onClick}
           >
             <span>체험하기</span>
@@ -517,10 +546,10 @@ const Navbar = ({ location: { pathname } }) => {
       </NavFront>
       {loggedIn ? (
         <div style={{ display: "flex" }}>
-          <LoggedInProfile isHome={isHome} to="/user/wallet">
+          <LoggedInProfile to="/user/wallet">
             <span>{userInfo.name}</span>
           </LoggedInProfile>
-          <LoggedInButton isHome={isHome}>
+          <LoggedInButton>
             <span>나의 정보</span>
             <FontAwesomeIcon icon={faCaretDown} />
             <LoggedInList id="LoggedInList">
@@ -541,7 +570,7 @@ const Navbar = ({ location: { pathname } }) => {
       <SidebarContainer checked={checked}>
         <MenuContainer>
           <MenuInput id="menu" onChange={onChange} />
-          <MenuIcon htmlFor="menu" isHome={isHome}>
+          <MenuIcon htmlFor="menu">
             <div />
             <div />
             <div />
