@@ -11,7 +11,7 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const Container = styled.div`
   width: 100%;
   height: 80px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   padding: 0 50px 0 30px;
@@ -237,6 +237,7 @@ const LoggedInProfile = styled(Link)`
 `;
 
 const LoggedInButton = styled.div`
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
@@ -317,7 +318,7 @@ const LoggedInLink = styled(Link)`
 `;
 
 const SidebarContainer = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   display: flex;

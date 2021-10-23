@@ -121,6 +121,7 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
   const [totalVideos, setTotalVideos] = useState(userStocks.length);
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState(window.innerWidth > 640 ? 8 : 4);
+  useEffect(() => setCurrentPage(1), [creater]);
   useEffect(() => {
     window.addEventListener("resize", () => {
       setMaxPage(window.innerWidth > 640 ? 8 : 4);
@@ -136,6 +137,11 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
     setTotalVideos(stocks.length);
     setTotalPage(stocks.length <= 0 ? 1 : Math.ceil(stocks.length / maxPage));
     setStocks(stocks.slice((currentPage - 1) * maxPage, currentPage * maxPage));
+    return () => {
+      window.removeEventListener("resize", () => {
+        setMaxPage(window.innerWidth > 640 ? 8 : 4);
+      });
+    };
   }, [maxPage, currentPage, creater, videosType, totalVideos]);
   return (
     <Container>
