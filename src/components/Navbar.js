@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
-import logo_white from "images/logo_white.png";
+import logo from "images/logo.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
@@ -11,26 +11,19 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const Container = styled.div`
   width: 100%;
   height: 80px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  padding: 0 50px 0 30px;
-  background-color: rgba(0, 0, 0, 0.41);
+  padding: 0 30px 0 30px;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 9;
 
-  @media only screen and (max-width: 1007px) {
-    height: 60px;
-    padding: 0 35px;
-  }
-
   @media only screen and (max-width: 640px) {
     height: 14vw;
     padding: 0 5vw;
-    border-bottom: none;
-    background-color: rgba(0, 0, 0, 0.41);
   }
 `;
 
@@ -42,12 +35,6 @@ const NavFront = styled.div`
     height: 40px;
   }
 
-  @media only screen and (max-width: 1007px) {
-    & img {
-      height: 30px;
-    }
-  }
-
   @media only screen and (max-width: 640px) {
     & img {
       height: 6.5vw;
@@ -55,27 +42,35 @@ const NavFront = styled.div`
   }
 `;
 
-const HomeLink = styled(Link)`
+const HomeLink = styled.a`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 50px;
-  & img {
+  text-decoration: none;
+  & object {
     height: 41px;
+    margin-right: 10px;
+    filter: drop-shadow(1px 1px 10px rgb(0 0 0 / 0.3));
   }
-
-  @media only screen and (max-width: 1007px) {
-    margin-right: 35px;
-    & img {
-      height: 30px;
-    }
+  & h1 {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    opacity: ${(props) => 100 - props.scroll * 0.8}%;
+    display: ${(props) => props.scroll > 80 && "none"};
+    filter: drop-shadow(1px 1px 10px rgb(0 0 0 / 0.5));
   }
 
   @media only screen and (max-width: 640px) {
     // margin-right: 25px;
-    & img {
+    & object {
       height: 6.5vw;
+      margin-right: 1.5vw;
+    }
+    & h1 {
+      font-size: 5vw;
     }
   }
 `;
@@ -100,12 +95,6 @@ const SLink = styled(Link)`
     border-bottom: 1px solid;
     border-bottom-color: ${(props) =>
       props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
-  }
-
-  @media only screen and (max-width: 1007px) {
-    & span {
-      font-size: 14px;
-    }
   }
 
   @media only screen and (max-width: 640px) {
@@ -138,12 +127,6 @@ const SHomeLink = styled.a`
       props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
   }
 
-  @media only screen and (max-width: 1007px) {
-    & span {
-      font-size: 14px;
-    }
-  }
-
   @media only screen and (max-width: 640px) {
     display: none;
     /* & span {
@@ -157,10 +140,6 @@ const Navigator = styled.div`
   display: flex;
   gap: 35px;
 
-  @media only screen and (max-width: 1007px) {
-    gap: 25px;
-  }
-
   @media only screen and (max-width: 640px) {
     // gap: 15px;
     display: none;
@@ -172,26 +151,18 @@ const LoginButton = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 180px;
-  height: 48px;
-  border-radius: 15px;
+  width: 100px;
+  height: 32px;
+  border-radius: 5px;
   text-decoration: none;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
   & span {
     color: white;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: bold;
   }
   &:hover {
     background-color: ${(props) => props.theme.mainPinkHover};
-  }
-
-  @media only screen and (max-width: 1007px) {
-    width: 140px;
-    height: 35px;
-    border-radius: 10px;
-    & span {
-      font-size: 13px;
-    }
   }
 
   @media only screen and (max-width: 640px) {
@@ -200,37 +171,28 @@ const LoginButton = styled(Link)`
 `;
 
 const LoggedInProfile = styled(Link)`
-  background-color: transparent;
+  background-color: ${(props) => props.theme.fontSmallGray};
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: max-content;
-  height: 48px;
-  border-radius: 50px;
-  border-color: white;
+  width: 100px;
+  height: 32px;
+  border-radius: 5px;
   padding: 10px;
-  margin-right: 20px;
-  letter-spacing: 0.7px;
+  margin-right: 10px;
   text-decoration: none;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
   & span {
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
+    color: black;
+    font-size: 13px;
+    font-weight: 800;
   }
   &:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.41);
+    background-color: ${(props) => props.theme.boxVeryLightGray};
   }
-  @media only screen and (max-width: 1007px) {
-    height: 35px;
-    border-radius: 35px;
-    padding: 10px;
-    margin-right: 10px;
-    & span {
-      font-size: 12px;
-    }
-  }
+
   @media only screen and (max-width: 640px) {
     display: none;
   }
@@ -386,7 +348,7 @@ const MenuIcon = styled.label`
     border-radius: 5px;
     background-color: white;
     transition: all 0.3s;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
   }
   & div:nth-child(1) {
     top: 0;
@@ -482,7 +444,14 @@ const Navbar = ({ location: { pathname } }) => {
   const [loggedIn, setLoggedIn] = useState();
   const [checked, setChecked] = useState(false);
   const [userInfo, setUserInfo] = useState({});
-  const [scrollPosition, setScrollPosition] = useState();
+  const [scroll, setScroll] = useState();
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => setScroll(window.scrollY));
+    return () => {
+      window.removeEventListener("scroll", () => setScroll(window.scrollY));
+    };
+  }, []);
 
   const getUserInfo = async () => {
     try {
@@ -503,8 +472,10 @@ const Navbar = ({ location: { pathname } }) => {
     const body = document.querySelector("body");
     if (checked) {
       body.style.overflowY = "hidden";
+      body.style.touchAction = "none";
     } else {
       body.style.overflowY = "visible";
+      body.style.touchAction = "auto";
     }
   }, [checked]);
 
@@ -540,13 +511,18 @@ const Navbar = ({ location: { pathname } }) => {
   return (
     <Container>
       <NavFront>
-        <HomeLink to="/" onClick={onClick}>
-          <img src={logo_white} alt="logo_white" />
+        <HomeLink href="http://fancake.xyz/" scroll={scroll}>
+          <object data={logo} type="image/svg+xml" aria-label="logo" />
+          <h1>fanCake</h1>
         </HomeLink>
-        <Navigator>
-          <SLink to="/" selected={pathname === "/"} onClick={onClick}>
+        {/* <Navigator>
+          <SHomeLink
+            href="http://fancake.xyz/"
+            selected={pathname === "/"}
+            onClick={onClick}
+          >
             <span>서비스 소개</span>
-          </SLink>
+          </SHomeLink>
           <SLink
             to="/experience"
             selected={pathname === "/experience"}
@@ -554,14 +530,23 @@ const Navbar = ({ location: { pathname } }) => {
           >
             <span>체험하기</span>
           </SLink>
-        </Navigator>
+        </Navigator> */}
       </NavFront>
       {loggedIn ? (
-        <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <LoggedInProfile to="/user/wallet">
-            <span>{userInfo.name}</span>
+            <span>{userInfo.name} 님</span>
           </LoggedInProfile>
-          <LoggedInButton>
+          <LoginButton to="/" onClick={onClick}>
+            <span>지금 체험하기</span>
+          </LoginButton>
+          {/* <LoggedInButton>
             <span>나의 정보</span>
             <FontAwesomeIcon icon={faCaretDown} />
             <LoggedInList id="LoggedInList">
@@ -571,7 +556,7 @@ const Navbar = ({ location: { pathname } }) => {
                 로그아웃
               </LoggedInLink>
             </LoggedInList>
-          </LoggedInButton>
+          </LoggedInButton> */}
         </div>
       ) : (
         <LoginButton to="/auth/main" onClick={onClick}>

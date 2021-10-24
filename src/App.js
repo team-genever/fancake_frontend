@@ -22,18 +22,37 @@ import Navbar from "components/Navbar";
 import GlobalStyles from "components/GlobalStyles";
 import Footer from "components/Footer";
 import { useCookies } from "react-cookie";
+import styled from "styled-components";
+
+const NavBackground = styled.div`
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 50px 0 80px;
+  background-color: rgba(0, 0, 0, 0.41);
+  display: flex;
+  align-items: center;
+  z-index: 9;
+
+  @media only screen and (max-width: 640px) {
+    height: 14vw;
+    padding: 0 5vw;
+  }
+`;
 
 function App() {
   const [cookie] = useCookies(["Authorization"]);
   const loggedIn = cookie.Authorization !== undefined;
   return (
     <>
+      <NavBackground />
       <Navbar />
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Experience} />
         <Route exact path="/rooms" component={Rooms} />
         <Route exact path="/rooms/:slug" component={SingleRoom} />
-        <Route exact path="/experience" component={Experience} />
         <Route path="/experience/detail/:videoId" component={Detail} />
         <Route exact path="/user/wallet" component={Wallet}>
           {loggedIn ? "" : <Redirect to="/" />}

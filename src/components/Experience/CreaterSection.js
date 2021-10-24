@@ -81,6 +81,7 @@ const Box = styled.div`
   align-items: center;
   border-radius: 50px;
   text-align: center;
+  transition: all 0.1s ease-in-out;
   ${(props) =>
     props.name === "all" &&
     css`
@@ -99,6 +100,7 @@ const Box = styled.div`
   &:hover {
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    transition: all 0.1s ease-in-out;
   }
   @media only screen and (max-width: 640px) {
     padding: 1vw;
