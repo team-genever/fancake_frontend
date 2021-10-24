@@ -318,7 +318,7 @@ const LoggedInLink = styled(Link)`
 `;
 
 const SidebarContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   display: flex;
@@ -386,6 +386,7 @@ const MenuIcon = styled.label`
     border-radius: 5px;
     background-color: white;
     transition: all 0.3s;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
   }
   & div:nth-child(1) {
     top: 0;
@@ -481,6 +482,7 @@ const Navbar = ({ location: { pathname } }) => {
   const [loggedIn, setLoggedIn] = useState();
   const [checked, setChecked] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [scrollPosition, setScrollPosition] = useState();
 
   const getUserInfo = async () => {
     try {
@@ -496,6 +498,15 @@ const Navbar = ({ location: { pathname } }) => {
       console.log("navbar - did not get user info");
     }
   };
+
+  useEffect(() => {
+    const body = document.querySelector("body");
+    if (checked) {
+      body.style.overflowY = "hidden";
+    } else {
+      body.style.overflowY = "visible";
+    }
+  }, [checked]);
 
   useEffect(() => {
     if (loggedIn) {
