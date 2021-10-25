@@ -1,11 +1,9 @@
 import React from "react";
 // import "./App.css";
 
-import Home from "pages/Home";
-import Rooms from "pages/Rooms";
-import SingleRoom from "pages/SingleRoom";
+//import Home from "pages/Home";
 import Experience from "pages/Experience";
-import Detail from "pages/Detail";
+//import Detail from "pages/Detail";
 
 import Wallet from "pages/Wallet";
 import History from "pages/History";
@@ -51,9 +49,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Experience} />
-        {/* <Route exact path="/rooms" component={Rooms} />
-        <Route exact path="/rooms/:slug" component={SingleRoom} />
-        <Route path="/experience/detail/:videoId" component={Detail} /> */}
+        {/* <Route path="/experience/detail/:videoId" component={Detail} /> */}
         <Route exact path="/user/wallet" component={Wallet}>
           {loggedIn ? "" : <Redirect to="/" />}
         </Route>
