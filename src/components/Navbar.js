@@ -167,6 +167,7 @@ const LoginButton = styled(Link)`
     color: white;
     font-size: 12px;
     font-weight: bold;
+    line-height: 12px;
   }
   &:hover {
     background-color: ${(props) => props.theme.mainPinkHover};
@@ -192,7 +193,8 @@ const LoggedInProfile = styled.div`
   & span {
     color: black;
     font-size: 12px;
-    font-weight: 800;
+    font-weight: bold;
+    line-height: 12px;
   }
   & svg {
     position: absolute;

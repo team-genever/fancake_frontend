@@ -50,6 +50,8 @@ const VideosPage = styled.div`
     background-color: transparent;
     border: none;
     font-size: 20px;
+    display: flex;
+    align-items: center;
     &:first-child {
       color: ${(props) =>
         props.currentPage > 1 ? "black" : props.theme.boxLightGray};
@@ -75,12 +77,9 @@ const VideosPage = styled.div`
     }
   }
   & span {
-    white-space: normal;
-    display: flex;
-    align-items: center;
     font-size: 14px;
     font-weight: 500;
-    text-align: center;
+    line-height: 14px;
   }
   @media screen and (max-width: 1007px) {
     border-radius: 25px;

@@ -72,19 +72,19 @@ const FindIDPW = styled.div`
   }
 `;
 const FindID = styled.span`
-  text-decoration: underline;
   cursor: pointer;
+  color: black;
 
   :hover {
-    color: black;
+    color: ${(props) => props.theme.boxGray};
   }
 `;
 const FindPW = styled.span`
-  text-decoration: underline;
   cursor: pointer;
+  color: black;
 
   :hover {
-    color: black;
+    color: ${(props) => props.theme.boxGray};
   }
 `;
 

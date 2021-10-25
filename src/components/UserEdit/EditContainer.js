@@ -93,6 +93,8 @@ const UserEdit = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 20px 0;
   & span {
+    display: block;
+    min-width: max-content;
     font-size: 18px;
     font-weight: 500;
   }
@@ -142,7 +144,7 @@ const UserEdit = styled.div`
   }
   & .changeBtn {
     min-width: max-content;
-    padding: 5px 10px;
+    padding: 7px 10px;
     border: none;
     background-color: ${(props) => props.theme.mainPink};
     border-radius: 5px;
@@ -150,8 +152,9 @@ const UserEdit = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 12px;
+    line-height: 12px;
     color: white;
-    font-weight: 500;
+    font-weight: bold;
     text-align: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     &:hover {
@@ -168,7 +171,8 @@ const UserEdit = styled.div`
     display: block;
     margin-left: 18px;
     font-size: 12px;
-    padding: 5px 10px;
+    line-height: 12px;
+    padding: 7px 10px;
     border-radius: 5px;
     font-weight: 500;
     color: black;
@@ -199,6 +203,7 @@ const UserEdit = styled.div`
     & .changeBtn {
       border-radius: 5px;
       font-size: 12px;
+      line-height: 12px;
     }
     & .changeLink {
       margin-left: 15px;
@@ -225,6 +230,7 @@ const UserEdit = styled.div`
       padding: 1.2vw 2vw;
       border-radius: 1vw;
       font-size: 2.5vw;
+      line-height: 2.5vw;
     }
     & .changeBtn:last-child {
       margin-left: 0.5vw;
