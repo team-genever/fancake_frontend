@@ -136,7 +136,7 @@ const Footer = () => {
         <Section>
           <h5>fanCake</h5>
           <a href="http://fancake.xyz/">서비스 소개</a>
-          <Link to="/experience" onClick={onClick}>
+          <Link to="/" onClick={onClick}>
             체험하기
           </Link>
         </Section>

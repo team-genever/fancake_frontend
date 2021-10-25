@@ -42,13 +42,20 @@ const NavFront = styled.div`
   }
 `;
 
+const NavBack = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+
 const HomeLink = styled.a`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  & object {
+  & img {
     height: 41px;
     margin-right: 10px;
     filter: drop-shadow(1px 1px 10px rgb(0 0 0 / 0.3));
@@ -59,13 +66,13 @@ const HomeLink = styled.a`
     font-size: 30px;
     font-weight: 700;
     opacity: ${(props) => 100 - props.scroll * 0.8}%;
-    display: ${(props) => props.scroll > 80 && "none"};
+    display: ${(props) => props.scroll > 150 && "none"};
     filter: drop-shadow(1px 1px 10px rgb(0 0 0 / 0.5));
   }
 
   @media only screen and (max-width: 640px) {
     // margin-right: 25px;
-    & object {
+    & img {
       height: 6.5vw;
       margin-right: 1.5vw;
     }
@@ -170,17 +177,16 @@ const LoginButton = styled(Link)`
   }
 `;
 
-const LoggedInProfile = styled(Link)`
+const LoggedInProfile = styled.div`
   background-color: ${(props) => props.theme.fontSmallGray};
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 120px;
   height: 32px;
   border-radius: 5px;
   padding: 10px;
-  margin-right: 10px;
   text-decoration: none;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
   & span {
@@ -192,9 +198,52 @@ const LoggedInProfile = styled(Link)`
     cursor: pointer;
     background-color: ${(props) => props.theme.boxVeryLightGray};
   }
+  &:hover #LoggedInList {
+    display: flex;
+  }
 
   @media only screen and (max-width: 640px) {
     display: none;
+  }
+`;
+
+const LoggedInList = styled.div`
+  display: none;
+  position: absolute;
+  top: 104%;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  gap: 2px;
+
+  background-color: ${(props) => props.theme.fontSmallGray};
+
+  @media only screen and (max-width: 1007px) {
+    padding: 15px 0;
+  }
+`;
+
+const LoggedInLink = styled(Link)`
+  display: block;
+  width: 100%;
+  padding: 5px 0;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  border-radius: inherit;
+  background-color: ${(props) => props.theme.fontSmallGray};
+  & strong {
+    color: ${(props) => props.theme.mainPink};
+    font-weight: 500;
+  }
+  &:hover {
+    background-color: ${(props) => props.theme.boxVeryLightGray};
+  }
+  @media only screen and (max-width: 1007px) {
+    font-size: 14px;
   }
 `;
 
@@ -224,10 +273,6 @@ const LoggedInButton = styled.div`
     cursor: pointer;
   }
 
-  &:hover #LoggedInList {
-    display: block;
-  }
-
   @media only screen and (max-width: 1007px) {
     width: 140px;
     height: 35px;
@@ -243,39 +288,6 @@ const LoggedInButton = styled.div`
 
   @media only screen and (max-width: 640px) {
     display: none;
-  }
-`;
-
-const LoggedInList = styled.div`
-  display: none;
-  position: absolute;
-  top: 103%;
-  width: 100%;
-  padding: 20px 0;
-
-  border: 1px solid black;
-  background-color: white;
-  @media only screen and (max-width: 1007px) {
-    padding: 15px 0;
-  }
-`;
-
-const LoggedInLink = styled(Link)`
-  display: block;
-  width: 100%;
-  padding: 5px 0;
-  font-size: 17px;
-  font-weight: normal;
-  text-decoration: none;
-  color: black;
-  text-align: center;
-  background-color: white;
-  &:hover {
-    color: white;
-    background-color: black;
-  }
-  @media only screen and (max-width: 1007px) {
-    font-size: 14px;
   }
 `;
 
@@ -512,7 +524,8 @@ const Navbar = ({ location: { pathname } }) => {
     <Container>
       <NavFront>
         <HomeLink href="http://fancake.xyz/" scroll={scroll}>
-          <object data={logo} type="image/svg+xml" aria-label="logo" />
+          {/* <object data={logo} type="image/svg+xml" aria-label="logo" /> */}
+          <img src={logo} alt="logo" />
           <h1>fanCake</h1>
         </HomeLink>
         {/* <Navigator>
@@ -533,15 +546,16 @@ const Navbar = ({ location: { pathname } }) => {
         </Navigator> */}
       </NavFront>
       {loggedIn ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <LoggedInProfile to="/user/wallet">
+        <NavBack>
+          <LoggedInProfile>
             <span>{userInfo.name} 님</span>
+            <LoggedInList id="LoggedInList">
+              <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>
+              <LoggedInLink to="/user/edit">회원정보수정</LoggedInLink>
+              <LoggedInLink to="/" onClick={onLogout}>
+                <strong>로그아웃</strong>
+              </LoggedInLink>
+            </LoggedInList>
           </LoggedInProfile>
           <LoginButton to="/" onClick={onClick}>
             <span>지금 체험하기</span>
@@ -557,11 +571,16 @@ const Navbar = ({ location: { pathname } }) => {
               </LoggedInLink>
             </LoggedInList>
           </LoggedInButton> */}
-        </div>
+        </NavBack>
       ) : (
-        <LoginButton to="/auth/main" onClick={onClick}>
-          <span>로그인</span>
-        </LoginButton>
+        <NavBack>
+          <LoginButton to="/auth/main" onClick={onClick}>
+            <span>로그인</span>
+          </LoginButton>
+          <LoginButton to="/" onClick={onClick}>
+            <span>지금 체험하기</span>
+          </LoginButton>
+        </NavBack>
       )}
       <Background checked={checked} onClick={onLinkClick} />
       <SidebarContainer checked={checked}>
@@ -607,10 +626,10 @@ const Navbar = ({ location: { pathname } }) => {
                 </SidebarButton>
               </>
             )}
-            <SidebarLink to="/" onClick={onLinkClick}>
+            <SidebarLinkA href="http://fancake.xyz/" onClick={onLinkClick}>
               서비스 소개
-            </SidebarLink>
-            <SidebarLink to="/experience" onClick={onLinkClick}>
+            </SidebarLinkA>
+            <SidebarLink to="/" onClick={onLinkClick}>
               체험하기
             </SidebarLink>
             <SidebarLinkA

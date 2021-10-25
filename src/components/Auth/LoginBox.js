@@ -85,7 +85,7 @@ const ErrorMessage = styled.p`
 `;
 
 const LoginBox = () => {
-  let checkEmail = false;
+  const [checkEmail, setCheckEmail] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -117,9 +117,9 @@ const LoginBox = () => {
         //valid email address
         loginInfo.email = e.target.value;
         console.log("email is ", e.target.value);
-        checkEmail = true;
+        setCheckEmail(true);
       } else {
-        checkEmail = false;
+        setCheckEmail(false);
       }
     } else if (e.target.type === "password") {
       loginInfo.password = e.target.value;
@@ -149,11 +149,11 @@ const LoginBox = () => {
         expires: new Date(response.data.accessTokenExpiresIn),
         path: "/",
       });
-      history.push('../');
+      history.push("../");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       console.error(error);
     } finally {
-      
     }
   }
 
