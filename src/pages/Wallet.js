@@ -7,6 +7,7 @@ import UserWallet from "components/Wallet/UserWallet";
 import { api } from "settings";
 import { withCookies } from "react-cookie";
 import Loading from "components/Loading";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   width: 100%;
@@ -96,6 +97,9 @@ class Wallet extends React.Component {
     const { userInfo, userStocks, userConfirmStocks, loading } = this.state;
     return (
       <Container>
+        <Helmet>
+          <title>fanCake | 나의 지갑</title>
+        </Helmet>
         {loading ? (
           <LoadingContainer>
             <Loading />

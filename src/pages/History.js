@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import Transaction from "components/History/Transaction";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   width: 100%;
@@ -19,6 +20,9 @@ const Container = styled.div`
 
 const History = () => (
   <Container>
+    <Helmet>
+      <title>fanCake | 거래내역</title>
+    </Helmet>
     <Transaction />
   </Container>
 );

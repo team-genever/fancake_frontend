@@ -4,18 +4,18 @@ import React, { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { SignInButtons, LoginBox } from "components/Auth";
-
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   width: 100%;
   height: max-content;
   padding: 200px 300px 200px 300px;
-  
-  @media only screen and (max-width:1007px) {
+
+  @media only screen and (max-width: 1007px) {
     padding: 200px 100px 200px 100px;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     padding: 200px 30px 200px 30px;
   }
 `;
@@ -27,7 +27,7 @@ const LoginDiv = styled.div`
   text-align: center;
   margin: 0 auto;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     width: 300px;
   }
 `;
@@ -39,7 +39,7 @@ const TextDiv = styled.div`
   font-weight: bold;
   text-align: left;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 25px;
   }
 `;
@@ -52,7 +52,7 @@ const Or = styled.p`
   text-align: center;
   color: #767676;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 20px;
     margin: 7px 0 14px 0;
   }
@@ -67,7 +67,7 @@ const FindIDPW = styled.div`
   color: #6e6e6e;
   font-style: bold;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 12px;
   }
 `;
@@ -99,6 +99,9 @@ export default function LoginMain() {
 
   return (
     <Container>
+      <Helmet>
+        <title>fanCake | 로그인</title>
+      </Helmet>
       <LoginDiv>
         <TextDiv>
           SNS계정으로

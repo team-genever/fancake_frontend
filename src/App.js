@@ -51,9 +51,9 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Experience} />
-        <Route exact path="/rooms" component={Rooms} />
+        {/* <Route exact path="/rooms" component={Rooms} />
         <Route exact path="/rooms/:slug" component={SingleRoom} />
-        <Route path="/experience/detail/:videoId" component={Detail} />
+        <Route path="/experience/detail/:videoId" component={Detail} /> */}
         <Route exact path="/user/wallet" component={Wallet}>
           {loggedIn ? "" : <Redirect to="/" />}
         </Route>

@@ -102,7 +102,7 @@ const HistoryButton = styled.button`
     text-align: center;
   }
   &:hover {
-    background-color: ${(props) => props.theme.boxGray};
+    background-color: rgba(118, 118, 118, 0.8);
     cursor: pointer;
   }
   @media only screen and (max-width: 1007px) {

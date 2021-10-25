@@ -7,21 +7,21 @@ import { LoginBox } from "components/Auth";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMediaQuery } from "react-responsive";
+import { Helmet } from "react-helmet";
 
-import { GetBackendIP } from "../../settings"
+import { GetBackendIP } from "../../settings";
 import axios from "axios";
-
 
 const Container = styled.div`
   width: 100%;
   height: max-content;
   padding: 200px 300px 200px 300px;
-  
-  @media only screen and (max-width:1007px) {
+
+  @media only screen and (max-width: 1007px) {
     padding: 200px 100px 200px 100px;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     padding: 200px 30px 200px 30px;
   }
 `;
@@ -34,7 +34,7 @@ const LoginDiv = styled.div`
   font-weight: 600;
   color: #767676;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     width: 300px;
   }
 `;
@@ -48,7 +48,7 @@ const TextDiv = styled.div`
   margin: 0 0 5px 0;
   color: black;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 25px;
     margin: 0 0 15px 0;
   }
@@ -65,9 +65,8 @@ const NameInput = styled.input`
   ::-webkit-input-placeholder {
     color: #d8d8d8;
   }
-  
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
     margin: 5px 0 0 0;
@@ -86,7 +85,7 @@ const EmailInput = styled.input`
     color: #d8d8d8;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
     margin: 5px 0 10px 0;
@@ -105,7 +104,7 @@ const PasswordInput = styled.input`
     color: #d8d8d8;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
     margin: 5px 0 5px 0;
@@ -124,7 +123,7 @@ const PasswordCheckInput = styled.input`
     color: #d8d8d8;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
     margin: 0 0 20px 0;
@@ -138,7 +137,7 @@ const ErrorMessage = styled.p`
   font-size: 18px;
   text-align: center;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 13px;
   }
 `;
@@ -152,14 +151,14 @@ const LoginButton = styled.button`
   background-color: #da225f;
   font-size: 24px;
   color: #fff;
-  border : none;
-  cursor: pointer;  
+  border: none;
+  cursor: pointer;
 
-  :hover{
-      background-color: #e34076;
+  :hover {
+    background-color: #e34076;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 20px;
     height: 55px;
   }
@@ -207,10 +206,10 @@ export default function SigninEmail() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const isTabletPC = useMediaQuery({
-    query: "(min-width: 641px)"
+    query: "(min-width: 641px)",
   });
   const isMobile = useMediaQuery({
-    query: "(max-width: 640px)"
+    query: "(max-width: 640px)",
   });
 
   const loginClicked = (e) => {
@@ -230,14 +229,14 @@ export default function SigninEmail() {
   async function signin() {
     let tempData;
     let backendip = GetBackendIP();
-    console.log(backendip+"user");
+    console.log(backendip + "user");
     try {
-      const response = await axios.post(backendip+"user", null, {
+      const response = await axios.post(backendip + "user", null, {
         params: {
           id: loginInfo.email,
           password: loginInfo.password,
           name: loginInfo.name,
-        }
+        },
       });
       console.log(response);
       tempData = response.data;
@@ -246,7 +245,6 @@ export default function SigninEmail() {
     } catch (error) {
       console.error(error);
     } finally {
-
     }
   }
 
@@ -322,6 +320,9 @@ export default function SigninEmail() {
 
   return (
     <Container>
+      <Helmet>
+        <title>fanCake | 이메일로 가입하기</title>
+      </Helmet>
       <LoginDiv>
         <TextDiv>이메일로 가입하기</TextDiv>
         <br />
@@ -332,7 +333,7 @@ export default function SigninEmail() {
           placeholder="이름을 입력해주세요."
           onBlur={inputChange}
         />
-        {isTabletPC &&
+        {isTabletPC && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -342,8 +343,9 @@ export default function SigninEmail() {
               visibility: nameVisible,
             }}
             icon={faCheck}
-        />}
-        {isMobile &&
+          />
+        )}
+        {isMobile && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -353,7 +355,8 @@ export default function SigninEmail() {
               visibility: nameVisible,
             }}
             icon={faCheck}
-        />}
+          />
+        )}
         <br />
         이메일(아이디)
         <EmailInput
@@ -362,7 +365,7 @@ export default function SigninEmail() {
           placeholder="이메일을 입력해주세요."
           onBlur={inputChange}
         />
-        {isTabletPC && 
+        {isTabletPC && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -372,8 +375,9 @@ export default function SigninEmail() {
               visibility: emailVisible,
             }}
             icon={faCheck}
-        />}
-        {isMobile && 
+          />
+        )}
+        {isMobile && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -383,8 +387,8 @@ export default function SigninEmail() {
               visibility: emailVisible,
             }}
             icon={faCheck}
-        />}
-        
+          />
+        )}
         <br />
         비밀번호
         <PasswordInput
@@ -399,7 +403,7 @@ export default function SigninEmail() {
           placeholder="비밀번호를 다시 입력해주세요."
           onChange={inputChange}
         />
-        {isTabletPC && 
+        {isTabletPC && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -409,8 +413,9 @@ export default function SigninEmail() {
               visibility: passwordVisible,
             }}
             icon={faCheck}
-        />}
-        {isMobile && 
+          />
+        )}
+        {isMobile && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -420,9 +425,9 @@ export default function SigninEmail() {
               visibility: passwordVisible,
             }}
             icon={faCheck}
-        />}
-        
-        {isTabletPC && 
+          />
+        )}
+        {isTabletPC && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -432,8 +437,9 @@ export default function SigninEmail() {
               visibility: confirmVisible,
             }}
             icon={faCheck}
-          />}
-        {isMobile && 
+          />
+        )}
+        {isMobile && (
           <FontAwesomeIcon
             style={{
               color: "#E31019",
@@ -443,8 +449,8 @@ export default function SigninEmail() {
               visibility: confirmVisible,
             }}
             icon={faCheck}
-        />}
-        
+          />
+        )}
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <LoginButton
           name="login"

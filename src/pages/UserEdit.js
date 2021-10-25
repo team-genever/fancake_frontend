@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { api } from "settings";
 import Loading from "components/Loading";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   width: 100%;
@@ -162,6 +163,9 @@ const UserEdit = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>fanCake | 회원정보수정</title>
+      </Helmet>
       {loading ? (
         <LoadingContainer>
           <Loading />

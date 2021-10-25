@@ -64,7 +64,7 @@ const Title = styled.h2`
 
 const DarkLine = styled.div`
   width: 100%;
-  height: 2px;
+  height: 1px;
   background-color: black;
   @media only screen and (max-width: 640px) {
     height: 1px;
@@ -74,7 +74,7 @@ const DarkLine = styled.div`
 const UserEditContainer = styled.div`
   display: grid;
   grid-auto-rows: minmax(72px, max-content);
-  grid-template-columns: 80%;
+  grid-template-columns: 70%;
   justify-content: center;
   @media only screen and (max-width: 1007px) {
     grid-auto-rows: minmax(64px, max-content);
@@ -93,8 +93,11 @@ const UserEdit = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 20px 0;
   & span {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
+  }
+  & .type {
+    color: ${(props) => props.theme.borderGray};
   }
   & div {
     display: flex;
@@ -108,7 +111,7 @@ const UserEdit = styled.div`
   }
   & input {
     font-family: "Noto Sans KR", sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     text-align: center;
     border: none;
@@ -138,21 +141,19 @@ const UserEdit = styled.div`
     transition: all 0.2s ease-in-out;
   }
   & .changeBtn {
-    width: 40px;
-    height: 25px;
+    min-width: max-content;
+    padding: 5px 10px;
     border: none;
     background-color: ${(props) => props.theme.mainPink};
     border-radius: 5px;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
-    padding: 0;
-    & span {
-      font-size: 14px;
-      color: white;
-      font-weight: 500;
-      text-align: center;
-    }
+    font-size: 12px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     &:hover {
       cursor: pointer;
       background-color: ${(props) => props.theme.mainPinkHover};
@@ -162,14 +163,21 @@ const UserEdit = styled.div`
     margin-left: 3px;
   }
   & .changeLink {
+    min-width: max-content;
     all: unset;
+    display: block;
     margin-left: 18px;
-    font-size: 20px;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
     font-weight: 500;
-    color: ${(props) => props.theme.linkBlue};
-    text-decoration: underline;
+    color: black;
+    background-color: ${(props) => props.theme.fontSmallGray};
+    text-decoration: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     &:hover {
       cursor: pointer;
+      background-color: ${(props) => props.theme.boxVeryLightGray};
     }
   }
   @media only screen and (max-width: 1007px) {
@@ -189,16 +197,12 @@ const UserEdit = styled.div`
       bottom: 19px;
     }
     & .changeBtn {
-      width: 40px;
-      height: 25px;
       border-radius: 5px;
-      & span {
-        font-size: 14px;
-      }
+      font-size: 12px;
     }
     & .changeLink {
       margin-left: 15px;
-      font-size: 17px;
+      font-size: 12px;
     }
   }
   @media only screen and (max-width: 640px) {
@@ -218,19 +222,17 @@ const UserEdit = styled.div`
       bottom: 19px;
     }
     & .changeBtn {
-      width: 7vw;
-      height: 4.5vw;
+      padding: 1.2vw 2vw;
       border-radius: 1vw;
-      & span {
-        font-size: 2.5vw;
-      }
+      font-size: 2.5vw;
     }
     & .changeBtn:last-child {
       margin-left: 0.5vw;
     }
     & .changeLink {
+      padding: 1.2vw 2vw;
       margin-left: 1vw;
-      font-size: 3vw;
+      font-size: 2.5vw;
     }
   }
 `;
@@ -240,6 +242,23 @@ const DataContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 3px;
+`;
+
+const DeleteAccount = styled.div`
+  padding-top: 15px;
+  width: 80%;
+  font-size: 14px;
+  font-weight: 500;
+  color: ${(props) => props.theme.boxGray};
+`;
+
+const DeleteButton = styled.span`
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ErrorMessage = styled.div`
@@ -260,7 +279,7 @@ const EditContainer = ({ title, infos, isDelivery }) => {
   const [inputTemp, setInputTemp] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [cookies] = useCookies(["Authorization"]);
+  const [cookies, _, removeCookie] = useCookies(["Authorization"]);
 
   const noText = "추가해주세요";
 
@@ -403,7 +422,7 @@ const EditContainer = ({ title, infos, isDelivery }) => {
                         }
                       }}
                     >
-                      <span>수정</span>
+                      수정
                     </button>
                     <button
                       className="changeBtn"
@@ -412,7 +431,7 @@ const EditContainer = ({ title, infos, isDelivery }) => {
                         setEditMode(null);
                       }}
                     >
-                      <span>취소</span>
+                      취소
                     </button>
                   </div>
                   {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -449,6 +468,39 @@ const EditContainer = ({ title, infos, isDelivery }) => {
             )}
           </UserEdit>
         ))}
+        {!isDelivery && (
+          <DeleteAccount>
+            더 이상 서비스 이용을 원하시지 않나요?{" "}
+            <DeleteButton
+              onClick={async () => {
+                const reallyDelete = window.confirm(
+                  "정말 탈퇴하시겠습니까?\n개인정보 및 영상 구매 내역은 전부 폐기처리 됩니다."
+                );
+                if (reallyDelete) {
+                  try {
+                    const response = await api.delete("user", {
+                      headers: {
+                        Authorization: cookies.Authorization,
+                      },
+                    });
+                    console.log(response);
+                    window.alert("탈퇴 처리가 정상적으로 완료되었습니다.");
+                    removeCookie("Authorization", {
+                      expires: "Thu, 01 Jan 1970 00:00:00 UTC",
+                      path: "/",
+                    });
+                  } catch {
+                    window.alert(
+                      "탈퇴 처리 과정 중 오류가 발생했습니다.\n다시 시도해 주세요."
+                    );
+                  }
+                }
+              }}
+            >
+              탈퇴하기
+            </DeleteButton>
+          </DeleteAccount>
+        )}
       </UserEditContainer>
     </Container>
   );

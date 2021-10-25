@@ -5,17 +5,18 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import { api } from "settings";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   width: 100%;
   height: max-content;
   padding: 200px 300px 200px 300px;
-  
-  @media only screen and (max-width:1007px) {
+
+  @media only screen and (max-width: 1007px) {
     padding: 200px 100px 200px 100px;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     padding: 200px 30px 200px 30px;
   }
 `;
@@ -28,7 +29,7 @@ const LoginDiv = styled.div`
   font-weight: 600;
   color: #767676;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     width: 300px;
   }
 `;
@@ -42,7 +43,7 @@ const TextDiv = styled.div`
   margin: 0 0 5px 0;
   color: black;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 25px;
     margin: 0 0 15px 0;
   }
@@ -60,7 +61,7 @@ const PasswordInput = styled.input`
     color: #d8d8d8;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
     margin: 5px 0 5px 0;
@@ -79,7 +80,7 @@ const PasswordCheckInput = styled.input`
     color: #d8d8d8;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
     margin: 0 0 20px 0;
@@ -93,7 +94,7 @@ const ErrorMessage = styled.p`
   font-size: 18px;
   text-align: center;
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 13px;
   }
 `;
@@ -107,14 +108,14 @@ const LoginButton = styled.button`
   background-color: #da225f;
   font-size: 24px;
   color: #fff;
-  border : none;
-  cursor: pointer;  
+  border: none;
+  cursor: pointer;
 
-  :hover{
-      background-color: #e34076;
+  :hover {
+    background-color: #e34076;
   }
 
-  @media only screen and (max-width:640px) {
+  @media only screen and (max-width: 640px) {
     font-size: 20px;
     height: 55px;
   }
@@ -158,7 +159,8 @@ export default function ChangePW() {
       console.log("response from back is ", response.data);
     } catch (e) {
       console.error(e);
-    } finally { }
+    } finally {
+    }
   };
 
   const ButtonClicked = (e) => {
@@ -176,7 +178,7 @@ export default function ChangePW() {
         setErrorMessage("");
         console.log("sign in success");
         console.log("hihi");
-        history.push('../');
+        history.push("../");
       }
     } else {
       console.log("5");
@@ -228,6 +230,9 @@ export default function ChangePW() {
 
   return (
     <Container>
+      <Helmet>
+        <title>fanCake | 비밀번호 변경</title>
+      </Helmet>
       <LoginDiv>
         <TextDiv>비밀번호 변경</TextDiv>
         <br />
@@ -255,8 +260,11 @@ export default function ChangePW() {
           onBlur={inputChange}
         />
         <ErrorMessage>{errorMessage}</ErrorMessage>
-        <LoginButton onClick={ButtonClicked} style={{backgroundColor:loginColor}}>
-            비밀번호 변경하기
+        <LoginButton
+          onClick={ButtonClicked}
+          style={{ backgroundColor: loginColor }}
+        >
+          비밀번호 변경하기
         </LoginButton>
       </LoginDiv>
     </Container>

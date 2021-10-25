@@ -58,7 +58,7 @@ const HomeLink = styled.a`
   & img {
     height: 41px;
     margin-right: 10px;
-    filter: drop-shadow(1px 1px 10px rgb(0 0 0 / 0.3));
+    filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.3));
   }
   & h1 {
     color: white;
@@ -67,7 +67,7 @@ const HomeLink = styled.a`
     font-weight: 700;
     opacity: ${(props) => 100 - props.scroll * 0.8}%;
     display: ${(props) => props.scroll > 150 && "none"};
-    filter: drop-shadow(1px 1px 10px rgb(0 0 0 / 0.5));
+    filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.5));
   }
 
   @media only screen and (max-width: 640px) {
@@ -162,10 +162,10 @@ const LoginButton = styled(Link)`
   height: 32px;
   border-radius: 5px;
   text-decoration: none;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   & span {
     color: white;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
   }
   &:hover {
@@ -183,20 +183,30 @@ const LoggedInProfile = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
+  width: 110px;
   height: 32px;
   border-radius: 5px;
   padding: 10px;
   text-decoration: none;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   & span {
     color: black;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
+  }
+  & svg {
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+    transition: all 0.2s ease-in-out;
   }
   &:hover {
     cursor: pointer;
     background-color: ${(props) => props.theme.boxVeryLightGray};
+  }
+  &:hover svg {
+    transform: rotateZ(180deg);
+    transition: all 0.2s ease-in-out;
   }
   &:hover #LoggedInList {
     display: flex;
@@ -213,7 +223,7 @@ const LoggedInList = styled.div`
   top: 104%;
   width: 100%;
   border-radius: 5px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   gap: 2px;
 
@@ -228,7 +238,7 @@ const LoggedInLink = styled(Link)`
   display: block;
   width: 100%;
   padding: 5px 0;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   text-decoration: none;
   color: black;
@@ -549,6 +559,7 @@ const Navbar = ({ location: { pathname } }) => {
         <NavBack>
           <LoggedInProfile>
             <span>{userInfo.name} 님</span>
+            <FontAwesomeIcon icon={faCaretDown} />
             <LoggedInList id="LoggedInList">
               <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>
               <LoggedInLink to="/user/edit">회원정보수정</LoggedInLink>

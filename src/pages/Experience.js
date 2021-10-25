@@ -11,6 +11,7 @@ import axios from "axios";
 import { api } from "settings";
 import Loading from "components/Loading";
 import { withCookies } from "react-cookie";
+import { Helmet } from "react-helmet";
 
 const Experience = () => {
   const myRef = useRef(null);
@@ -216,6 +217,9 @@ const Experience = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>fanCake | 체험하기</title>
+      </Helmet>
       <Banner />
       <VideoSection
         creater={creater}
