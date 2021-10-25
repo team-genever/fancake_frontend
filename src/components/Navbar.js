@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import logo from "images/logo.svg";
+import cake from "images/cake.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
@@ -64,6 +65,7 @@ const HomeLink = styled.a`
     color: white;
     font-family: "Poppins", sans-serif;
     font-size: 30px;
+    line-height: 30px;
     font-weight: 700;
     opacity: ${(props) => 100 - props.scroll * 0.8}%;
     display: ${(props) => props.scroll > 150 && "none"};
@@ -149,6 +151,34 @@ const Navigator = styled.div`
 
   @media only screen and (max-width: 640px) {
     // gap: 15px;
+    display: none;
+  }
+`;
+
+const Balance = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 10px;
+  & img {
+    width: 23px;
+    filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.4));
+  }
+  & span {
+    font-size: 14px;
+    font-weight: bold;
+    filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.4));
+  }
+  & strong {
+    font-size: 18px;
+    color: ${(props) => (props.scroll > 80 ? props.theme.mainPink : "white")};
+    transition: color 0.2s ease-in-out;
+    font-weight: bold;
+    line-height: 20px;
+    filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.4));
+  }
+  @media only screen and (max-width: 640px) {
     display: none;
   }
 `;
@@ -247,12 +277,15 @@ const LoggedInLink = styled(Link)`
   text-align: center;
   border-radius: inherit;
   background-color: ${(props) => props.theme.fontSmallGray};
+  transition: all 0.1s ease-in-out;
   & strong {
     color: ${(props) => props.theme.mainPink};
     font-weight: 500;
   }
   &:hover {
     background-color: ${(props) => props.theme.boxVeryLightGray};
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s ease-in-out;
   }
   @media only screen and (max-width: 1007px) {
     font-size: 14px;
@@ -397,9 +430,30 @@ const SidebarContent = styled.div`
 `;
 
 const SidebarTitle = styled.h4`
-  font-size: 4.3vw;
+  font-size: 5vw;
   font-weight: bold;
-  margin-bottom: ${(props) => (props.loggedIn ? "9vw" : "2.7vw")};
+  margin-bottom: ${(props) => (props.loggedIn ? "4vw" : "2.7vw")};
+`;
+
+const SidebarBalance = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.8vw;
+  margin-bottom: 4vw;
+  & img {
+    width: 5vw;
+  }
+  & span {
+    font-size: 4vw;
+    font-weight: bold;
+    color: black;
+  }
+  & strong {
+    font-size: 4vw;
+    color: ${(props) => props.theme.mainPink};
+    font-weight: bold;
+    line-height: 4vw;
+  }
 `;
 
 const SidebarBr = styled.div`
@@ -411,7 +465,7 @@ const SidebarBr = styled.div`
 
 const SidebarSmall = styled.small`
   display: block;
-  font-size: 2.7vw;
+  font-size: 3vw;
   color: ${(props) => props.theme.boxGray};
   font-weight: normal;
   margin-bottom: 1.5vw;
@@ -426,10 +480,11 @@ const SidebarButton = styled(Link)`
   height: 9.5vw;
   border-radius: 2vw;
   text-decoration: none;
-  margin-bottom: 9vw;
+  margin-bottom: 8vw;
   & span {
     color: white;
-    font-size: 3vw;
+    font-size: 3.3vw;
+    line-height: 3.3vw;
     font-weight: bold;
   }
   &:hover {
@@ -439,24 +494,25 @@ const SidebarButton = styled(Link)`
 
 const SidebarLink = styled(Link)`
   display: block;
-  font-size: 3vw;
+  font-size: 3.5vw;
   font-weight: normal;
-  color: black;
+  color: ${(props) => (props.isLogout ? props.theme.mainPink : "black")};
   text-decoration: none;
-  margin-bottom: 2vw;
+  margin-bottom: 1.5vw;
   &:hover {
-    color: ${(props) => props.theme.boxGray};
+    color: ${(props) =>
+      props.isLogout ? props.theme.mainPinkHover : props.theme.boxGray};
     cursor: pointer;
   }
 `;
 
 const SidebarLinkA = styled.a`
   display: block;
-  font-size: 3vw;
+  font-size: 3.5vw;
   font-weight: normal;
   color: black;
   text-decoration: none;
-  margin-bottom: 2vw;
+  margin-bottom: 1.5vw;
   &:hover {
     color: ${(props) => props.theme.boxGray};
     cursor: pointer;
@@ -482,6 +538,9 @@ const Navbar = ({ location: { pathname } }) => {
       const response = await api.get("user", {
         headers: {
           Authorization: cookies.Authorization,
+        },
+        params: {
+          detail: true,
         },
       });
       setUserInfo(response.data);
@@ -559,6 +618,10 @@ const Navbar = ({ location: { pathname } }) => {
       </NavFront>
       {loggedIn ? (
         <NavBack>
+          <Balance scroll={scroll}>
+            <img src={cake} alt="cake" />
+            <strong>{userInfo.balance}</strong>
+          </Balance>
           <LoggedInProfile>
             <span>{userInfo.name} 님</span>
             <FontAwesomeIcon icon={faCaretDown} />
@@ -612,6 +675,10 @@ const Navbar = ({ location: { pathname } }) => {
                 <SidebarTitle loggedIn={loggedIn}>
                   반가워요, {userInfo.name}님!
                 </SidebarTitle>
+                <SidebarBalance>
+                  <img src={cake} alt="cake" />
+                  <strong>{userInfo.balance}</strong>
+                </SidebarBalance>
 
                 <SidebarLink to="/user/wallet" onClick={onLinkClick}>
                   나의 지갑
@@ -625,6 +692,7 @@ const Navbar = ({ location: { pathname } }) => {
                     onLinkClick();
                     onLogout();
                   }}
+                  isLogout={true}
                 >
                   로그아웃
                 </SidebarLink>

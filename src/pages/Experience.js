@@ -10,7 +10,7 @@ import { GetBackendIP } from "../settings";
 import axios from "axios";
 import { api } from "settings";
 import Loading from "components/Loading";
-import { withCookies } from "react-cookie";
+import { useCookies, withCookies } from "react-cookie";
 import { Helmet } from "react-helmet";
 
 const Experience = () => {

@@ -115,15 +115,30 @@ const NotFound = styled.span`
 `;
 
 const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
+  const getMaxPage = (width) => {
+    if (width > 1693) {
+      return 10;
+    } else if (width > 1374) {
+      return 8;
+    } else if (width > 1056) {
+      return 6;
+    } else if (width > 737) {
+      return 4;
+    } else {
+      return 4;
+    }
+  };
+
   const [filteredStocks, setStocks] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [totalVideos, setTotalVideos] = useState(userStocks.length);
   const [currentPage, setCurrentPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(window.innerWidth > 640 ? 8 : 4);
+  const [maxPage, setMaxPage] = useState(getMaxPage(window.innerWidth));
   useEffect(() => setCurrentPage(1), [creater]);
   useEffect(() => {
     window.addEventListener("resize", () => {
-      setMaxPage(window.innerWidth > 640 ? 8 : 4);
+      setMaxPage(getMaxPage(window.innerWidth));
+      console.log(window.innerWidth);
     });
     let stocks = userStocks;
     if (videosType !== "own") {

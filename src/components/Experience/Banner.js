@@ -5,13 +5,57 @@ import banner from "images/banner.jpg";
 const Positioner = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.boxLightGray};
-  padding: 20vh 10vw;
+  //padding: 20vh 10vw;
   height: 50vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33)),
-    url(${banner});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  position: relative;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  display: absolute;
+  width: 100%;
+  height: 100%;
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: -moz-linear-gradient(
+      rgba(0, 0, 0, 0.33),
+      rgba(0, 0, 0, 0.33)
+    ); /* FF3.6+ */
+    background: -webkit-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33)),
+      color-stop(100%, rgba(0, 47, 75, 0.5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+      rgba(0, 0, 0, 0.33),
+      rgba(0, 0, 0, 0.33)
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(
+      rgba(0, 0, 0, 0.33),
+      rgba(0, 0, 0, 0.33)
+    ); /* Opera 11.10+ */
+    background: -ms-linear-gradient(
+      rgba(0, 0, 0, 0.33),
+      rgba(0, 0, 0, 0.33)
+    ); /* IE10+ */
+    background: linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33));
+  }
+  & img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const Headings = styled.div`
+  position: absolute;
+  top: 20vh;
+  left: 10vw;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Heading = styled.div`
@@ -39,8 +83,13 @@ export default class Banner extends Component {
   render() {
     return (
       <Positioner>
-        <Heading>사전 예약을 이미 하셨나요?</Heading>
-        <Heading2>지금 회원가입하여 혜택을 받으세요.</Heading2>
+        <ImageContainer>
+          <img src={banner} alt="banner" />
+        </ImageContainer>
+        <Headings>
+          <Heading>사전 예약을 이미 하셨나요?</Heading>
+          <Heading2>지금 회원가입하여 혜택을 받으세요.</Heading2>
+        </Headings>
       </Positioner>
     );
   }
