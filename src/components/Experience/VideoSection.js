@@ -11,7 +11,6 @@ import { Widget } from "@typeform/embed-react";
 const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
   padding: 80px 10vw;
-  overflow: hidden;
   width: 100%;
   height: max-content;
 
@@ -425,7 +424,7 @@ export default function VideoSection({
       {currentVideo && (
         <StepContainer id="step_three">
           <Step>
-            <strong>STEP 3.</strong> 영상 조각을 원하는 갯수만큼 구매하세요.
+            <strong>STEP 3.</strong> 영상 조각을 원하는 개수만큼 구매하세요.
           </Step>
           <Detail currentVideoId={currentVideo} setHasBought={setHasBought} />
         </StepContainer>

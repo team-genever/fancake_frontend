@@ -1,35 +1,44 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 // import { GetBackendIP } from "../../settings"
 
 // import axios from "axios";
 
 const Positioner = styled.div`
-  text-align: center;
-  padding: 10vw 0vw 5vw 0vw;
+  text-align: left;
+  //padding: 1vw 0vw 5vw 0vw;
 
   @media only screen and (max-width: 640px) {
-    padding: 10vw 7vw 5vw 7vw;
+    //padding: 10vw 7vw 5vw 7vw;s
   }
 `;
 
 const Heading = styled.div`
   color: black;
   font-weight: bold;
-  font-size: 35px;
-  margin-bottom: 1%;
-  margin-top: 20px;
+  font-size: 30px;
+  margin-bottom: 2px;
+  margin-top: 10px;
 
+  @media only screen and (max-width: 1007px) {
+    //padding: 0vw 7vw;
+    text-align: center;
+  }
   @media only screen and (max-width: 640px) {
     font-size: 5vw;
   }
 `;
 
 const ChannelName = styled.div`
-  color: ${(props) => props.theme.fontSmallGray};
+  color: ${(props) => props.theme.fontGray};
   font-weight: bold;
   font-size: large;
+
+  @media only screen and (max-width: 1007px) {
+    //padding: 0vw 7vw;
+    text-align: center;
+  }
 
   @media only screen and (max-width: 640px) {
     font-size: 3vw;
@@ -43,12 +52,12 @@ const VideoContainer = styled.div`
 
 const YoutubeEmbed = styled.iframe`
   aspect-ratio: 16 / 9;
-  width: 60%;
-  min-width: 500px;
+  width: 32vw;
+  //min-width: 500px;
   height: max-content;
   border: 1px solid black;
 
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 1007px) {
     width: 100%;
     min-width: 0px;
   }
@@ -78,7 +87,7 @@ const Video = ({ data, testdata }) => {
 
   //   } catch (error) {
   //     console.error(error);
-      
+
   //   }
   // }
 

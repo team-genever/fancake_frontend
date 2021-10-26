@@ -14,6 +14,16 @@ const Container = styled.div`
   height: max-content;
 `;
 
+const Container2 = styled.div`
+  display: flex;
+  background-color: ${(props) => props.theme.fontSmallGray};
+  padding: 2vw;
+
+  @media only screen and (max-width: 1007px) {
+    display: block;
+  }
+`;
+
 const Property = styled.div`
   background-color: ${(props) => {
     switch (props.type) {
@@ -152,11 +162,13 @@ function Detail({ match, login_info, currentVideoId }) {
   ) : (
     <Container>
       {console.log("tesvideos is", testVideos)}
-      <Video
-        data={videos.find((data) => data.video_id === videoId)}
-        testdata={testVideos[videoId ? videoId : 0]}
-      />
-      <VideoInfo testdata={testVideos[videoId ? videoId : 0]} />
+      <Container2>
+        <Video
+          data={videos.find((data) => data.video_id === videoId)}
+          testdata={testVideos[videoId ? videoId : 0]}
+        />
+        <VideoInfo testdata={testVideos[videoId ? videoId : 0]} />
+      </Container2>
     </Container>
   );
 }

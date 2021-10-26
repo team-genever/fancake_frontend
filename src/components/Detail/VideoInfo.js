@@ -4,28 +4,33 @@ import ConfirmModal from "./ConfirmModal";
 import RejectModal from "./RejectModal";
 
 const Positioner = styled.div`
-  background-color: ${(props) => props.theme.boxLightGray};
   display: flex;
   justify-content: center;
-  padding: 50px 0px;
+  //padding: 50px 0px;
+  padding-left: 5vw;
 
-  margin-bottom: 100px; //임시
-
-  @media only screen and (max-width: 640px) {
-    padding: 10vw 7vw;
+  //margin-bottom: 100px; //임시
+  @media only screen and (max-width: 1007px) {
+    padding: 0;
   }
 `;
 
 const Table = styled.table`
   text-align: left;
-  width: 100%;
 
+  font-size: 17px;
+  @media only screen and (max-width: 1007px) {
+    font-size: 18px;
+  }
   @media only screen and (max-width: 640px) {
     font-size: 3vw;
   }
 `;
 
-const Body = styled.body``;
+const Body = styled.body`
+  min-width: 450px;
+  width: 30vw;
+`;
 
 const BoldTd = styled.td`
   font-weight: bold;
@@ -36,14 +41,15 @@ const BoldTd = styled.td`
 const PinkTd = styled.td`
   color: ${(props) => props.theme.mainPink};
   font-weight: bold;
+  width: 230px;
 
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 1007px) {
     text-align: right;
   }
 `;
 
 const BlackTd = styled.td`
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 1007px) {
     text-align: right;
   }
 `;
@@ -60,36 +66,52 @@ const ProgressContainer = styled.div`
 
 const ProgressBar = styled.div`
   background-color: ${(props) => props.theme.progressBarGray};
-  height: 13px;
-  width: 300px;
+  height: 1vw;
+  width: 15vw;
   border-radius: 30px;
   padding: 0px;
 
+  @media only screen and (max-width: 1007px) {
+    width: 55vw;
+    height: 2vw;
+  }
   @media only screen and (max-width: 640px) {
-    width: 80vw;
+    width: 70vw;
+    height: 2.5vw;
   }
 `;
 
 const Progress = styled.div`
-  height: 13px;
+  height: 1vw;
   border-radius: 30px;
   background: linear-gradient(
     to right,
     rgba(218, 34, 95, 0),
     rgba(218, 34, 95, 0.8)
   );
-  width: 300px;
+  @media only screen and (max-width: 1007px) {
+    height: 2vw;
+  }
+  @media only screen and (max-width: 640px) {
+    height: 2.5vw;
+  }
 `;
 
 const GrayFont = styled.div`
   font-weight: bold;
-  font-size: small;
+  font-size: 1vw;
   color: ${(props) => props.theme.boxGray};
 `;
 
 const BoldFont = styled.div`
   font-weight: bold;
-  font-size: large;
+  font-size: 1.1vw;
+  @media only screen and (max-width: 1007px) {
+    font-size: 18px;
+  }
+  @media only screen and (max-width: 640px) {
+    font-size: 3vw;
+  }
 `;
 
 const Button = styled.div`
@@ -106,9 +128,11 @@ const Button = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  margin-left: 470px;
-  margin-top: 20px;
-
+  margin-left: 23vw;
+  margin-top: 15px;
+  @media only screen and (max-width: 1007px) {
+    margin-left: 43vw;
+  }
   @media only screen and (max-width: 640px) {
     margin-left: 65vw;
   }
@@ -128,7 +152,7 @@ const InputButton = styled.button`
 const Input = styled.input`
   width: 100%;
   height: 45px;
-  background-color: ${(props) => props.theme.boxCountGray};
+  background-color: ${(props) => props.theme.boxVeryLightGray};
   border: none;
   padding: 10px 20px;
   margin: 15px 0px;
@@ -144,13 +168,13 @@ const Input = styled.input`
 const Mobile = styled.div`
   //모바일에서 보이는 부분
   display: none;
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 1007px) {
     display: block;
   }
 `;
 
 const Web = styled.div`
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 1007px) {
     display: none;
   }
 `;
@@ -255,10 +279,10 @@ const VideoInfo = ({ testdata }) => {
           <FlexContainer>
             <BoldFont>총 주문금액</BoldFont>
             <BoldFont>
-              {totalPrice
-                .toString()
+              {
+                totalPrice.toString()
                 //.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-                }
+              }
               원
             </BoldFont>
           </FlexContainer>
@@ -291,17 +315,18 @@ const VideoInfo = ({ testdata }) => {
             </tr>
             <tr>
               <BoldTd>공동구매 목표금액</BoldTd>
-              <BlackTd>{videoData.marketCap}원</BlackTd>
+              <BlackTd>{videoData.marketCap.toFixed(0)}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>공동구매 달성액</BoldTd>
               <BlackTd>
-                {videoData.currentAmount * videoData.pricePerShare}원
+                {(videoData.currentAmount * videoData.pricePerShare).toFixed(0)}
+                원
               </BlackTd>
             </tr>
             <tr>
               <BoldTd>한 조각당 가격</BoldTd>
-              <BlackTd>{videoData.pricePerShare}원</BlackTd>
+              <BlackTd>{videoData.pricePerShare.toFixed(0)}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>
@@ -315,10 +340,10 @@ const VideoInfo = ({ testdata }) => {
                         <Progress
                           style={{
                             width:
-                              300 *
+                              15 *
                                 (videoData.currentAmount /
                                   videoData.totalAmount) +
-                              "px",
+                              "vw",
                           }}
                         />
                       </ProgressBar>
@@ -341,7 +366,7 @@ const VideoInfo = ({ testdata }) => {
                         <Progress
                           style={{
                             width:
-                              80 *
+                              55 *
                                 (videoData.currentAmount /
                                   videoData.totalAmount) +
                               "vw",
