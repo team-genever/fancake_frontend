@@ -13,13 +13,14 @@ const Container = styled.div`
 `;
 
 const EmailInput = styled.input`
+  font-family: "Noto Sans KR";
   width: 100%;
   height: 55px;
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 6px;
   border: solid 1px #979797;
-  font-size: 18px;
+  font-size: 16px;
   ::-webkit-input-placeholder {
     color: #d8d8d8;
   }
@@ -27,18 +28,19 @@ const EmailInput = styled.input`
   @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
   }
 `;
 
 const PasswordInput = styled.input`
+  font-family: "Noto Sans KR";
   width: 100%;
   height: 55px;
-  margin: 0 0 25px 0;
+  margin: 0 0 15px 0;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 6px;
   border: solid 1px #979797;
-  font-size: 18px;
+  font-size: 16px;
   ::-webkit-input-placeholder {
     color: #d8d8d8;
   }
@@ -51,13 +53,14 @@ const PasswordInput = styled.input`
 `;
 
 const LoginButton = styled.button`
+  font-family: "Noto Sans KR";
   width: 100%;
-  height: 70px;
+  height: 60px;
   margin: 10px 0 0 0;
   //padding: 37px 348px 37px 347px;
   border-radius: 60px;
   background-color: #da225f;
-  font-size: 24px;
+  font-size: 20px;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -67,8 +70,8 @@ const LoginButton = styled.button`
   }
 
   @media only screen and (max-width: 640px) {
-    font-size: 20px;
-    height: 55px;
+    font-size: 17px;
+    height: 50px;
   }
 `;
 
@@ -76,7 +79,7 @@ const ErrorMessage = styled.p`
   width: 100%;
   margin: 0 0 0 0;
   color: red;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
 
   @media only screen and (max-width: 640px) {

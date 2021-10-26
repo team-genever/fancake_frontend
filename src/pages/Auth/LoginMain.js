@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 
 const LoginDiv = styled.div`
-  width: 400px;
+  width: 350px;
   height: 100%;
   //background-color: grey;
   text-align: center;
@@ -35,7 +35,7 @@ const LoginDiv = styled.div`
 const TextDiv = styled.div`
   width: 100%;
   height: 100%;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   text-align: left;
 
@@ -48,12 +48,12 @@ const Or = styled.p`
   //width: 32px;
   //height: 46px;
   margin: 10px 0 20px 0;
-  font-size: 26px;
+  font-size: 20px;
   text-align: center;
   color: #767676;
 
   @media only screen and (max-width: 640px) {
-    font-size: 20px;
+    font-size: 16px;
     margin: 7px 0 14px 0;
   }
 `;
@@ -63,7 +63,7 @@ const FindIDPW = styled.div`
   height: 100%;
   margin-top: 15px;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   color: #6e6e6e;
   font-style: bold;
 
@@ -112,13 +112,13 @@ export default function LoginMain() {
         <Or>or</Or>
         <LoginBox />
         <FindIDPW>
-          <Link to={"./FindID"}>
+          <Link to={"./FindID"} style={{ textDecoration: "none" }}>
             <FindID id="id" onClick={findingClicked}>
               아이디 찾기
             </FindID>
           </Link>
-          &nbsp;|&nbsp;
-          <Link to={"./FindPW"}>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <Link to={"./FindPW"} style={{ textDecoration: "none" }}>
             <FindPW id="pw" onClick={findingClicked}>
               비밀번호 찾기
             </FindPW>
