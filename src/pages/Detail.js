@@ -16,11 +16,12 @@ const Container = styled.div`
 
 const Container2 = styled.div`
   display: flex;
+  //flex-wrap: wrap;
   background-color: ${(props) => props.theme.fontSmallGray};
   padding: 2vw;
 
   @media only screen and (max-width: 1007px) {
-    display: block;
+    display: inline-block;
   }
 `;
 

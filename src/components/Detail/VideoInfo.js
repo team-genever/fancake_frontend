@@ -8,7 +8,7 @@ const Positioner = styled.div`
   justify-content: center;
   //padding: 50px 0px;
   padding-left: 5vw;
-
+  margin: 0 auto;
   //margin-bottom: 100px; //임시
   @media only screen and (max-width: 1007px) {
     padding: 0;
@@ -18,30 +18,32 @@ const Positioner = styled.div`
 const Table = styled.table`
   text-align: left;
 
+  table-layout: fixed;
+  width: 100%;
+  word-break: keep-all;
   font-size: 17px;
   @media only screen and (max-width: 1007px) {
     font-size: 18px;
+    padding: 0px 3.5vw;
   }
   @media only screen and (max-width: 640px) {
     font-size: 3vw;
+    padding: 0;
   }
 `;
 
-const Body = styled.body`
-  min-width: 450px;
-  width: 30vw;
-`;
+const Body = styled.body``;
 
 const BoldTd = styled.td`
   font-weight: bold;
-  padding: 4px;
-  width: 230px;
+  padding: 5px 0px;
+  width: 200px;
 `;
 
 const PinkTd = styled.td`
   color: ${(props) => props.theme.mainPink};
   font-weight: bold;
-  width: 230px;
+  //width: 230px;
 
   @media only screen and (max-width: 1007px) {
     text-align: right;
@@ -105,7 +107,7 @@ const GrayFont = styled.div`
 
 const BoldFont = styled.div`
   font-weight: bold;
-  font-size: 1.1vw;
+  font-size: 17px;
   @media only screen and (max-width: 1007px) {
     font-size: 18px;
   }
@@ -128,14 +130,23 @@ const Button = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  margin-left: 23vw;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 28vw;
+  //margin-left: 23vw;
   margin-top: 15px;
   @media only screen and (max-width: 1007px) {
-    margin-left: 43vw;
+    width: 55vw;
   }
   @media only screen and (max-width: 640px) {
-    margin-left: 65vw;
+    margin-top: 18px;
+    width: 70vw;
   }
+`;
+
+const ButtonPositioner = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const InputButton = styled.button`
@@ -161,7 +172,7 @@ const Input = styled.input`
   }
 
   @media only screen and (max-width: 640px) {
-    width: 80vw;
+    width: 70vw;
   }
 `;
 
@@ -258,6 +269,7 @@ const VideoInfo = ({ testdata }) => {
       setButton(
         <div>
           <div>
+            <div></div>
             <ButtonContainer>
               <InputButton name="-" onClick={ChangeAmount}>
                 –
