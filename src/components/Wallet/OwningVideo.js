@@ -4,29 +4,25 @@ import React from "react";
 const Container = styled.div`
   background-color: ${(props) => props.theme.fontSmallGray};
   width: 100%;
-  height: 100%;
+  height: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media screen and (max-width: 640px) {
-    flex-direction: column;
-  }
 `;
 
-const VideoImg = styled.div`
+const VideoImg = styled.img`
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  & img {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 const VideoDescription = styled.div`
   width: 100%;
   height: 100%;
-  padding: 20px 20px 20px 20px;
+  padding: 15px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @media screen and (max-width: 640px) {
     padding: 5vw;
   }
@@ -35,28 +31,31 @@ const VideoDescription = styled.div`
 const VideoTitle = styled.h3`
   width: 100%;
   font-size: 22px;
-  line-height: 32px;
+  line-height: 22px;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  margin-bottom: 5px;
   @media screen and (max-width: 640px) {
     font-size: 4.3vw;
-    line-height: 6vw;
+    line-height: 4.3vw;
+    margin-bottom: 1vw;
   }
 `;
 
 const VideoChannel = styled.small`
   display: block;
+  width: 100%;
   font-size: 13px;
   font-weight: normal;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   @media screen and (max-width: 640px) {
     color: ${(props) => props.theme.boxGray};
     font-size: 2.7vw;
-    margin-bottom: 3.5vw;
+    margin-bottom: 2vw;
   }
 `;
 
@@ -65,6 +64,10 @@ const VideoTokenInfos = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1px;
+  margin-bottom: 20px;
+  @media screen and (max-width: 640px) {
+    margin-bottom: 4vw;
+  }
 `;
 
 const VideoTokenInfo = styled.div`
@@ -101,23 +104,17 @@ const VideoTokenInfo = styled.div`
   }
 `;
 
-const VideoButtonContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 40%;
-  justify-content: center;
-`;
-
 const VideoButton = styled.button`
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 40px;
   background-color: ${(props) => props.theme.mainPink};
   border: none;
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   & span {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     color: white;
   }
@@ -126,9 +123,10 @@ const VideoButton = styled.button`
     background-color: ${(props) => props.theme.mainPinkHover};
   }
   @media screen and (max-width: 640px) {
-    height: 12vw;
+    height: 10vw;
+    border-radius: 5vw;
     & span {
-      font-size: 3.8vw;
+      font-size: 3vw;
     }
   }
 `;
@@ -138,16 +136,14 @@ const OwningVideo = ({
   title,
   channelTitle,
   totalAmount,
+  price,
   size,
-  totalPrice,
 }) => (
   <Container>
-    <VideoImg>
-      <img
-        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-        alt={`thumbnail_${videoId}`}
-      />
-    </VideoImg>
+    <VideoImg
+      src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+      alt={`thumbnail_${videoId}`}
+    />
     <VideoDescription>
       <VideoTitle>{title}</VideoTitle>
       <VideoChannel>{channelTitle}</VideoChannel>
@@ -155,26 +151,24 @@ const OwningVideo = ({
         <VideoTokenInfo>
           <small>총 보유 조각</small>
           <span>
-            <strong className="pink">{size}</strong>/{totalAmount} 조각
+            <strong className="pink">{size}</strong> / {totalAmount} 조각
           </span>
         </VideoTokenInfo>
         <VideoTokenInfo>
-          <small>증서번호 </small>
-          <small>K238OIJEOOEIWIOJFEWO</small>
+          <small>총 구매 금액</small>
+          <small>{price * size}</small>
         </VideoTokenInfo>
         <VideoTokenInfo>
           <small>누적 수익셰어 금액</small>
           <span>
-            <strong>{totalPrice}</strong> 원
+            <strong>0</strong> 원
           </span>
         </VideoTokenInfo>
       </VideoTokenInfos>
-    </VideoDescription>
-    <VideoButtonContainer>
       <VideoButton>
-        <span>증명서 조회하기</span>
+        <span>판매하기</span>
       </VideoButton>
-    </VideoButtonContainer>
+    </VideoDescription>
   </Container>
 );
 

@@ -21,10 +21,6 @@ const Thumbnail = styled.img`
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  & img {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 const TextContainer = styled.div`

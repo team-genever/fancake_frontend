@@ -7,6 +7,9 @@ import App from "App";
 import reportWebVitals from "reportWebVitals";
 import theme from "theme";
 import { CookiesProvider } from "react-cookie";
+import smoothscroll from "smoothscroll-polyfill";
+
+smoothscroll.polyfill();
 
 ReactDOM.render(
   <CookiesProvider>

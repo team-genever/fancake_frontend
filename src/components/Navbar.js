@@ -554,11 +554,9 @@ const Navbar = ({ location: { pathname } }) => {
   useEffect(() => {
     const body = document.querySelector("body");
     if (checked) {
-      body.style.overflowY = "hidden";
-      body.style.touchAction = "none";
+      body.classList.add("scrollLock");
     } else {
-      body.style.overflowY = "visible";
-      body.style.touchAction = "auto";
+      body.classList.remove("scrollLock");
     }
   }, [checked]);
 

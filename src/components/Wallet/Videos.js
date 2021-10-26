@@ -138,7 +138,6 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
   useEffect(() => {
     window.addEventListener("resize", () => {
       setMaxPage(getMaxPage(window.innerWidth));
-      console.log(window.innerWidth);
     });
     let stocks = userStocks;
     if (videosType !== "own") {
@@ -173,9 +172,7 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
                 channelTitle={stock.video.channel.channelTitle}
                 totalAmount={stock.video.totalAmount}
                 size={stock.size}
-                totalPrice={
-                  stock.video.pricePerShare * stock.video.currentAmount
-                }
+                price={stock.video.pricePerShare}
               />
             ))}
             {() => {

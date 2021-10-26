@@ -431,9 +431,7 @@ export default function VideoSection({
       )}
       {hasBought && (
         <StepContainer>
-          <Step>
-            <strong>STEP 4.</strong> 설문에 참여하고 상품 받아가기!
-          </Step>
+          <Step>설문에 참여하고 상품도 받아가세요! 🥤</Step>
           <Widget id="YhrxJS5D" style={{ width: "100%", height: 500 }} />
         </StepContainer>
       )}

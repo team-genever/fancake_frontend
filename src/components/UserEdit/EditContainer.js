@@ -256,6 +256,14 @@ const DeleteAccount = styled.div`
   font-size: 14px;
   font-weight: 500;
   color: ${(props) => props.theme.boxGray};
+  @media only screen and (max-width: 1007px) {
+    padding-top: 13px;
+    font-size: 13px;
+  }
+  @media only screen and (max-width: 640px) {
+    padding-top: 2vw;
+    font-size: 2.3vw;
+  }
 `;
 
 const DeleteButton = styled.span`
@@ -264,6 +272,12 @@ const DeleteButton = styled.span`
   text-decoration: underline;
   &:hover {
     cursor: pointer;
+  }
+  @media only screen and (max-width: 1007px) {
+    font-size: 13px;
+  }
+  @media only screen and (max-width: 640px) {
+    font-size: 2.3vw;
   }
 `;
 

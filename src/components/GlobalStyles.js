@@ -12,6 +12,10 @@ const GlobalStyles = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+    .scrollLock{
+        overflow-y: hidden !important;
+        touch-action: none !important;
+    }
 `;
 
 export default GlobalStyles;
