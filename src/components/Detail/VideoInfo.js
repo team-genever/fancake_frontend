@@ -21,7 +21,7 @@ const Table = styled.table`
   table-layout: fixed;
   width: 100%;
   word-break: keep-all;
-  font-size: 17px;
+  font-size: 16px;
   @media only screen and (max-width: 1007px) {
     font-size: 18px;
     padding: 0px 3.5vw;
@@ -101,7 +101,7 @@ const Progress = styled.div`
 
 const GrayFont = styled.div`
   font-weight: bold;
-  font-size: 1vw;
+  font-size: 15px;
   color: ${(props) => props.theme.boxGray};
 `;
 
@@ -133,8 +133,10 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
   width: 28vw;
+  height: 45px;
+  align-items: center;
   //margin-left: 23vw;
-  margin-top: 15px;
+  //margin-top: 15px;
   @media only screen and (max-width: 1007px) {
     width: 55vw;
   }
@@ -160,7 +162,7 @@ const InputButton = styled.button`
   cursor: pointer;
 `;
 
-const Input = styled.input`
+const Input = styled.div`
   width: 100%;
   height: 45px;
   background-color: ${(props) => props.theme.boxVeryLightGray};
@@ -266,7 +268,9 @@ const VideoInfo = ({ data }) => {
               placeholder="수량을 입력하세요."
               onChange={onChange}
               disabled
-            />
+            >
+              {amount}
+            </Input>
           </div>
 
           <FlexContainer>

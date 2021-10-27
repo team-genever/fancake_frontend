@@ -31,7 +31,7 @@ const Heading = styled.div`
 `;
 
 const ChannelName = styled.div`
-  color: ${(props) => props.theme.fontGray};
+  color: ${(props) => props.theme.boxGray};
   font-weight: bold;
   font-size: large;
 

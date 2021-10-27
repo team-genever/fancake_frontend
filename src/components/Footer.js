@@ -62,32 +62,38 @@ const Section = styled.div`
 
 const MobileContainer = styled.div`
   width: 100%;
-  height: 13vw;
-  background-color: white;
-  padding: 0 5vw;
+  height: 20vw;
+  text-align: center;
+  background-color: ${(props) => props.theme.boxDarkGray};
+  padding: 2.2vw 0vw;
 `;
 
 const MobileInnerContainer = styled.div`
   width: 100%;
   height: 70%;
-  border-top: 1px solid black;
+  //border-top: 1px solid black;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  //justify-content: space-between;
   align-items: center;
   padding-top: 2vw;
 `;
 
 const Copyright = styled.span`
   font-size: 2.5vw;
-  font-weight: bold;
+  color: white;
 `;
 
 const KakaoLink = styled.a`
   text-decoration: none;
   background-color: #f7e600;
-  width: 8vw;
-  height: 8vw;
-  border-radius: 50%;
+  width: 130px;
+  height: 20px;
+  padding: 17px 8px;
+  font-weight: bold;
+  font-size: 17px;
+  margin-left: 13vw;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +102,34 @@ const KakaoLink = styled.a`
     cursor: pointer;
   }
   & svg {
-    font-size: 3.3vw;
+    font-size: 20px;
+  }
+  @media only screen and (max-width: 1007px) {
+    font-size: 14px;
+    width: 110px;
+    margin-left: 3vw;
+  }
+
+  @media only screen and (max-width: 640px) {
+    width: 22vw;
+    margin-top: 1.5vw;
+    margin-left: 0px;
+    padding: 0.9vw 0px;
+    font-weight: bold;
+    font-size: 2.9vw;
+    border-radius: 5px;
+    height: auto;
+
+    & svg {
+      font-size: 3.3vw;
+    }
+  }
+`;
+
+const IconContainer = styled.div`
+  font-size: 16px;
+  height: 100%;
+  @media only screen and (max-width: 640px) {
   }
 `;
 
@@ -118,6 +151,7 @@ const Footer = () => {
         <Copyright>&copy; fanCake, 2021. All rights reserved.</Copyright>
         <KakaoLink href="https://pf.kakao.com/_pLnhb">
           <FontAwesomeIcon icon={faComment} />
+          &nbsp;문의하기
         </KakaoLink>
       </MobileInnerContainer>
     </MobileContainer>
@@ -140,11 +174,11 @@ const Footer = () => {
             체험하기
           </Link>
         </Section>
-        <Section>
-          <h5>문의하기</h5>
-          <span>fancake.elk@gmail.com</span>
-        </Section>
         <Section />
+        <KakaoLink href="https://pf.kakao.com/_pLnhb">
+          <FontAwesomeIcon icon={faComment} />
+          &nbsp;문의하기
+        </KakaoLink>
       </FooterGrid>
     </Container>
   );
