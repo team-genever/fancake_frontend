@@ -3,7 +3,7 @@ import axios from "axios";
 const getAdress = () => {
   const location = window.location.hostname;
   if (location.includes("localhost") || location.includes("fancake")) {
-    return "http://psj2867.com/api/";
+    return "https://psj2867.com/api/";
   } else {
     return "/api/";
   }

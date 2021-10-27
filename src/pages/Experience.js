@@ -12,210 +12,61 @@ import { api } from "settings";
 import Loading from "components/Loading";
 import { useCookies, withCookies } from "react-cookie";
 import { Helmet } from "react-helmet";
+import styled from "styled-components";
+
+const LoadingContainer = styled.div`
+  width: 100%;
+  margin-top: 150px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+`;
 
 const Experience = () => {
-  const myRef = useRef(null);
-
   const [currentVideo, setCurrentVideo] = useState(null);
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [creater, setCreater] = useState("all");
 
-  const Scroll = () => {
-    myRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
-    console.log(myRef.current);
-  };
-  /*
-  useEffect(() => {
-    //==componenetDidMount
-    getApi();
-    console.log("hi");
+  const [creators, setCreators] = useState([]);
 
-    console.log(creater);
+  useEffect(() => {
+    getCreators();
   }, []);
-*/
-  const [userInfo, setUserInfo] = useState([]);
-  const [userStocks, setUserStocks] = useState([
-    {
-      video: {
-        title: "title1",
-        videoId: "1",
-        channel: {
-          channelTitle: "야식이",
-          channelUrl: "https://www.youtube.com/c/yasigi",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title2",
-        videoId: "2",
-        channel: {
-          channelTitle: "야식이",
-          channelUrl: "https://www.youtube.com/c/yasigi",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title3",
-        videoId: "3",
-        channel: {
-          channelTitle: "야식이",
-          channelUrl: "https://www.youtube.com/c/yasigi",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title4",
-        videoId: "4",
-        channel: {
-          channelTitle: "야식이",
-          channelUrl: "https://www.youtube.com/c/yasigi",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title5",
-        videoId: "5",
-        channel: {
-          channelTitle: "바다 중독자",
-          channelUrl: "https://www.youtube.com/user/helladope12",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title6",
-        videoId: "6",
-        channel: {
-          channelTitle: "야식이",
-          channelUrl: "https://www.youtube.com/c/yasigi",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title7",
-        videoId: "7",
-        channel: {
-          channelTitle: "뻘짓 연구소",
-          channelUrl: "https://www.youtube.com/c/BullsLab",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title8",
-        videoId: "8",
-        channel: {
-          channelTitle: "뻘짓 연구소",
-          channelUrl: "https://www.youtube.com/c/BullsLab",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-    {
-      video: {
-        title: "title9",
-        videoId: "9",
-        channel: {
-          channelTitle: "맛있는 생각",
-          channelUrl:
-            "https://www.youtube.com/c/%EB%A7%9B%EC%9E%88%EB%8A%94%EC%83%9D%EA%B0%81",
-        },
-        totalAmount: 10,
-        currentAmount: 1,
-        pricePerShare: 1000,
-        expirationDate: "2022-2-22",
-      },
-    },
-  ]);
-  const [userConfirmStocks, setConfirmStocks] = useState([]);
+
+  const [videos, setVideos] = useState([]);
+  const [videoInfo, setVideoInfo] = useState({});
+
+  // get real api data
+  useEffect(() => {
+    getApi();
+  }, []);
 
   async function getApi() {
-    let tempData;
-    let backendip = GetBackendIP();
-    console.log(backendip);
-
-    const { cookies } = 0;
-
     try {
-      const responseInfo = await api.get("user", {
-        headers: {
-          Authorization: cookies.get("Authorization"),
-        },
-        params: {
-          detail: true,
-        },
-      });
-      const responseStock = await api.get("user/stocks", {
-        headers: {
-          Authorization: cookies.get("Authorization"),
-        },
-        params: {
-          confirm: false,
-        },
-      });
-      const responseConfirmStock = await api.get("user/stocks", {
-        headers: {
-          Authorization: cookies.get("Authorization"),
-        },
-        params: {
-          confirm: true,
-        },
-      });
-      setUserInfo(responseInfo.data);
-      setUserStocks(responseStock.data.content);
-      setConfirmStocks(responseConfirmStock.data.content);
-
-      /*const response = await axios.get(backendip + "videos");
-      console.log(response);
-      tempData = response.data;
-      console.log("tempData is ", tempData);
-      setTestVideos(tempData.content);*/
+      const responseVideos = await api.get("videos");
+      const responseChannels = await api.get("channels");
+      setVideos(responseVideos.data.content);
+      setCreators(responseChannels.data.content);
+      console.log(responseVideos.data.content);
     } catch {
-      console.error({ error: "정보를 가져오는 동안 오류가 발생했습니다." });
+      setError({ error: "정보를 가져오는 동안 오류가 발생했습니다." });
     } finally {
       setLoading(false);
     }
   }
+  const getCreators = async () => {
+    try {
+    } catch (e) {}
+  };
 
-  return (
+  return loading ? (
+    <LoadingContainer>
+      <Loading />
+    </LoadingContainer>
+  ) : (
     <div>
       <Helmet>
         <title>fanCake | 체험하기</title>
@@ -223,11 +74,16 @@ const Experience = () => {
       <Banner />
       <VideoSection
         creater={creater}
-        userStocks={userStocks}
+        videos={videos}
         currentVideo={currentVideo}
         setCurrentVideo={setCurrentVideo}
+        loading={loading}
+        error={error}
+        videoInfo={videoInfo}
+        setVideoInfo={setVideoInfo}
       >
         <CreaterSection
+          creators={creators}
           creater={creater}
           setCreater={setCreater}
           setCurrentVideo={setCurrentVideo}

@@ -63,10 +63,7 @@ const YoutubeEmbed = styled.iframe`
   }
 `;
 
-const Video = ({ data, testdata }) => {
-  console.log(data);
-  console.log("testdata here is ", testdata);
-  console.log("channel URL is ", testdata.channel.channelUrl);
+const Video = ({ data }) => {
   //const [videoURL, setVideoURL] = useState("");
 
   // useEffect(()=> {
@@ -94,20 +91,20 @@ const Video = ({ data, testdata }) => {
   return (
     <Positioner>
       <YoutubeEmbed
-        src={testdata.videoid}
+        src={data.videoId}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         title="Embedded youtube"
       />
-      <Heading>{testdata.title}</Heading>
+      <Heading>{data.title}</Heading>
       <Link
-        to={{ pathname: testdata.channel.channelUrl }}
+        to={{ pathname: data.channel.channelUrl }}
         style={{ textDecoration: "none" }}
         target="_blank"
       >
-        <ChannelName href={testdata.channel.channelUrl}>
-          {testdata.channel.channelTitle}
+        <ChannelName href={data.channel.channelUrl}>
+          {data.channel.channelTitle}
         </ChannelName>
       </Link>
     </Positioner>

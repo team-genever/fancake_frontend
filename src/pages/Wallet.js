@@ -79,8 +79,14 @@ class Wallet extends React.Component {
         },
       });
       this.setState({ userInfo: responseInfo.data });
-      this.setState({ userStocks: responseStock.data.content });
-      this.setState({ userConfirmStocks: responseConfirmStock.data.content });
+      this.setState({
+        userStocks: responseStock.data.content.map((item) => item.video),
+      });
+      this.setState({
+        userConfirmStocks: responseConfirmStock.data.content.map(
+          (item) => item.video
+        ),
+      });
     } catch {
       this.setState({ error: "정보를 가져오는 동안 오류가 발생했습니다." });
     } finally {

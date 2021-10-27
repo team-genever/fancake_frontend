@@ -215,9 +215,11 @@ const PropertiesGrid = styled.div`
 export default function VideoSection({
   children,
   creater,
-  userStocks,
+  videos,
   setCurrentVideo,
   currentVideo,
+  videoInfo,
+  setVideoInfo,
 }) {
   const [hasBought, setHasBought] = useState(false);
   const [cookies] = useCookies(["Authorization"]);
@@ -416,9 +418,10 @@ export default function VideoSection({
         {/*video_component*/}
         <Videos
           creater={creater}
-          userStocks={userStocks}
+          videos={videos}
           videosType="with"
           setCurrentVideo={setCurrentVideo}
+          setVideoInfo={setVideoInfo}
         />
       </StepContainer>
       {currentVideo && (
@@ -426,7 +429,11 @@ export default function VideoSection({
           <Step>
             <strong>STEP 3.</strong> 영상 조각을 원하는 개수만큼 구매하세요.
           </Step>
-          <Detail currentVideoId={currentVideo} setHasBought={setHasBought} />
+          <Detail
+            videoInfo={videoInfo}
+            setHasBought={setHasBought}
+            currentVideo={currentVideo}
+          />
         </StepContainer>
       )}
       {hasBought && (

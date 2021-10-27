@@ -114,7 +114,13 @@ const NotFound = styled.span`
   }
 `;
 
-const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
+const Videos = ({
+  videosType,
+  videos,
+  creater,
+  setCurrentVideo,
+  setVideoInfo,
+}) => {
   const getMaxPage = (width) => {
     if (width > 1693) {
       return 10;
@@ -131,7 +137,7 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
 
   const [filteredStocks, setStocks] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
-  const [totalVideos, setTotalVideos] = useState(userStocks.length);
+  const [totalVideos, setTotalVideos] = useState(videos.length);
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState(getMaxPage(window.innerWidth));
   useEffect(() => setCurrentPage(1), [creater]);
@@ -139,11 +145,11 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
     window.addEventListener("resize", () => {
       setMaxPage(getMaxPage(window.innerWidth));
     });
-    let stocks = userStocks;
+    let stocks = videos;
     if (videosType !== "own") {
-      stocks = userStocks.filter((stock) => {
+      stocks = videos.filter((stock) => {
         if (creater === "all") return true;
-        if (creater === stock.video.channel.channelTitle) return true;
+        if (creater === stock.channel.channelTitle) return true;
         return false;
       });
     }
@@ -162,17 +168,17 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
         전체 영상: <strong>{totalVideos}</strong>개
       </TotalPage>
       {videosType === "own" ? (
-        userStocks && userStocks.length !== 0 ? (
+        videos && videos.length !== 0 ? (
           <VideosGrid>
             {filteredStocks.map((stock, index) => (
               <OwningVideo
                 key={index}
-                videoId={stock.video.videoId}
-                title={stock.video.title}
-                channelTitle={stock.video.channel.channelTitle}
-                totalAmount={stock.video.totalAmount}
+                videoId={stock.videoId}
+                title={stock.title}
+                channelTitle={stock.channel.channelTitle}
+                totalAmount={stock.totalAmount}
                 size={stock.size}
-                price={stock.video.pricePerShare}
+                price={stock.pricePerShare}
               />
             ))}
             {() => {
@@ -182,20 +188,23 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
         ) : (
           <NotFound>보유한 영상이 없습니다.</NotFound>
         )
-      ) : userStocks && userStocks.length !== 0 ? (
+      ) : videos && videos.length !== 0 ? (
         <VideosGrid>
           {filteredStocks.map((stock, index) => (
             <div
               key={index}
               onClick={() => {
-                setCurrentVideo(stock.video.videoId);
-                setTimeout(() => {
-                  const stepThree = document.getElementById("step_three");
-                  stepThree &&
-                    stepThree.scrollIntoView({
-                      behavior: "smooth",
-                    });
-                }, 100);
+                if (setCurrentVideo) {
+                  setCurrentVideo(stock.videoIdx);
+                  setVideoInfo(stock);
+                  setTimeout(() => {
+                    const stepThree = document.getElementById("step_three");
+                    stepThree &&
+                      stepThree.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                  }, 100);
+                }
               }}
             >
               <WithVideo
@@ -203,18 +212,17 @@ const Videos = ({ videosType, userStocks, creater, setCurrentVideo }) => {
                   {
                     id: "youtube",
                     name:
-                      stock.video.channel.channelUrl.includes("youtube") &&
-                      "유튜브",
+                      stock.channel.channelUrl.includes("youtube") && "유튜브",
                   },
                   { id: "onsale", name: "판매중" },
                 ]}
-                title={stock.video.title}
-                videoId={stock.video.videoId}
-                channelTitle={stock.video.channel.channelTitle}
-                totalAmount={stock.video.totalAmount}
-                currentAmount={stock.video.currentAmount}
-                price={stock.video.pricePerShare}
-                expirationDate={stock.video.expirationDate}
+                title={stock.title}
+                videoId={stock.videoId}
+                channelTitle={stock.channel.channelTitle}
+                totalAmount={stock.totalAmount}
+                currentAmount={stock.currentAmount}
+                price={stock.pricePerShare}
+                expirationDate={stock.expirationDate}
               />
             </div>
           ))}

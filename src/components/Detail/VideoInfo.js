@@ -190,25 +190,7 @@ const Web = styled.div`
   }
 `;
 
-const VideoInfo = ({ testdata }) => {
-  console.log("testdata in videoInfo is ", testdata);
-  const [videoData, setVideoData] = useState({
-    video_id: "",
-    channel: {
-      channelId: "",
-      channelTitle: "",
-      channelURL: "",
-      thubnailURL: "",
-    },
-    title: "",
-    totalAmount: 0,
-    currentAmount: 0,
-    pricePerShare: 0,
-    marketCap: 0,
-    onSale: true,
-    expirationDate: "",
-  });
-
+const VideoInfo = ({ data }) => {
   const [buttonComponent, setButton] = useState(
     <Button>로그인 후 이용가능합니다.</Button>
   );
@@ -216,7 +198,7 @@ const VideoInfo = ({ testdata }) => {
   const [progressComponent, setProgress] = useState(<div></div>);
 
   const [isLogin, setLogin] = useState(true);
-  const [OnSale, setOnSale] = useState(videoData.onSale);
+  const [OnSale, setOnSale] = useState(data.onSale);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [amount, setAmount] = useState(null);
@@ -230,7 +212,7 @@ const VideoInfo = ({ testdata }) => {
     console.log("value changed");
     //console.log(quantity);
     //console.log(e.target.value);
-    setTotalPrice(e.target.value * videoData.pricePerShare);
+    setTotalPrice(e.target.value * data.pricePerShare);
   };
 
   const onClick = (e) => {
@@ -242,12 +224,12 @@ const VideoInfo = ({ testdata }) => {
   const ChangeAmount = (e) => {
     switch (e.target.name) {
       case "+":
-        setTotalPrice((amount + 1) * videoData.pricePerShare);
+        setTotalPrice((amount + 1) * data.pricePerShare);
         setAmount(amount + 1);
         break;
       case "-":
         if (amount > 0) {
-          setTotalPrice((amount - 1) * videoData.pricePerShare);
+          setTotalPrice((amount - 1) * data.pricePerShare);
           setAmount(amount - 1);
         }
 
@@ -256,8 +238,7 @@ const VideoInfo = ({ testdata }) => {
   };
 
   useEffect(() => {
-    setVideoData(testdata);
-    setOnSale(testdata.onSale);
+    setOnSale(data.onSale);
   }, []);
 
   useEffect(() => {
@@ -327,18 +308,17 @@ const VideoInfo = ({ testdata }) => {
             </tr>
             <tr>
               <BoldTd>공동구매 목표금액</BoldTd>
-              <BlackTd>{videoData.marketCap.toFixed(0)}원</BlackTd>
+              <BlackTd>{/*data.marketCap.toFixed(0)*/}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>공동구매 달성액</BoldTd>
               <BlackTd>
-                {(videoData.currentAmount * videoData.pricePerShare).toFixed(0)}
-                원
+                {(data.currentAmount * data.pricePerShare).toFixed(0)}원
               </BlackTd>
             </tr>
             <tr>
               <BoldTd>한 조각당 가격</BoldTd>
-              <BlackTd>{videoData.pricePerShare.toFixed(0)}원</BlackTd>
+              <BlackTd>{data.pricePerShare.toFixed(0)}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>
@@ -352,19 +332,17 @@ const VideoInfo = ({ testdata }) => {
                         <Progress
                           style={{
                             width:
-                              15 *
-                                (videoData.currentAmount /
-                                  videoData.totalAmount) +
+                              15 * (data.currentAmount / data.totalAmount) +
                               "vw",
                           }}
                         />
                       </ProgressBar>
                     </ProgressContainer>
-                    {(videoData.currentAmount / videoData.totalAmount) * 100}%
+                    {(data.currentAmount / data.totalAmount) * 100}%
                   </FlexContainer>
                   <GrayFont>
-                    총 {videoData.totalAmount}조각 중{" "}
-                    {videoData.totalAmount - videoData.currentAmount}조각 남음
+                    총 {data.totalAmount}조각 중{" "}
+                    {data.totalAmount - data.currentAmount}조각 남음
                   </GrayFont>
                 </Web>
               </PinkTd>
@@ -378,9 +356,7 @@ const VideoInfo = ({ testdata }) => {
                         <Progress
                           style={{
                             width:
-                              55 *
-                                (videoData.currentAmount /
-                                  videoData.totalAmount) +
+                              55 * (data.currentAmount / data.totalAmount) +
                               "vw",
                           }}
                         />
@@ -392,10 +368,10 @@ const VideoInfo = ({ testdata }) => {
             </tr>
             <tr>
               <BoldTd>
-                <Mobile>{videoData.currentAmount}조각</Mobile>
+                <Mobile>{data.currentAmount}조각</Mobile>
               </BoldTd>
               <BlackTd>
-                <Mobile>총 {videoData.totalAmount}조각</Mobile>
+                <Mobile>총 {data.totalAmount}조각</Mobile>
               </BlackTd>
             </tr>
             <tr>
