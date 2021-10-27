@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import "./App.css";
 
 //import Home from "pages/Home";
@@ -21,6 +21,7 @@ import GlobalStyles from "components/GlobalStyles";
 import Footer from "components/Footer";
 import { useCookies } from "react-cookie";
 import styled from "styled-components";
+import { api } from "settings";
 
 const NavBackground = styled.div`
   width: 100%;
@@ -41,16 +42,69 @@ const NavBackground = styled.div`
 `;
 
 function App() {
-  const [cookie] = useCookies(["Authorization"]);
-  const loggedIn = cookie.Authorization !== undefined;
+  const [cookies] = useCookies(["Authorization"]);
+  const [loggedIn, setLoggedIn] = useState();
+  useEffect(() => {
+    setLoggedIn(cookies.Authorization !== undefined);
+  }, [loggedIn, cookies]);
+
+  const [userInfo, setUserInfo] = useState({});
+
+  const getUserInfo = async () => {
+    try {
+      const response = await api.get("user", {
+        headers: {
+          Authorization: cookies.Authorization,
+        },
+        params: {
+          detail: true,
+        },
+      });
+      setUserInfo(response.data.content);
+    } catch (e) {}
+  };
+
+  const updateUserInfo = async (schema) => {
+    console.log(schema);
+    try {
+      await api.put("user", null, {
+        headers: {
+          Authorization: cookies.Authorization,
+        },
+        params: schema,
+      });
+      getUserInfo();
+      return 200;
+    } catch (e) {
+      window.alert("처리 도중 문제가 발생 했습니다. 다시 시도해주세요.");
+      return 400;
+    }
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      getUserInfo();
+    }
+  }, [loggedIn]);
+
   return (
     <>
       <NavBackground />
-      <Navbar />
+      <Navbar userInfo={userInfo} />
       <Switch>
-        <Route exact path="/" component={Experience} />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Experience userInfo={userInfo} updateUserInfo={updateUserInfo} />
+          )}
+        />
         {/* <Route path="/experience/detail/:videoId" component={Detail} /> */}
-        <Route exact path="/user/wallet" component={Wallet}>
+        <Route
+          exact
+          path="/user/wallet"
+          render={() => <Wallet userInfo={userInfo} />}
+        >
           {loggedIn ? "" : <Redirect to="/" />}
         </Route>
         <Route path="/user/wallet/history" component={History}>

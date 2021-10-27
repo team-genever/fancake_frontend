@@ -46,7 +46,7 @@ const Title = styled.h2`
 class Wallet extends React.Component {
   state = {
     loading: true,
-    userInfo: {},
+    userInfo: this.props.userInfo,
     userStocks: [],
     userConfirmStocks: [],
     error: null,
@@ -54,14 +54,6 @@ class Wallet extends React.Component {
   getUserInfo = async () => {
     const { cookies } = this.props;
     try {
-      const responseInfo = await api.get("user", {
-        headers: {
-          Authorization: cookies.get("Authorization"),
-        },
-        params: {
-          detail: true,
-        },
-      });
       const responseStock = await api.get("user/stocks", {
         headers: {
           Authorization: cookies.get("Authorization"),
@@ -78,7 +70,6 @@ class Wallet extends React.Component {
           confirm: true,
         },
       });
-      this.setState({ userInfo: responseInfo.data });
       this.setState({
         userStocks: responseStock.data.content.map((item) => item.video),
       });

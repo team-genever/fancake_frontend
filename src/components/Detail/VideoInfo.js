@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import styled from "styled-components";
 import ConfirmModal from "./ConfirmModal";
 import RejectModal from "./RejectModal";
@@ -38,11 +39,14 @@ const BoldTd = styled.td`
   font-weight: bold;
   padding: 5px 0px;
   width: 200px;
+  font-size: 15px;
+  color: ${(props) => props.theme.boxGray};
 `;
 
 const PinkTd = styled.td`
   color: ${(props) => props.theme.mainPink};
   font-weight: bold;
+  font-size: 15px;
   //width: 230px;
 
   @media only screen and (max-width: 1007px) {
@@ -51,6 +55,8 @@ const PinkTd = styled.td`
 `;
 
 const BlackTd = styled.td`
+  font-size: 15px;
+  font-weight: bold;
   @media only screen and (max-width: 1007px) {
     text-align: right;
   }
@@ -129,12 +135,10 @@ const Button = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  position: absolute;
+  right: 20px;
   display: flex;
-  flex-direction: row-reverse;
-  width: 28vw;
-  //margin-left: 23vw;
-  margin-top: 15px;
+  justify-content: center;
+  align-items: center;
   @media only screen and (max-width: 1007px) {
     width: 55vw;
   }
@@ -147,14 +151,14 @@ const ButtonContainer = styled.div`
 const ButtonPositioner = styled.div`
   display: flex;
   justify-content: space-between;
+  height: 45px;
 `;
 
 const InputButton = styled.button`
   border-radius: 100%;
-  margin: 3px;
   border: none;
-  width: 30px;
-  height: 30px;
+  height: 100%;
+  aspect-ratio: 1 / 1;
   background-color: ${(props) => props.theme.boxLightGray};
 
   cursor: pointer;
@@ -162,11 +166,14 @@ const InputButton = styled.button`
 
 const Input = styled.input`
   width: 100%;
-  height: 45px;
+
   background-color: ${(props) => props.theme.boxVeryLightGray};
   border: none;
-  padding: 10px 20px;
+  padding: 0 20px;
   margin: 15px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   :focus {
     outline: none;
   }
@@ -190,23 +197,52 @@ const Web = styled.div`
   }
 `;
 
-const VideoInfo = ({ data }) => {
+const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
   const [buttonComponent, setButton] = useState(
     <Button>로그인 후 이용가능합니다.</Button>
   );
 
+  const [cookies] = useCookies(["Authorization"]);
+
   const [progressComponent, setProgress] = useState(<div></div>);
 
-  const [isLogin, setLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(cookies.Authorization ? true : false);
+
+  useEffect(() => {
+    setIsLogin(cookies.Authorization ? true : false);
+  }, [isLogin, cookies]);
+
   const [OnSale, setOnSale] = useState(data.onSale);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [amount, setAmount] = useState(null);
 
-  const [balance, setBalance] = useState(20000); //임시 보유 금액
+  const [balance, setBalance] = useState(userInfo.balance);
 
   const [confirmModal, setConfirmModal] = useState(false);
   const [rejectModal, setRejectModal] = useState(false);
+
+  const [leftTime, setLeftTime] = useState("");
+  const expire = new Date(data.expirationDate);
+  const changeLeftDate = () => {
+    const today = new Date();
+    const left = expire.getTime() - today.getTime();
+    const leftDay = Math.floor(left / (1000 * 60 * 60 * 24));
+    const leftHours = Math.floor(
+      (left % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const leftMinutes = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
+    const leftSeconds = Math.floor((left % (1000 * 60)) / 1000);
+    setLeftTime(
+      `${leftDay}일 ${leftHours.toString().padStart(2, "0")}:${leftMinutes
+        .toString()
+        .padStart(2, "0")}:${leftSeconds.toString().padStart(2, "0")}`
+    );
+  };
+  useEffect(() => {
+    changeLeftDate();
+    setInterval(changeLeftDate, 1000);
+  }, []);
 
   const onChange = (e) => {
     console.log("value changed");
@@ -232,7 +268,8 @@ const VideoInfo = ({ data }) => {
           setTotalPrice((amount - 1) * data.pricePerShare);
           setAmount(amount - 1);
         }
-
+        break;
+      default:
         break;
     }
   };
@@ -249,16 +286,7 @@ const VideoInfo = ({ data }) => {
     } else if (OnSale) {
       setButton(
         <div>
-          <div>
-            <div></div>
-            <ButtonContainer>
-              <InputButton name="-" onClick={ChangeAmount}>
-                –
-              </InputButton>
-              <InputButton name="+" onClick={ChangeAmount}>
-                +
-              </InputButton>
-            </ButtonContainer>
+          <ButtonPositioner>
             <Input
               type="number"
               min={0}
@@ -267,7 +295,15 @@ const VideoInfo = ({ data }) => {
               onChange={onChange}
               disabled
             />
-          </div>
+            <ButtonContainer>
+              <InputButton name="+" onClick={ChangeAmount}>
+                +
+              </InputButton>
+              <InputButton name="-" onClick={ChangeAmount}>
+                –
+              </InputButton>
+            </ButtonContainer>
+          </ButtonPositioner>
 
           <FlexContainer>
             <BoldFont>총 주문금액</BoldFont>
@@ -280,7 +316,16 @@ const VideoInfo = ({ data }) => {
             </BoldFont>
           </FlexContainer>
           <Button onClick={onClick}>구매하기</Button>
-          {confirmModal ? <ConfirmModal setModal={setConfirmModal} /> : <></>}
+          {confirmModal ? (
+            <ConfirmModal
+              totalPrice={totalPrice}
+              userInfo={userInfo}
+              updateUserInfo={updateUserInfo}
+              setModal={setConfirmModal}
+            />
+          ) : (
+            <></>
+          )}
           {rejectModal ? (
             <RejectModal setModal={setRejectModal} userId={"1"} />
           ) : (
@@ -304,11 +349,11 @@ const VideoInfo = ({ data }) => {
           <Body>
             <tr>
               <BoldTd>남은시간</BoldTd>
-              <PinkTd>12:13:11</PinkTd>
+              <PinkTd>{leftTime}</PinkTd>
             </tr>
             <tr>
               <BoldTd>공동구매 목표금액</BoldTd>
-              <BlackTd>{/*data.marketCap.toFixed(0)*/}원</BlackTd>
+              <BlackTd>{data.marketCap.toFixed(0)}원</BlackTd>
             </tr>
             <tr>
               <BoldTd>공동구매 달성액</BoldTd>

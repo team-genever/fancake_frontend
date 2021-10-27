@@ -529,11 +529,10 @@ const SidebarLinkA = styled.a`
   }
 `;
 
-const Navbar = ({ location: { pathname } }) => {
+const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   const [cookies, _, removeCookie] = useCookies(["Authorization"]);
   const [loggedIn, setLoggedIn] = useState();
   const [checked, setChecked] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
   const [scroll, setScroll] = useState();
 
   useEffect(() => {
@@ -543,24 +542,6 @@ const Navbar = ({ location: { pathname } }) => {
     };
   }, []);
 
-  const getUserInfo = async () => {
-    try {
-      const response = await api.get("user", {
-        headers: {
-          Authorization: cookies.Authorization,
-        },
-        params: {
-          detail: true,
-        },
-      });
-      setUserInfo(response.data);
-      console.log("navbar - got user info");
-      console.log("navbar - user info is ", response);
-    } catch (e) {
-      console.log("navbar - did not get user info");
-    }
-  };
-
   useEffect(() => {
     const body = document.querySelector("body");
     if (checked) {
@@ -569,12 +550,6 @@ const Navbar = ({ location: { pathname } }) => {
       body.classList.remove("scrollLock");
     }
   }, [checked]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getUserInfo();
-    }
-  }, [loggedIn]);
 
   useEffect(() => {
     setLoggedIn(cookies.Authorization !== undefined);

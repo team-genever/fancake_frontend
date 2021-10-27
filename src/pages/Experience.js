@@ -22,7 +22,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
 `;
 
-const Experience = () => {
+const Experience = ({ userInfo, updateUserInfo }) => {
   const [currentVideo, setCurrentVideo] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,6 @@ const Experience = () => {
       const responseChannels = await api.get("channels");
       setVideos(responseVideos.data.content);
       setCreators(responseChannels.data.content);
-      console.log(responseVideos.data.content);
     } catch {
       setError({ error: "정보를 가져오는 동안 오류가 발생했습니다." });
     } finally {
@@ -81,6 +80,8 @@ const Experience = () => {
         error={error}
         videoInfo={videoInfo}
         setVideoInfo={setVideoInfo}
+        userInfo={userInfo}
+        updateUserInfo={updateUserInfo}
       >
         <CreaterSection
           creators={creators}

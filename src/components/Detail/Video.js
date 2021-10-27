@@ -17,8 +17,9 @@ const Positioner = styled.div`
 const Heading = styled.div`
   color: black;
   font-weight: bold;
-  font-size: 30px;
-  margin-bottom: 2px;
+  font-size: 25px;
+  line-height: 32px;
+  margin-bottom: 10px;
   margin-top: 10px;
 
   @media only screen and (max-width: 1007px) {
@@ -31,7 +32,7 @@ const Heading = styled.div`
 `;
 
 const ChannelName = styled.div`
-  color: ${(props) => props.theme.fontGray};
+  color: ${(props) => props.theme.boxGray};
   font-weight: bold;
   font-size: large;
 
@@ -45,17 +46,12 @@ const ChannelName = styled.div`
   }
 `;
 
-const VideoContainer = styled.div`
-  width: 600px;
-  height: 400px;
-`;
-
 const YoutubeEmbed = styled.iframe`
   aspect-ratio: 16 / 9;
   width: 32vw;
   //min-width: 500px;
   height: max-content;
-  border: 1px solid black;
+  border: none;
 
   @media only screen and (max-width: 1007px) {
     width: 100%;
@@ -90,12 +86,19 @@ const Video = ({ data }) => {
 
   return (
     <Positioner>
-      <YoutubeEmbed
+      {/* <YoutubeEmbed
         src={data.videoId}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         title="Embedded youtube"
+      /> */}
+      <YoutubeEmbed
+        src={`https://www.youtube.com/embed/${data.videoId}`}
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
       />
       <Heading>{data.title}</Heading>
       <Link

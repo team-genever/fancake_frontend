@@ -220,6 +220,8 @@ export default function VideoSection({
   currentVideo,
   videoInfo,
   setVideoInfo,
+  userInfo,
+  updateUserInfo,
 }) {
   const [hasBought, setHasBought] = useState(false);
   const [cookies] = useCookies(["Authorization"]);
@@ -430,6 +432,8 @@ export default function VideoSection({
             <strong>STEP 3.</strong> 영상 조각을 원하는 개수만큼 구매하세요.
           </Step>
           <Detail
+            userInfo={userInfo}
+            updateUserInfo={updateUserInfo}
             videoInfo={videoInfo}
             setHasBought={setHasBought}
             currentVideo={currentVideo}
@@ -437,7 +441,7 @@ export default function VideoSection({
         </StepContainer>
       )}
       {hasBought && (
-        <StepContainer>
+        <StepContainer id="formContainer">
           <Step>설문에 참여하고 상품도 받아가세요! 🥤</Step>
           <Widget id="YhrxJS5D" style={{ width: "100%", height: 500 }} />
         </StepContainer>

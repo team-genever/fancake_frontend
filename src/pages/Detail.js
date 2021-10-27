@@ -54,13 +54,24 @@ const LoadingContainer = styled.div`
   padding-top: 300px;
 `;
 
-function Detail({ setHasBought, videoInfo, currentVideo }) {
+function Detail({
+  userInfo,
+  updateUserInfo,
+  setHasBought,
+  videoInfo,
+  currentVideo,
+}) {
   return (
     currentVideo && (
       <Container>
         <Container2>
           <Video data={videoInfo} />
-          <VideoInfo data={videoInfo} />
+          <VideoInfo
+            data={videoInfo}
+            userInfo={userInfo}
+            updateUserInfo={updateUserInfo}
+            setHasBought={setHasBought}
+          />
         </Container2>
       </Container>
     )
