@@ -6,19 +6,18 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   width: 100%;
-  height: 400px;
-  padding: 100px 110px;
+  height: 170px;
+  padding: 30px 110px;
   background-color: ${(props) => props.theme.boxDarkGray};
   @media only screen and (max-width: 1007px) {
-    height: 250px;
-    padding: 65px 90px;
+    padding: 30px 50px;
   }
 `;
 
 const FooterGrid = styled.div`
   display: grid;
   width: 100%;
-  height: 100%;
+  height: 80%;
   gap: 20px;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
@@ -34,6 +33,7 @@ const Section = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
+  font-size: 13px;
   & h5 {
     font-size: 17px;
     font-weight: bold;
@@ -41,12 +41,15 @@ const Section = styled.div`
   }
   & :is(span, a) {
     text-decoration: none;
-    font-size: 13px;
+    font-size: 15px;
     color: white;
     margin-bottom: 10px;
   }
   & a:hover {
     opacity: 70%;
+  }
+  & div {
+    margin: 3px;
   }
   @media only screen and (max-width: 1007px) {
     & h5 {
@@ -54,9 +57,33 @@ const Section = styled.div`
       margin-bottom: 18px;
     }
     & :is(span, a) {
-      font-size: 10px;
+      font-size: 15px;
       margin-bottom: 7px;
     }
+  }
+`;
+
+const Section2 = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 13px;
+  & h5 {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 25px;
+  }
+  & :is(span, a) {
+    text-decoration: none;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  & a:hover {
+    opacity: 70%;
+  }
+  & div {
+    margin: 3px;
   }
 `;
 
@@ -92,7 +119,6 @@ const KakaoLink = styled.a`
   padding: 17px 8px;
   font-weight: bold;
   font-size: 17px;
-  margin-left: 13vw;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -100,20 +126,19 @@ const KakaoLink = styled.a`
   color: black;
   :hover {
     cursor: pointer;
+    opacity: 85%;
   }
   & svg {
     font-size: 20px;
   }
   @media only screen and (max-width: 1007px) {
-    font-size: 14px;
-    width: 110px;
-    margin-left: 3vw;
+    font-size: 17px;
+    width: 120px;
   }
 
   @media only screen and (max-width: 640px) {
     width: 22vw;
     margin-top: 1.5vw;
-    margin-left: 0px;
     padding: 0.9vw 0px;
     font-weight: bold;
     font-size: 2.9vw;
@@ -148,7 +173,7 @@ const Footer = () => {
   return isMobile ? (
     <MobileContainer>
       <MobileInnerContainer>
-        <Copyright>&copy; fanCake, 2021. All rights reserved.</Copyright>
+        <Copyright>&copy; 2021 fanCake. All Rights Reserved.</Copyright>
         <KakaoLink href="https://pf.kakao.com/_pLnhb">
           <FontAwesomeIcon icon={faComment} />
           &nbsp;문의하기
@@ -159,26 +184,22 @@ const Footer = () => {
     <Container>
       <FooterGrid>
         <Section>
-          <h5>POLICIES</h5>
-          <Link to="/policy/terms" onClick={onClick}>
-            이용약관
-          </Link>
-          <Link to="/policy/privacy" onClick={onClick}>
-            개인정보처리방침
-          </Link>
+          <div>
+            <Link to="/policy/terms" onClick={onClick}>
+              이용약관 &nbsp;&nbsp;
+            </Link>
+            <Link to="/policy/privacy" onClick={onClick}>
+              개인정보처리방침 &nbsp;&nbsp;
+            </Link>
+          </div>
+          <div>© 2021 fanCake. All Rights Reserved.</div>
         </Section>
-        <Section>
-          <h5>fanCake</h5>
-          <a href="http://fancake.xyz/">서비스 소개</a>
-          <Link to="/" onClick={onClick}>
-            체험하기
-          </Link>
-        </Section>
-        <Section />
-        <KakaoLink href="https://pf.kakao.com/_pLnhb">
-          <FontAwesomeIcon icon={faComment} />
-          &nbsp;문의하기
-        </KakaoLink>
+        <Section2>
+          <KakaoLink href="https://pf.kakao.com/_pLnhb">
+            <FontAwesomeIcon icon={faComment} />
+            &nbsp;문의하기
+          </KakaoLink>
+        </Section2>
       </FooterGrid>
     </Container>
   );
