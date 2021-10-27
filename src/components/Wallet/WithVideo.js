@@ -78,7 +78,7 @@ const Title = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   @media screen and (max-width: 640px) {
     font-size: 4.3vw;
