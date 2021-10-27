@@ -15,43 +15,24 @@ const Container = styled.div`
 `;
 
 const Container2 = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   //flex-wrap: wrap;
   background-color: ${(props) => props.theme.fontSmallGray};
-  padding: 2vw;
+  padding: 30px;
+  gap: 50px;
+  align-items: center;
 
   @media only screen and (max-width: 1007px) {
-    display: inline-block;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, max-content);
+    gap: 30px;
   }
-`;
-
-const Property = styled.div`
-  background-color: ${(props) => {
-    switch (props.type) {
-      case "youtube":
-        return props.theme.mainPink;
-      case "tiktok":
-        return "#9d2aa6";
-      default:
-        return props.theme.littleBoxGray;
-    }
-  }};
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  & span {
-    font-size: 16px;
-    color: white;
+  @media only screen and (max-width: 640px) {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(2, max-content);
+    gap: 30px;
   }
-`;
-
-const LoadingContainer = styled.div`
-  width: 100%;
-  height: 100vw;
-  display: flex;
-  justify-content: center;
-  padding-top: 300px;
 `;
 
 function Detail({

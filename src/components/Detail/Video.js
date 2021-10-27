@@ -7,20 +7,21 @@ import { Link } from "react-router-dom";
 
 const Positioner = styled.div`
   text-align: left;
+  width: 100%;
   //padding: 1vw 0vw 5vw 0vw;
 
   @media only screen and (max-width: 640px) {
-    //padding: 10vw 7vw 5vw 7vw;s
+    width: 100%;
   }
 `;
 
 const Heading = styled.div`
+  width: 100%;
   color: black;
   font-weight: bold;
   font-size: 25px;
   line-height: 32px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 7px;
 
   @media only screen and (max-width: 1007px) {
     //padding: 0vw 7vw;
@@ -31,13 +32,18 @@ const Heading = styled.div`
   }
 `;
 
-const ChannelName = styled.div`
+const ChannelName = styled(Link)`
+  display: block;
   color: ${(props) => props.theme.boxGray};
-  font-weight: bold;
+  font-weight: 500;
   font-size: large;
+  &:hover {
+    color: ${(props) => props.theme.backgroundGray};
+  }
 
   @media only screen and (max-width: 1007px) {
     //padding: 0vw 7vw;
+    width: 100%;
     text-align: center;
   }
 
@@ -48,15 +54,10 @@ const ChannelName = styled.div`
 
 const YoutubeEmbed = styled.iframe`
   aspect-ratio: 16 / 9;
-  width: 32vw;
-  //min-width: 500px;
+  width: 100%;
   height: max-content;
   border: none;
-
-  @media only screen and (max-width: 1007px) {
-    width: 100%;
-    min-width: 0px;
-  }
+  margin-bottom: 5px;
 `;
 
 const Video = ({ data }) => {
@@ -101,15 +102,13 @@ const Video = ({ data }) => {
         allowfullscreen
       />
       <Heading>{data.title}</Heading>
-      <Link
+      <ChannelName
         to={{ pathname: data.channel.channelUrl }}
         style={{ textDecoration: "none" }}
         target="_blank"
       >
-        <ChannelName href={data.channel.channelUrl}>
-          {data.channel.channelTitle}
-        </ChannelName>
-      </Link>
+        {data.channel.channelTitle}
+      </ChannelName>
     </Positioner>
   );
 };

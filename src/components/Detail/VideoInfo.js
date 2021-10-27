@@ -6,10 +6,10 @@ import RejectModal from "./RejectModal";
 
 const Positioner = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   //padding: 50px 0px;
-  padding-left: 5vw;
   margin: 0 auto;
+  width: 100%;
   //margin-bottom: 100px; //임시
   @media only screen and (max-width: 1007px) {
     padding: 0;
@@ -33,17 +33,39 @@ const Table = styled.table`
   }
 `;
 
-const Body = styled.body``;
+const InfoContainer = styled.div``;
 
-const BoldTd = styled.td`
+const Grid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-auto-rows: max-content;
+  gap: 10px;
+  margin-bottom: 20px;
+  @media only screen and (max-width: 1007px) {
+    margin-bottom: 10px;
+  }
+`;
+
+const Body = styled.div`
+  width: 100%;
+  @media only screen and (max-width: 640px) {
+    & tr {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+`;
+
+const BoldTd = styled.div`
   font-weight: bold;
-  padding: 5px 0px;
   width: 200px;
   font-size: 15px;
   color: ${(props) => props.theme.boxGray};
 `;
 
-const PinkTd = styled.td`
+const PinkTd = styled.div`
+  width: 100%;
   color: ${(props) => props.theme.mainPink};
   font-weight: bold;
   font-size: 15px;
@@ -54,7 +76,7 @@ const PinkTd = styled.td`
   }
 `;
 
-const BlackTd = styled.td`
+const BlackTd = styled.div`
   font-size: 15px;
   font-weight: bold;
   @media only screen and (max-width: 1007px) {
@@ -63,46 +85,39 @@ const BlackTd = styled.td`
 `;
 
 const FlexContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 7px;
 `;
 
 const ProgressContainer = styled.div`
   padding-top: 5px;
-  margin-right: 5px;
+  width: 100%;
 `;
 
 const ProgressBar = styled.div`
   background-color: ${(props) => props.theme.progressBarGray};
-  height: 1vw;
-  width: 15vw;
+  height: 15px;
+  width: 100%;
   border-radius: 30px;
-  padding: 0px;
 
   @media only screen and (max-width: 1007px) {
-    width: 55vw;
-    height: 2vw;
   }
   @media only screen and (max-width: 640px) {
-    width: 70vw;
     height: 2.5vw;
   }
 `;
 
 const Progress = styled.div`
-  height: 1vw;
+  height: 100%;
+  width: ${(props) => props.percent}%;
   border-radius: 30px;
   background: linear-gradient(
     to right,
     rgba(218, 34, 95, 0),
     rgba(218, 34, 95, 0.8)
   );
-  @media only screen and (max-width: 1007px) {
-    height: 2vw;
-  }
-  @media only screen and (max-width: 640px) {
-    height: 2.5vw;
-  }
 `;
 
 const GrayFont = styled.div`
@@ -132,6 +147,9 @@ const Button = styled.div`
   padding: 15px;
   text-align: center;
   cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.theme.mainPinkHover};
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -151,7 +169,19 @@ const ButtonContainer = styled.div`
 const ButtonPositioner = styled.div`
   display: flex;
   justify-content: space-between;
+  height: max-content;
+  width: 100%;
   height: 45px;
+  background-color: ${(props) => props.theme.boxVeryLightGray};
+  padding: 8px 10px 8px 20px;
+  margin-bottom: 10px;
+`;
+
+const InputButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 `;
 
 const InputButton = styled.button`
@@ -162,20 +192,26 @@ const InputButton = styled.button`
   background-color: ${(props) => props.theme.boxLightGray};
 
   cursor: pointer;
+
+  font-size: 17px;
+  &:hover {
+    background-color: ${(props) => props.theme.progressBarGray};
+  }
 `;
 
-const Input = styled.div`
+const Input = styled.input`
   width: 100%;
-
-  background-color: ${(props) => props.theme.boxVeryLightGray};
+  color: black;
   border: none;
-  padding: 0 20px;
-  margin: 15px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: 500;
   :focus {
     outline: none;
+  }
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
 
   @media only screen and (max-width: 640px) {
@@ -188,6 +224,7 @@ const Mobile = styled.div`
   display: none;
   @media only screen and (max-width: 1007px) {
     display: block;
+    margin-bottom: 10px;
   }
 `;
 
@@ -215,7 +252,7 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
   const [OnSale, setOnSale] = useState(data.onSale);
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState(0);
 
   const [balance, setBalance] = useState(userInfo.balance);
 
@@ -293,10 +330,15 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
               value={amount}
               placeholder="수량을 입력하세요."
               onChange={onChange}
-              disabled
-            >
-              {amount}
-            </Input>
+            />
+            <InputButtons>
+              <InputButton name="+" onClick={ChangeAmount}>
+                +
+              </InputButton>
+              <InputButton name="-" onClick={ChangeAmount}>
+                -
+              </InputButton>
+            </InputButtons>
           </ButtonPositioner>
 
           <FlexContainer>
@@ -338,87 +380,80 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
 
   return (
     <Positioner>
-      <div>
-        <Table>
+      <Grid>
+        <BoldTd>남은시간</BoldTd>
+        <PinkTd>{leftTime}</PinkTd>
+        <BoldTd>공동구매 목표금액</BoldTd>
+        <BlackTd>{data.marketCap.toFixed(0)}원</BlackTd>
+        <BoldTd>공동구매 달성액</BoldTd>
+        <BlackTd>
+          {(data.currentAmount * data.pricePerShare).toFixed(0)}원
+        </BlackTd>
+        <BoldTd>한 조각당 가격</BoldTd>
+        <BlackTd>{data.pricePerShare.toFixed(0)}원</BlackTd>
+        <Web>
+          <BoldTd>진행률</BoldTd>
+        </Web>
+        <Web>
+          <PinkTd>
+            <FlexContainer>
+              <ProgressContainer>
+                <ProgressBar>
+                  <Progress
+                    percent={Math.floor(
+                      (data.currentAmount / data.totalAmount) * 100
+                    )}
+                  />
+                </ProgressBar>
+              </ProgressContainer>
+              {(data.currentAmount / data.totalAmount) * 100}%
+            </FlexContainer>
+            <GrayFont>
+              총 {data.totalAmount}조각 중{" "}
+              {data.totalAmount - data.currentAmount}
+              조각 남음
+            </GrayFont>
+          </PinkTd>
+        </Web>
+      </Grid>
+      {/* <Table>
           <Body>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
             <tr>
-              <BoldTd>남은시간</BoldTd>
-              <PinkTd>{leftTime}</PinkTd>
+              <td colSpan="2"></td>
             </tr>
-            <tr>
-              <BoldTd>공동구매 목표금액</BoldTd>
-              <BlackTd>{data.marketCap.toFixed(0)}원</BlackTd>
-            </tr>
-            <tr>
-              <BoldTd>공동구매 달성액</BoldTd>
-              <BlackTd>
-                {(data.currentAmount * data.pricePerShare).toFixed(0)}원
-              </BlackTd>
-            </tr>
-            <tr>
-              <BoldTd>한 조각당 가격</BoldTd>
-              <BlackTd>{data.pricePerShare.toFixed(0)}원</BlackTd>
-            </tr>
-            <tr>
-              <BoldTd>
-                <Web>진행률</Web>
-              </BoldTd>
-              <PinkTd>
-                <Web>
-                  <FlexContainer>
-                    <ProgressContainer>
-                      <ProgressBar>
-                        <Progress
-                          style={{
-                            width:
-                              15 * (data.currentAmount / data.totalAmount) +
-                              "vw",
-                          }}
-                        />
-                      </ProgressBar>
-                    </ProgressContainer>
-                    {(data.currentAmount / data.totalAmount) * 100}%
-                  </FlexContainer>
-                  <GrayFont>
-                    총 {data.totalAmount}조각 중{" "}
-                    {data.totalAmount - data.currentAmount}조각 남음
-                  </GrayFont>
-                </Web>
-              </PinkTd>
-            </tr>
-            <tr>
-              <td colSpan="2">
-                <Mobile>
-                  <FlexContainer>
-                    <ProgressContainer>
-                      <ProgressBar>
-                        <Progress
-                          style={{
-                            width:
-                              55 * (data.currentAmount / data.totalAmount) +
-                              "vw",
-                          }}
-                        />
-                      </ProgressBar>
-                    </ProgressContainer>
-                  </FlexContainer>
-                </Mobile>
-              </td>
-            </tr>
-            <tr>
-              <BoldTd>
-                <Mobile>{data.currentAmount}조각</Mobile>
-              </BoldTd>
-              <BlackTd>
-                <Mobile>총 {data.totalAmount}조각</Mobile>
-              </BlackTd>
-            </tr>
+            <tr></tr>
             <tr>
               <td colSpan="2">{buttonComponent}</td>
             </tr>
           </Body>
-        </Table>
-      </div>
+        </Table> */}
+      <Mobile>
+        <FlexContainer>
+          <ProgressContainer>
+            <ProgressBar>
+              <Progress
+                percent={Math.floor(
+                  (data.currentAmount / data.totalAmount) * 100
+                )}
+              />
+            </ProgressBar>
+          </ProgressContainer>
+        </FlexContainer>
+        <FlexContainer>
+          <BoldTd>
+            <Mobile>{data.currentAmount}조각</Mobile>
+          </BoldTd>
+          <BlackTd>
+            <Mobile>총 {data.totalAmount}조각</Mobile>
+          </BlackTd>
+        </FlexContainer>
+      </Mobile>
+      {buttonComponent}
     </Positioner>
   );
 };
