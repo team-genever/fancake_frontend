@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -87,9 +87,9 @@ const ErrorMessage = styled.p`
   }
 `;
 
-const LoginBox = () => {
+const LoginBox = ({ setLoading }) => {
   const [checkEmail, setCheckEmail] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -105,28 +105,25 @@ const LoginBox = () => {
     } else if (loginInfo.password === "")
       setErrorMessage("비밀번호를 입력해주세요");
     else {
-      setErrorMessage("");
+      setErrorMessage(null);
       login();
     }
   };
 
   const inputChange = (e) => {
-    setErrorMessage("");
     if (e.target.type === "email") {
       let email = e.target.value;
       let re =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (re.test(email)) {
         //valid email address
-        loginInfo.email = e.target.value;
-        console.log("email is ", e.target.value);
+        setLoginInfo({ email: e.target.value, password: loginInfo.password });
         setCheckEmail(true);
       } else {
         setCheckEmail(false);
       }
     } else if (e.target.type === "password") {
-      loginInfo.password = e.target.value;
-      console.log("password is ", e.target.value);
+      setLoginInfo({ email: loginInfo.email, password: e.target.value });
     }
   };
 
@@ -139,6 +136,7 @@ const LoginBox = () => {
       password: loginInfo.password,
     });
     try {
+      setLoading(true);
       const response = await axios.post(backendip + "user/login", null, {
         params: {
           id: loginInfo.email,
@@ -152,29 +150,41 @@ const LoginBox = () => {
         expires: new Date(response.data.accessTokenExpiresIn),
         path: "/",
       });
+      setLoading(false);
       history.push("../");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해 주세요.");
     } finally {
     }
   }
 
   return (
-    <Container>
+    <Container
+      onKeyDown={(e) => {
+        if (e.code === "Enter") {
+          loginClicked();
+        }
+      }}
+    >
       <EmailInput
         type="email"
         placeholder="이메일을 입력해주세요."
-        onBlur={inputChange}
+        onChange={inputChange}
       />
       <PasswordInput
         type="password"
         placeholder="비밀번호를 입력해주세요."
-        onBlur={inputChange}
         onChange={inputChange}
       />
-      <ErrorMessage>{errorMessage}</ErrorMessage>
-      <LoginButton name="login" onClick={loginClicked}>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      <LoginButton
+        name="login"
+        onClick={() => {
+          loginClicked();
+        }}
+      >
         로그인
       </LoginButton>
     </Container>

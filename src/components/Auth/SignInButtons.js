@@ -62,15 +62,12 @@ const EmailButton = styled.button`
 
 const SignInButtons = () => {
   const componentClicked = (e) => {
-    if (e.target.name == "naver") {
+    if (e.target.name === "naver") {
       console.log("naver clicked");
       <Link
-        to={
-          (window.location.href =
-            "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=PdW0nmtpfhryHj5UrU_C&state=6546598198&redirect_uri=http://psj2867.com/api/login/naver/callback")
-        }
+        to={(window.location.href = "http://psj2867.com/api/oauth/naver_test")}
       />;
-    } else if (e.target.name == "email") {
+    } else if (e.target.name === "email") {
       console.log("email clicked");
     }
   };

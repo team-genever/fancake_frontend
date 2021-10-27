@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { SignInButtons, LoginBox } from "components/Auth";
 import { Helmet } from "react-helmet";
+import Loading from "components/Loading";
 
 const Container = styled.div`
   width: 100%;
@@ -18,6 +19,14 @@ const Container = styled.div`
   @media only screen and (max-width: 640px) {
     padding: 200px 30px 200px 30px;
   }
+`;
+
+const LoadingContainer = styled.div`
+  width: 100%;
+  margin-top: 150px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 `;
 
 const LoginDiv = styled.div`
@@ -89,6 +98,8 @@ const FindPW = styled.span`
 `;
 
 export default function LoginMain() {
+  const [loading, setLoading] = useState(false);
+
   const findingClicked = (e) => {
     if (e.target.id === "id") {
       console.log("find id clicked");
@@ -97,7 +108,11 @@ export default function LoginMain() {
     }
   };
 
-  return (
+  return loading ? (
+    <LoadingContainer>
+      <Loading />
+    </LoadingContainer>
+  ) : (
     <Container>
       <Helmet>
         <title>fanCake | 로그인</title>
@@ -110,7 +125,7 @@ export default function LoginMain() {
         </TextDiv>
         <SignInButtons />
         <Or>or</Or>
-        <LoginBox />
+        <LoginBox setLoading={setLoading} />
         <FindIDPW>
           <Link to={"./FindID"} style={{ textDecoration: "none" }}>
             <FindID id="id" onClick={findingClicked}>

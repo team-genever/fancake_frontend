@@ -220,11 +220,21 @@ const LoggedInProfile = styled.div`
   padding: 10px;
   text-decoration: none;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 12px;
   & span {
+    text-align: center;
+    display: block;
+    max-width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color: black;
     font-size: 12px;
     font-weight: bold;
     line-height: 12px;
+    margin-right: 3px;
   }
   & svg {
     position: absolute;
@@ -269,7 +279,7 @@ const LoggedInList = styled.div`
 const LoggedInLink = styled(Link)`
   display: block;
   width: 100%;
-  padding: 5px 0;
+  padding: 7px 0px;
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
@@ -621,7 +631,7 @@ const Navbar = ({ location: { pathname } }) => {
             <strong>{userInfo.balance}</strong>
           </Balance>
           <LoggedInProfile>
-            <span>{userInfo.name} 님</span>
+            <span>{userInfo.name}</span>님
             <FontAwesomeIcon icon={faCaretDown} />
             <LoggedInList id="LoggedInList">
               <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>
