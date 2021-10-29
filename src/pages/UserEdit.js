@@ -178,7 +178,7 @@ const UserEdit = () => {
         <>
           <Title>회원정보수정</Title>
           <EditContainer title="기본정보" infos={basicInfo} />
-          <EditContainer title="배송지 관리" infos={deliveryInfo} isDelivery />
+          {/* <EditContainer title="배송지 관리" infos={deliveryInfo} isDelivery /> */}
         </>
       )}
     </Container>

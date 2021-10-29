@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
+import Popup from "components/Popup";
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.fontSmallGray};
@@ -131,6 +132,32 @@ const VideoButton = styled.button`
   }
 `;
 
+const PopupTitle = styled.h3`
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 20px;
+  margin-bottom: 10px;
+  @media screen and (max-width: 640px) {
+    font-size: 5.3vw;
+    line-height: 6vw;
+    margin-bottom: 5vw;
+  }
+`;
+
+const PopupDescription = styled.p`
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+  @media screen and (max-width: 640px) {
+    font-size: 3.5vw;
+    line-height: 4.5vw;
+    margin-bottom: 5vw;
+  }
+`;
+
 const OwningVideo = ({
   videoId,
   title,
@@ -138,38 +165,56 @@ const OwningVideo = ({
   totalAmount,
   price,
   size,
-}) => (
-  <Container>
-    <VideoImg
-      src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-      alt={`thumbnail_${videoId}`}
-    />
-    <VideoDescription>
-      <VideoTitle>{title}</VideoTitle>
-      <VideoChannel>{channelTitle}</VideoChannel>
-      <VideoTokenInfos>
-        <VideoTokenInfo>
-          <small>총 보유 조각</small>
-          <span>
-            <strong className="pink">{size}</strong> / {totalAmount} 조각
-          </span>
-        </VideoTokenInfo>
-        <VideoTokenInfo>
-          <small>총 구매 금액</small>
-          <small>{price * size}</small>
-        </VideoTokenInfo>
-        <VideoTokenInfo>
-          <small>누적 수익셰어 금액</small>
-          <span>
-            <strong>0</strong> 원
-          </span>
-        </VideoTokenInfo>
-      </VideoTokenInfos>
-      <VideoButton>
-        <span>판매하기</span>
-      </VideoButton>
-    </VideoDescription>
-  </Container>
-);
+}) => {
+  const [sellClicked, setSellClicked] = useState(false);
+  return (
+    <Container>
+      {sellClicked ? (
+        <Popup padding={[40, 30]}>
+          <PopupTitle>판매하기</PopupTitle>
+          <PopupDescription>
+            판매하기 기능은 정식 서비스에서 출시됩니다.
+            <br />
+            많은 관심 부탁드립니다!
+          </PopupDescription>
+          <div className="buttonsContainer">
+            <button onClick={() => setSellClicked(false)}>확인했습니다</button>
+          </div>
+        </Popup>
+      ) : (
+        <></>
+      )}
+      <VideoImg
+        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        alt={`thumbnail_${videoId}`}
+      />
+      <VideoDescription>
+        <VideoTitle>{title}</VideoTitle>
+        <VideoChannel>{channelTitle}</VideoChannel>
+        <VideoTokenInfos>
+          <VideoTokenInfo>
+            <small>총 보유 조각</small>
+            <span>
+              <strong className="pink">{size}</strong> / {totalAmount} 조각
+            </span>
+          </VideoTokenInfo>
+          <VideoTokenInfo>
+            <small>총 구매 금액</small>
+            <small>{price * size}</small>
+          </VideoTokenInfo>
+          <VideoTokenInfo>
+            <small>누적 수익셰어 금액</small>
+            <span>
+              <strong>0</strong> 베리
+            </span>
+          </VideoTokenInfo>
+        </VideoTokenInfos>
+        <VideoButton onClick={() => setSellClicked(true)}>
+          <span>판매하기</span>
+        </VideoButton>
+      </VideoDescription>
+    </Container>
+  );
+};
 
 export default OwningVideo;

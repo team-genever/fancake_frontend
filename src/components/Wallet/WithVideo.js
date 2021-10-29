@@ -186,6 +186,8 @@ const WithVideo = ({
   currentAmount,
   price,
   expirationDate,
+  isWallet,
+  size,
 }) => {
   const [leftTime, setLeftTime] = useState("");
   const expire = new Date(expirationDate);
@@ -233,6 +235,15 @@ const WithVideo = ({
           <Progress progress={percent} />
         </ProgressBar>
         <VideoTokenInfos>
+          {isWallet && (
+            <VideoTokenInfo>
+              <small>총 보유 조각</small>
+              <span>
+                <strong>{size}</strong>
+                조각
+              </span>
+            </VideoTokenInfo>
+          )}
           <VideoTokenInfo>
             <small>총 {totalAmount} 조각</small>
             <span>
@@ -241,7 +252,7 @@ const WithVideo = ({
           </VideoTokenInfo>
           <VideoTokenInfo>
             <small>조각당 가격</small>
-            <small>{price}원</small>
+            <small>{price} 베리</small>
           </VideoTokenInfo>
           <VideoTokenInfo>
             <small>남은 시간</small>

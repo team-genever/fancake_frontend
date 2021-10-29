@@ -222,6 +222,7 @@ export default function VideoSection({
   setVideoInfo,
   userInfo,
   updateUserInfo,
+  getApi,
 }) {
   const [hasBought, setHasBought] = useState(false);
   const [cookies] = useCookies(["Authorization"]);
@@ -392,7 +393,7 @@ export default function VideoSection({
   return (
     <Positioner>
       <Heading>영상의 첫 번째 주인이 되세요!</Heading>
-      <StepContainer>
+      <StepContainer id="step_one">
         <Step>
           <strong>STEP 1.</strong> 좋아하는 크리에이터를 선택하세요.
         </Step>
@@ -437,13 +438,14 @@ export default function VideoSection({
             videoInfo={videoInfo}
             setHasBought={setHasBought}
             currentVideo={currentVideo}
+            getApi={getApi}
           />
         </StepContainer>
       )}
       {hasBought && (
         <StepContainer id="formContainer">
           <Step>설문에 참여하고 상품도 받아가세요! 🥤</Step>
-          <Widget id="YhrxJS5D" style={{ width: "100%", height: 500 }} />
+          <Widget id="y9tvCbTe" style={{ width: "100%", height: 500 }} />
         </StepContainer>
       )}
     </Positioner>

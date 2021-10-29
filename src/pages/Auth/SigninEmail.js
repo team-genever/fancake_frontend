@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMediaQuery } from "react-responsive";
 import { Helmet } from "react-helmet";
 
-import { GetBackendIP } from "../../settings";
+import { api, GetBackendIP } from "../../settings";
 import axios from "axios";
 
 const Container = styled.div`
@@ -228,10 +228,9 @@ export default function SigninEmail() {
 
   async function signin() {
     let tempData;
-    let backendip = GetBackendIP();
-    console.log(backendip + "user");
+    let response;
     try {
-      const response = await axios.post(backendip + "user", null, {
+      response = await api.post("user", null, {
         params: {
           id: loginInfo.email,
           password: loginInfo.password,
@@ -242,7 +241,9 @@ export default function SigninEmail() {
       tempData = response.data;
       console.log("tempData is ", tempData);
       console.log("sign in success");
+      window.location.replace("/auth/main");
     } catch (error) {
+      window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해 주세요.");
       console.error(error);
     } finally {
     }

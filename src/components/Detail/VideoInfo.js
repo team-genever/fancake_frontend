@@ -138,7 +138,8 @@ const BoldFont = styled.div`
 `;
 
 const Button = styled.div`
-  background-color: ${(props) => props.theme.mainPink};
+  background-color: ${(props) =>
+    props.isLogin ? props.theme.mainPink : props.theme.boxGray};
   border: none;
   border-radius: 5px;
   color: white;
@@ -148,7 +149,7 @@ const Button = styled.div`
   text-align: center;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.mainPinkHover};
+    background-color: ${(props) => props.isLogin && props.theme.mainPinkHover};
   }
 `;
 
@@ -194,6 +195,8 @@ const InputButton = styled.button`
   cursor: pointer;
 
   font-size: 17px;
+  text-align: center;
+  line-height: 17px;
   &:hover {
     background-color: ${(props) => props.theme.progressBarGray};
   }
@@ -234,7 +237,13 @@ const Web = styled.div`
   }
 `;
 
-const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
+const VideoInfo = ({
+  data,
+  setHasBought,
+  userInfo,
+  updateUserInfo,
+  getApi,
+}) => {
   const [buttonComponent, setButton] = useState(
     <Button>로그인 후 이용가능합니다.</Button>
   );
@@ -295,10 +304,15 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
   };
 
   const ChangeAmount = (e) => {
+    const max = data.totalAmount - data.currentAmount;
     switch (e.target.name) {
       case "+":
-        setTotalPrice((amount + 1) * data.pricePerShare);
-        setAmount(amount + 1);
+        if (amount < max) {
+          setTotalPrice((amount + 1) * data.pricePerShare);
+          setAmount(amount + 1);
+        } else {
+          window.alert("최대 구매 가능 개수입니다.");
+        }
         break;
       case "-":
         if (amount > 0) {
@@ -319,7 +333,7 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
     //로그인 상태, 영상 판매중 여부에 따라 다른 버튼 렌더링
 
     if (!isLogin) {
-      setButton(<Button>로그인 후 이용가능합니다.</Button>);
+      setButton(<Button isLogin={isLogin}>로그인 후 이용가능합니다.</Button>);
     } else if (OnSale) {
       setButton(
         <div>
@@ -347,17 +361,23 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
               {
                 totalPrice.toString()
                 //.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-              }
-              원
+              }{" "}
+              베리
             </BoldFont>
           </FlexContainer>
-          <Button onClick={onClick}>구매하기</Button>
+          <Button isLogin={isLogin} onClick={onClick}>
+            구매하기
+          </Button>
           {confirmModal ? (
             <ConfirmModal
               totalPrice={totalPrice}
               userInfo={userInfo}
+              videoIdx={data.videoIdx}
+              size={amount}
               updateUserInfo={updateUserInfo}
               setModal={setConfirmModal}
+              setHasBought={setHasBought}
+              getApi={getApi}
             />
           ) : (
             <></>
@@ -371,7 +391,7 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
       );
     } else {
       setButton(
-        <Button style={{ backgroundColor: "#9a9a9a" }}>
+        <Button isLogin={isLogin} style={{ backgroundColor: "#9a9a9a" }}>
           구매 가능 기간이 아닙니다.
         </Button>
       );
@@ -384,13 +404,13 @@ const VideoInfo = ({ data, setHasBought, userInfo, updateUserInfo }) => {
         <BoldTd>남은시간</BoldTd>
         <PinkTd>{leftTime}</PinkTd>
         <BoldTd>공동구매 목표금액</BoldTd>
-        <BlackTd>{data.marketCap.toFixed(0)}원</BlackTd>
+        <BlackTd>{data.marketCap.toFixed(0)} 베리</BlackTd>
         <BoldTd>공동구매 달성액</BoldTd>
         <BlackTd>
-          {(data.currentAmount * data.pricePerShare).toFixed(0)}원
+          {(data.currentAmount * data.pricePerShare).toFixed(0)} 베리
         </BlackTd>
         <BoldTd>한 조각당 가격</BoldTd>
-        <BlackTd>{data.pricePerShare.toFixed(0)}원</BlackTd>
+        <BlackTd>{data.pricePerShare.toFixed(0)} 베리</BlackTd>
         <Web>
           <BoldTd>진행률</BoldTd>
         </Web>

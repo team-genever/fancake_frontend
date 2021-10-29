@@ -46,14 +46,20 @@ const Experience = ({ userInfo, updateUserInfo }) => {
 
   async function getApi() {
     try {
-      const responseVideos = await api.get("videos");
+      const responseVideos = await api.get("videos", {
+        params: {
+          countPerPage: 50,
+        },
+      });
       const responseChannels = await api.get("channels");
+      console.log(responseVideos.data.content);
       setVideos(responseVideos.data.content);
       setCreators(responseChannels.data.content);
     } catch {
       setError({ error: "정보를 가져오는 동안 오류가 발생했습니다." });
     } finally {
       setLoading(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
   const getCreators = async () => {
@@ -82,6 +88,7 @@ const Experience = ({ userInfo, updateUserInfo }) => {
         setVideoInfo={setVideoInfo}
         userInfo={userInfo}
         updateUserInfo={updateUserInfo}
+        getApi={getApi}
       >
         <CreaterSection
           creators={creators}

@@ -1,3 +1,4 @@
+import Loading from "components/Loading";
 import Popup from "components/Popup";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -80,9 +81,17 @@ const ConfirmModal = ({
   updateUserInfo,
   totalPrice,
   setHasBought,
+  videoIdx,
+  size,
+  getApi,
 }) => {
   const [complete, setComplete] = useState(false);
-  return (
+  const [loading, setLoading] = useState(false);
+  return loading ? (
+    <Popup padding={[60, 60]}>
+      <Loading />
+    </Popup>
+  ) : (
     <Popup padding={[30, 30]}>
       {complete ? (
         <>
@@ -90,6 +99,9 @@ const ConfirmModal = ({
           <div className="buttonsContainer">
             <button
               onClick={() => {
+                window.location.reload();
+                const first = document.getElementById("step_one");
+                first.scrollIntoView({ behavior: "smooth" });
                 setModal(false);
               }}
             >
@@ -109,7 +121,7 @@ const ConfirmModal = ({
             </button>
           </div>
         </>
-      ) : (
+      ) : size > 0 ? (
         <>
           <PopupTitle>구매 확정하기</PopupTitle>
           <PopupDescription>
@@ -126,19 +138,37 @@ const ConfirmModal = ({
               아니요
             </button>
             <button
-              onClick={() => {
-                const res = updateUserInfo({
-                  balance: userInfo.balance - totalPrice,
-                });
-                if (res === 200) {
-                  setComplete(true);
-                  setHasBought(true);
-                } else if (res === 400) {
-                  setModal(false);
+              onClick={async () => {
+                let res;
+                try {
+                  setLoading(true);
+                  res = await updateUserInfo(videoIdx, size);
+                } catch {
+                } finally {
+                  setLoading(false);
+                  if (res === 200) {
+                    setComplete(true);
+                    setHasBought(true);
+                  } else if (res === 400) {
+                    setModal(false);
+                  }
                 }
               }}
             >
               구매 확정하기
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <PopupTitle>거래 수량을 선택해주세요.</PopupTitle>
+          <div className="buttonsContainer">
+            <button
+              onClick={() => {
+                setModal(false);
+              }}
+            >
+              확인했습니다
             </button>
           </div>
         </>

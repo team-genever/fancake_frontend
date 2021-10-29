@@ -59,24 +59,46 @@ class Wallet extends React.Component {
           Authorization: cookies.get("Authorization"),
         },
         params: {
+          countPerPage: 50,
           confirm: false,
         },
       });
-      const responseConfirmStock = await api.get("user/stocks", {
-        headers: {
-          Authorization: cookies.get("Authorization"),
-        },
-        params: {
-          confirm: true,
-        },
+      const videoStocks = responseStock.data.content;
+      this.setState({
+        userStocks: videoStocks.filter((stock) => {
+          const {
+            video: { auctionState },
+          } = stock;
+          const today = new Date();
+          if (auctionState === "SUCCESS") {
+            return false;
+          } else if (auctionState === "CANCEL") {
+            return true;
+          } else {
+            if (today > stock.expirationDate) {
+              return false;
+            } else {
+              return true;
+            }
+          }
+        }),
       });
       this.setState({
-        userStocks: responseStock.data.content.map((item) => item.video),
-      });
-      this.setState({
-        userConfirmStocks: responseConfirmStock.data.content.map(
-          (item) => item.video
-        ),
+        userConfirmStocks: videoStocks.filter((stock) => {
+          const { auctionState } = stock.video;
+          const today = new Date();
+          if (auctionState === "SUCCESS") {
+            return true;
+          } else if (auctionState === "CANCEL") {
+            return false;
+          } else {
+            if (today > stock.expirationDate) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }),
       });
     } catch {
       this.setState({ error: "정보를 가져오는 동안 오류가 발생했습니다." });
@@ -107,14 +129,20 @@ class Wallet extends React.Component {
             <VideosContainer>
               <Title>보유 중인 영상</Title>
               <Videos
+                isWallet={true}
                 videosType="own"
-                userStocks={userConfirmStocks}
+                videos={userConfirmStocks}
                 creater="all"
               />
             </VideosContainer>
             <VideosContainer>
               <Title>공동구매 중인 영상</Title>
-              <Videos videosType="with" userStocks={userStocks} creater="all" />
+              <Videos
+                isWallet={true}
+                videosType="with"
+                videos={userStocks}
+                creater="all"
+              />
             </VideosContainer>
           </>
         )}

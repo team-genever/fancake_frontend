@@ -120,6 +120,7 @@ const Videos = ({
   creater,
   setCurrentVideo,
   setVideoInfo,
+  isWallet,
 }) => {
   const getMaxPage = (width) => {
     if (width > 1693) {
@@ -142,11 +143,12 @@ const Videos = ({
   const [maxPage, setMaxPage] = useState(getMaxPage(window.innerWidth));
   useEffect(() => setCurrentPage(1), [creater]);
   useEffect(() => {
+    videosType === "own" && console.log("보유", videos);
     window.addEventListener("resize", () => {
       setMaxPage(getMaxPage(window.innerWidth));
     });
     let stocks = videos;
-    if (videosType !== "own") {
+    if (videosType !== "own" && isWallet !== true) {
       stocks = videos.filter((stock) => {
         if (creater === "all") return true;
         if (creater === stock.channel.channelTitle) return true;
@@ -173,12 +175,12 @@ const Videos = ({
             {filteredStocks.map((stock, index) => (
               <OwningVideo
                 key={index}
-                videoId={stock.videoId}
-                title={stock.title}
-                channelTitle={stock.channel.channelTitle}
-                totalAmount={stock.totalAmount}
+                videoId={stock.video.videoId}
+                title={stock.video.title}
+                channelTitle={stock.video.channel.channelTitle}
+                totalAmount={stock.video.totalAmount}
                 size={stock.size}
-                price={stock.pricePerShare}
+                price={stock.video.pricePerShare}
               />
             ))}
             {() => {
@@ -190,42 +192,57 @@ const Videos = ({
         )
       ) : videos && videos.length !== 0 ? (
         <VideosGrid>
-          {filteredStocks.map((stock, index) => (
-            <div
-              key={index}
-              onClick={() => {
-                if (setCurrentVideo) {
-                  setCurrentVideo(stock.videoIdx);
-                  setVideoInfo(stock);
-                  setTimeout(() => {
-                    const stepThree = document.getElementById("step_three");
-                    stepThree &&
-                      stepThree.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }, 100);
-                }
-              }}
-            >
-              <WithVideo
-                types={[
-                  {
-                    id: "youtube",
-                    name:
-                      stock.channel.channelUrl.includes("youtube") && "유튜브",
-                  },
-                  { id: "onsale", name: "판매중" },
-                ]}
-                title={stock.title}
-                videoId={stock.videoId}
-                channelTitle={stock.channel.channelTitle}
-                totalAmount={stock.totalAmount}
-                currentAmount={stock.currentAmount}
-                price={stock.pricePerShare}
-                expirationDate={stock.expirationDate}
-              />
-            </div>
-          ))}
+          {filteredStocks.map((stock_, index) => {
+            const size = stock_.size;
+            const stock = isWallet ? stock_.video : stock_;
+            return (
+              <div
+                key={index}
+                onClick={() => {
+                  if (setCurrentVideo) {
+                    setCurrentVideo(stock.videoIdx);
+                    setVideoInfo(stock);
+                    setTimeout(() => {
+                      const stepThree = document.getElementById("step_three");
+                      stepThree &&
+                        stepThree.scrollIntoView({
+                          behavior: "smooth",
+                        });
+                    }, 100);
+                  }
+                }}
+              >
+                <WithVideo
+                  types={[
+                    {
+                      id: "youtube",
+                      name:
+                        stock.channel.channelUrl.includes("youtube") &&
+                        "유튜브",
+                    },
+                    {
+                      id: "onsale",
+                      name:
+                        stock.auctionState === "SUCCESS"
+                          ? "판매완료"
+                          : stock.auctionState === "CANCEL"
+                          ? "판매취소"
+                          : "판매중",
+                    },
+                  ]}
+                  isWallet={isWallet}
+                  size={size}
+                  title={stock.title}
+                  videoId={stock.videoId}
+                  channelTitle={stock.channel.channelTitle}
+                  totalAmount={stock.totalAmount}
+                  currentAmount={stock.currentAmount}
+                  price={stock.pricePerShare}
+                  expirationDate={stock.expirationDate}
+                />
+              </div>
+            );
+          })}
         </VideosGrid>
       ) : (
         <NotFound>구매중인 영상이 없습니다.</NotFound>

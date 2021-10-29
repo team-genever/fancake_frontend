@@ -41,6 +41,7 @@ function Detail({
   setHasBought,
   videoInfo,
   currentVideo,
+  getApi,
 }) {
   return (
     currentVideo && (
@@ -52,6 +53,7 @@ function Detail({
             userInfo={userInfo}
             updateUserInfo={updateUserInfo}
             setHasBought={setHasBought}
+            getApi={getApi}
           />
         </Container2>
       </Container>

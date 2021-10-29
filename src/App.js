@@ -22,6 +22,7 @@ import Footer from "components/Footer";
 import { useCookies } from "react-cookie";
 import styled from "styled-components";
 import { api } from "settings";
+import axios from "axios";
 
 const NavBackground = styled.div`
   width: 100%;
@@ -60,20 +61,23 @@ function App() {
           detail: true,
         },
       });
-      setUserInfo(response.data.content);
+      console.log(response);
+      setUserInfo(response.data);
     } catch (e) {}
   };
 
-  const updateUserInfo = async (schema) => {
-    console.log(schema);
+  const updateUserInfo = async (videoIdx, size) => {
     try {
-      await api.put("user", null, {
+      const res = await api.post(`videos/${videoIdx}/stock`, null, {
         headers: {
           Authorization: cookies.Authorization,
         },
-        params: schema,
+        params: {
+          size,
+        },
       });
-      getUserInfo();
+      console.log(res);
+      await getUserInfo();
       return 200;
     } catch (e) {
       window.alert("처리 도중 문제가 발생 했습니다. 다시 시도해주세요.");

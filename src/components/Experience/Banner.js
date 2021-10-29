@@ -87,8 +87,8 @@ export default class Banner extends Component {
           <img src={banner} alt="banner" />
         </ImageContainer>
         <Headings>
-          <Heading>사전 예약을 이미 하셨나요?</Heading>
-          <Heading2>지금 회원가입하여 혜택을 받으세요.</Heading2>
+          <Heading>만나서 반가워요!</Heading>
+          <Heading2>지금 테스트 서비스에 참여하고 선물을 받아가세요!</Heading2>
         </Headings>
       </Positioner>
     );

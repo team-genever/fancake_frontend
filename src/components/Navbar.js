@@ -29,14 +29,18 @@ const Container = styled.div`
 `;
 
 const NavFront = styled.div`
-  height: 100%;
+  position: fixed;
+  top: 20px;
+  left: 30px;
   display: flex;
   align-items: center;
+  z-index: 9;
   & img {
     height: 40px;
   }
 
   @media only screen and (max-width: 640px) {
+    left: 5vw;
     & img {
       height: 6.5vw;
     }
@@ -44,10 +48,14 @@ const NavFront = styled.div`
 `;
 
 const NavBack = styled.div`
+  position: fixed;
+  top: 24px;
+  right: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  z-index: 9;
 `;
 
 const HomeLink = styled.a`
@@ -575,7 +583,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   };
 
   return (
-    <Container>
+    <>
       <NavFront>
         <HomeLink href="http://fancake.xyz/" scroll={scroll}>
           {/* <object data={logo} type="image/svg+xml" aria-label="logo" /> */}
@@ -705,7 +713,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
           </SidebarContent>
         </Sidebar>
       </SidebarContainer>
-    </Container>
+    </>
   );
 };
 

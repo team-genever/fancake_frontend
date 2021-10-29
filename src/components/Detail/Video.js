@@ -21,7 +21,6 @@ const Heading = styled.div`
   font-weight: bold;
   font-size: 25px;
   line-height: 32px;
-  margin-bottom: 7px;
 
   @media only screen and (max-width: 1007px) {
     //padding: 0vw 7vw;
@@ -102,13 +101,13 @@ const Video = ({ data }) => {
         allowfullscreen
       />
       <Heading>{data.title}</Heading>
-      <ChannelName
+      {/* <ChannelName
         to={{ pathname: data.channel.channelUrl }}
         style={{ textDecoration: "none" }}
         target="_blank"
       >
         {data.channel.channelTitle}
-      </ChannelName>
+      </ChannelName> */}
     </Positioner>
   );
 };
