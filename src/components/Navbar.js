@@ -32,18 +32,18 @@ const NavFront = styled.div`
   position: fixed;
   top: 20px;
   left: 30px;
+  z-index: 9;
   display: flex;
   align-items: center;
-  z-index: 9;
   & img {
-    height: 40px;
+    height: 100%;
   }
+  height: 40px;
 
   @media only screen and (max-width: 640px) {
     left: 5vw;
-    & img {
-      height: 6.5vw;
-    }
+    top: 4vw;
+    height: 6.5vw;
   }
 `;
 
@@ -167,24 +167,20 @@ const Balance = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   padding: 0 10px;
   & img {
     width: 23px;
     filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.4));
+    margin-right: 8px;
   }
   & span {
-    font-size: 14px;
-    font-weight: bold;
-    filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.4));
-  }
-  & strong {
-    font-size: 18px;
     color: ${(props) => (props.scroll > 80 ? props.theme.mainPink : "white")};
+    font-size: 18px;
     transition: color 0.2s ease-in-out;
     font-weight: bold;
     line-height: 20px;
     filter: drop-shadow(0px 0px 10px rgb(0 0 0 / 0.4));
+    margin-right: 3px;
   }
   @media only screen and (max-width: 640px) {
     display: none;
@@ -611,7 +607,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
         <NavBack>
           <Balance scroll={scroll}>
             <img src={cake} alt="cake" />
-            <strong>{userInfo.balance}</strong>
+            <span>{userInfo.balance} 베리</span>
           </Balance>
           <LoggedInProfile>
             <span>{userInfo.name}</span>님
@@ -669,6 +665,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
                 <SidebarBalance>
                   <img src={cake} alt="cake" />
                   <strong>{userInfo.balance}</strong>
+                  <span>베리</span>
                 </SidebarBalance>
 
                 <SidebarLink to="/user/wallet" onClick={onLinkClick}>

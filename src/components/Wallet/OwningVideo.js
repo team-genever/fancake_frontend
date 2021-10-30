@@ -185,7 +185,7 @@ const OwningVideo = ({
         <></>
       )}
       <VideoImg
-        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
         alt={`thumbnail_${videoId}`}
       />
       <VideoDescription>

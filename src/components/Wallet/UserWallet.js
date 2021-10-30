@@ -189,9 +189,9 @@ const UserWallet = ({ userInfo }) => {
         <strong>{userInfo.name}</strong>님의 지갑
       </WalletTitle>
       <CurrentBalance>
-        <span>현재 보유 금액</span>
+        <span>현재 보유 베리</span>
         <span>
-          <strong>{userInfo.balance}</strong> 원
+          <strong>{userInfo.balance}</strong> 베리
         </span>
       </CurrentBalance>
       <Buttons>

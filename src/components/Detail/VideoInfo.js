@@ -38,12 +38,18 @@ const InfoContainer = styled.div``;
 const Grid = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 2fr 3fr;
   grid-auto-rows: max-content;
   gap: 10px;
   margin-bottom: 20px;
   @media only screen and (max-width: 1007px) {
+    grid-template-columns: max-content 1fr;
     margin-bottom: 10px;
+    gap: 5px;
+  }
+  @media only screen and (max-width: 1007px) {
+    margin-bottom: 3vw;
+    gap: 1.5vw;
   }
 `;
 
@@ -59,7 +65,6 @@ const Body = styled.div`
 
 const BoldTd = styled.div`
   font-weight: bold;
-  width: 200px;
   font-size: 15px;
   color: ${(props) => props.theme.boxGray};
 `;
@@ -269,26 +274,39 @@ const VideoInfo = ({
   const [rejectModal, setRejectModal] = useState(false);
 
   const [leftTime, setLeftTime] = useState("");
-  const expire = new Date(data.expirationDate);
+  const [intervalId, setIntervalId] = useState(null);
+  const [expire, setExpire] = useState(new Date(data.expirationDate));
+
   const changeLeftDate = () => {
     const today = new Date();
     const left = expire.getTime() - today.getTime();
-    const leftDay = Math.floor(left / (1000 * 60 * 60 * 24));
-    const leftHours = Math.floor(
-      (left % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const leftMinutes = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
-    const leftSeconds = Math.floor((left % (1000 * 60)) / 1000);
-    setLeftTime(
-      `${leftDay}일 ${leftHours.toString().padStart(2, "0")}:${leftMinutes
-        .toString()
-        .padStart(2, "0")}:${leftSeconds.toString().padStart(2, "0")}`
-    );
+    if (expire.getTime() > today.getTime()) {
+      const leftDay = Math.floor(left / (1000 * 60 * 60 * 24));
+      const leftHours = Math.floor(
+        (left % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const leftMinutes = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
+      const leftSeconds = Math.floor((left % (1000 * 60)) / 1000);
+      setLeftTime(
+        `${leftDay}일 ${leftHours.toString().padStart(2, "0")}:${leftMinutes
+          .toString()
+          .padStart(2, "0")}:${leftSeconds.toString().padStart(2, "0")}`
+      );
+    } else {
+      setLeftTime("판매 기간 종료");
+    }
   };
   useEffect(() => {
+    if (data) {
+      setExpire(new Date(data.expirationDate));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    clearInterval(intervalId);
     changeLeftDate();
-    setInterval(changeLeftDate, 1000);
-  }, []);
+    setIntervalId(setInterval(changeLeftDate, 1000));
+  }, [expire]);
 
   const onChange = (e) => {
     console.log("value changed");

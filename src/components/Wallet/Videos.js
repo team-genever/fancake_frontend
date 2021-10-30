@@ -109,8 +109,11 @@ const VideosPage = styled.div`
 const NotFound = styled.span`
   display: block;
   margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 13px;
   @media screen and (max-width: 640px) {
     margin-bottom: 4vw;
+    font-size: 2.5vw;
   }
 `;
 
@@ -245,7 +248,9 @@ const Videos = ({
           })}
         </VideosGrid>
       ) : (
-        <NotFound>구매중인 영상이 없습니다.</NotFound>
+        <NotFound>
+          {isWallet ? "구매중인 영상이 없습니다." : "판매중인 영상이 없습니다."}
+        </NotFound>
       )}
       <VideosPage currentPage={currentPage} totalPage={totalPage}>
         <button
