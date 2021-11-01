@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import styled from "styled-components";
 import ConfirmModal from "./ConfirmModal";
 import RejectModal from "./RejectModal";
+import { Link } from "react-router-dom";
 
 const Positioner = styled.div`
   display: flex;
@@ -195,6 +196,7 @@ const InputButton = styled.button`
   border: none;
   height: 100%;
   aspect-ratio: 1 / 1;
+  color: black;
   background-color: ${(props) => props.theme.boxLightGray};
 
   cursor: pointer;
@@ -250,7 +252,9 @@ const VideoInfo = ({
   getApi,
 }) => {
   const [buttonComponent, setButton] = useState(
-    <Button>로그인 후 이용가능합니다.</Button>
+    <Link to="/auth/main" style={{ textDecoration: "none" }}>
+      <Button>로그인 후 이용가능합니다.</Button>
+    </Link>
   );
 
   const [cookies] = useCookies(["Authorization"]);
@@ -351,7 +355,11 @@ const VideoInfo = ({
     //로그인 상태, 영상 판매중 여부에 따라 다른 버튼 렌더링
 
     if (!isLogin) {
-      setButton(<Button isLogin={isLogin}>로그인 후 이용가능합니다.</Button>);
+      setButton(
+        <Link to="/auth/main" style={{ textDecoration: "none" }}>
+          <Button isLogin={isLogin}>로그인 후 이용가능합니다.</Button>
+        </Link>
+      );
     } else if (OnSale) {
       setButton(
         <div>
