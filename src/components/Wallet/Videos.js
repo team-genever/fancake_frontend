@@ -140,14 +140,6 @@ const Videos = ({
     }
   };
 
-  // const ga_step2_video_click = (title) => {
-  //   ReactGA.event({
-  //     category: 'Step2',
-  //     action: 'Select ${title}'
-  //   });
-  //   console.log("ga_step2_video_click")
-  // };
-
   const [filteredStocks, setStocks] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [totalVideos, setTotalVideos] = useState(videos.length);
@@ -222,10 +214,13 @@ const Videos = ({
                         });
                     }, 100);
                   }
+
                   ReactGA.event({
                     category: 'Step2',
-                    action: `Select ${stock.title}`
+                    action: `Select`,
+                    label: `${stock.title}`
                   });
+
                 }}
               >
                 <WithVideo
