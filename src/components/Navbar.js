@@ -8,6 +8,7 @@ import { useCookies } from "react-cookie";
 import { api } from "settings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import ReactGA from 'react-ga';
 
 const Container = styled.div`
   width: 100%;
@@ -538,6 +539,12 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   const [loggedIn, setLoggedIn] = useState();
   const [checked, setChecked] = useState(false);
   const [scroll, setScroll] = useState();
+
+  //GA
+  let pageView;
+  if (pathname === "*") pageView = '/not-found';
+  else pageView = pathname;
+  ReactGA.pageview(pageView); // Sending GA page views
 
   useEffect(() => {
     window.addEventListener("scroll", () => setScroll(window.scrollY));

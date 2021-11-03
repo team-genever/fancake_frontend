@@ -8,8 +8,11 @@ import reportWebVitals from "reportWebVitals";
 import theme from "theme";
 import { CookiesProvider } from "react-cookie";
 import smoothscroll from "smoothscroll-polyfill";
+import ReactGA from 'react-ga';
 
+ReactGA.initialize("UA-211868081-1");
 smoothscroll.polyfill();
+
 
 ReactDOM.render(
   <CookiesProvider>
