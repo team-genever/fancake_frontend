@@ -264,7 +264,7 @@ const WithVideo = ({
           </VideoTokenInfo>
           <VideoTokenInfo>
             <small>조각당 가격</small>
-            <small>{price} 베리</small>
+            <small>{price.toLocaleString("ko-KR")} 베리</small>
           </VideoTokenInfo>
           <VideoTokenInfo>
             <small>남은 시간</small>

@@ -176,7 +176,7 @@ const ButtonContainer = styled.div`
 const ButtonPositioner = styled.div`
   display: flex;
   justify-content: space-between;
-  height: max-content;
+  align-items: center;
   width: 100%;
   height: 45px;
   background-color: ${(props) => props.theme.boxVeryLightGray};
@@ -185,18 +185,18 @@ const ButtonPositioner = styled.div`
 `;
 
 const InputButtons = styled.div`
+  width: max-content;
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 5px;
 `;
 
 const InputButton = styled.button`
+  //all: unset;
   border-radius: 100%;
   border: none;
-  height: 100%;
-  aspect-ratio: 1 / 1;
-  color: black;
+  width: 29px;
+  height: 29px;
   background-color: ${(props) => props.theme.boxLightGray};
 
   cursor: pointer;
@@ -204,13 +204,13 @@ const InputButton = styled.button`
   font-size: 17px;
   text-align: center;
   line-height: 17px;
+  color: black;
   &:hover {
     background-color: ${(props) => props.theme.progressBarGray};
   }
 `;
 
 const Input = styled.input`
-  width: 100%;
   color: black;
   border: none;
   background-color: transparent;
@@ -225,7 +225,7 @@ const Input = styled.input`
   }
 
   @media only screen and (max-width: 640px) {
-    width: 70vw;
+    width: 30vw;
   }
 `;
 
@@ -252,7 +252,13 @@ const VideoInfo = ({
   getApi,
 }) => {
   const [buttonComponent, setButton] = useState(
-    <Link to="/auth/main" style={{ textDecoration: "none" }}>
+    <Link
+      to="/auth/main"
+      style={{ textDecoration: "none" }}
+      onClick={() => {
+        window.location.replace("/auth/main");
+      }}
+    >
       <Button>로그인 후 이용가능합니다.</Button>
     </Link>
   );
@@ -430,13 +436,14 @@ const VideoInfo = ({
         <BoldTd>남은시간</BoldTd>
         <PinkTd>{leftTime}</PinkTd>
         <BoldTd>공동구매 목표금액</BoldTd>
-        <BlackTd>{data.marketCap.toFixed(0)} 베리</BlackTd>
+        <BlackTd>{data.marketCap.toLocaleString("ko-KR")} 베리</BlackTd>
         <BoldTd>공동구매 달성액</BoldTd>
         <BlackTd>
-          {(data.currentAmount * data.pricePerShare).toFixed(0)} 베리
+          {(data.currentAmount * data.pricePerShare).toLocaleString("ko-KR")}{" "}
+          베리
         </BlackTd>
         <BoldTd>한 조각당 가격</BoldTd>
-        <BlackTd>{data.pricePerShare.toFixed(0)} 베리</BlackTd>
+        <BlackTd>{data.pricePerShare.toLocaleString("ko-KR")} 베리</BlackTd>
         <Web>
           <BoldTd>진행률</BoldTd>
         </Web>

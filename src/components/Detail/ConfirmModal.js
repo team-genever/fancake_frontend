@@ -75,6 +75,55 @@ const PopupDescription = styled.p`
   }
 `;
 
+const PopupInfosContainer = styled.div`
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 20px;
+  & hr {
+    all: unset;
+    width: 105%;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 1px;
+  }
+`;
+
+const PopupInfoContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & span {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    text-align: left;
+    color: black;
+  }
+  & .info_title {
+    color: ${(props) => props.theme.boxGray};
+  }
+  & strong {
+    font-weight: bold;
+    font-size: 13px;
+  }
+  & .info_pink {
+    color: ${(props) => props.theme.mainPink};
+  }
+  @media screen and (max-width: 640px) {
+    & span {
+      font-size: 3.5vw;
+      line-height: 3.5vw;
+    }
+    & strong {
+      font-size: 3.5vw;
+      line-height: 3.5vw;
+    }
+  }
+`;
+
 const ConfirmModal = ({
   setModal,
   userInfo,
@@ -129,6 +178,34 @@ const ConfirmModal = ({
             <br />
             목표달성액 미달시 자동 환불됩니다.
           </PopupDescription>
+          <PopupInfosContainer>
+            <PopupInfoContainer>
+              <span className="info_title">현재 잔액</span>
+              <span>
+                <strong>{userInfo.balance?.toLocaleString("ko-KR")}</strong>{" "}
+                베리
+              </span>
+            </PopupInfoContainer>
+            <PopupInfoContainer>
+              <span className="info_title">차감 금액</span>
+              <span>
+                <strong className="info_pink">
+                  -{totalPrice?.toLocaleString("ko-KR")}
+                </strong>{" "}
+                베리
+              </span>
+            </PopupInfoContainer>
+            <hr />
+            <PopupInfoContainer>
+              <span className="info_title">구매 후 잔액</span>
+              <span>
+                <strong className="info_pink">
+                  {(userInfo.balance - totalPrice)?.toLocaleString("ko-KR")}
+                </strong>{" "}
+                베리
+              </span>
+            </PopupInfoContainer>
+          </PopupInfosContainer>
           <div className="buttonsContainer">
             <button
               onClick={() => {

@@ -1,6 +1,6 @@
 // 4 - 로그인/회원가입
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { SignInButtons, LoginBox } from "components/Auth";
@@ -99,6 +99,10 @@ const FindPW = styled.span`
 
 export default function LoginMain() {
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const findingClicked = (e) => {
     if (e.target.id === "id") {

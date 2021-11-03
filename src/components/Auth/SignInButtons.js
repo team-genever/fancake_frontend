@@ -45,6 +45,7 @@ const EmailButton = styled.button`
   //padding: 37px 271px 37px 270px;
   background-color: white;
   border-radius: 60px;
+  color: black;
   border: 1px solid #979797;
   font-size: 20px;
   cursor: pointer;
@@ -77,7 +78,7 @@ const SignInButtons = () => {
       <NaverButton name="naver" onClick={componentClicked}>
         네이버로 시작하기
       </NaverButton>
-      <Link to={"../../Auth/SigninEmail"}>
+      <Link to="/auth/SigninEmail">
         <EmailButton name="email">이메일로 가입하기</EmailButton>
       </Link>
     </Container>

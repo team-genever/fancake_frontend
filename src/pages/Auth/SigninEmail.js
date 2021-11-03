@@ -11,6 +11,8 @@ import { Helmet } from "react-helmet";
 
 import { api, GetBackendIP } from "../../settings";
 import axios from "axios";
+import Popup from "components/Popup";
+import { useCookies } from "react-cookie";
 
 const Container = styled.div`
   width: 100%;
@@ -164,6 +166,32 @@ const LoginButton = styled.button`
   }
 `;
 
+const PopupTitle = styled.h3`
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 20px;
+  margin-bottom: 10px;
+  @media screen and (max-width: 640px) {
+    font-size: 5.3vw;
+    line-height: 6vw;
+    margin-bottom: 5vw;
+  }
+`;
+
+const PopupDescription = styled.p`
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+  @media screen and (max-width: 640px) {
+    font-size: 3.5vw;
+    line-height: 4.5vw;
+    margin-bottom: 5vw;
+  }
+`;
+
 export default function SigninEmail() {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -203,6 +231,9 @@ export default function SigninEmail() {
   const [confirmVisible, setConfirmVisible] = useState("hidden");
   const [loginAble, setLoginAble] = useState("#878485");
 
+  const [popup, setPopup] = useState(false);
+  const [cookies, setCookie] = useCookies(["Authorization"]);
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const isTabletPC = useMediaQuery({
@@ -241,13 +272,34 @@ export default function SigninEmail() {
       tempData = response.data;
       console.log("tempData is ", tempData);
       console.log("sign in success");
-      window.location.replace("/auth/main");
+      setPopup(true);
     } catch (error) {
-      window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해 주세요.");
+      window.alert("회원가입 도중 오류가 발생했습니다. 다시 시도해 주세요.");
       console.error(error);
     } finally {
     }
   }
+
+  const welcomePopup = async () => {
+    try {
+      const response = await api.post("user/login", null, {
+        params: {
+          id: loginInfo.email,
+          password: loginInfo.password,
+        },
+      });
+      setCookie("Authorization", response.data.accessToken, {
+        expires: new Date(response.data.accessTokenExpiresIn),
+        path: "/",
+      });
+    } catch (error) {
+      window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해 주세요.");
+      console.error(error);
+    } finally {
+      setPopup(false);
+      window.location.replace("/");
+    }
+  };
 
   const inputChange = (e) => {
     if (e.target.name === "name") {
@@ -324,6 +376,21 @@ export default function SigninEmail() {
       <Helmet>
         <title>fanCake | 이메일로 가입하기</title>
       </Helmet>
+      {popup ? (
+        <Popup padding={[30, 30]}>
+          <PopupTitle>가입을 축하드립니다!</PopupTitle>
+          <PopupDescription>
+            20000 베리가 지급되었습니다!
+            <br />
+            '나의 지갑'을 통해 확인하고 원하는 영상을 구매해보세요!
+          </PopupDescription>
+          <div className="buttonsContainer">
+            <button onClick={welcomePopup}>체험하러가기</button>
+          </div>
+        </Popup>
+      ) : (
+        ""
+      )}
       <LoginDiv>
         <TextDiv>이메일로 가입하기</TextDiv>
         <br />
