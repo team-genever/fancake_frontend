@@ -110,16 +110,16 @@ const UserEdit = () => {
         changeLink: true,
       },
       { type: "비밀번호", changeLink: "./changepw" },
-      {
-        type: "계좌정보",
-        content:
-          info.account.accountName &&
-          info.account.accountNumber &&
-          info.account.accountOwner
-            ? `${info.account.accountName} ${info.account.accountNumber} ${info.account.accountOwner}`
-            : null,
-        changeLink: true,
-      },
+      // {
+      //   type: "계좌정보",
+      //   content:
+      //     info.account.accountName &&
+      //     info.account.accountNumber &&
+      //     info.account.accountOwner
+      //       ? `${info.account.accountName} ${info.account.accountNumber} ${info.account.accountOwner}`
+      //       : null,
+      //   changeLink: true,
+      // },
     ]);
     setDeliveryInfo([
       {

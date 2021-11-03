@@ -191,7 +191,7 @@ const UserWallet = ({ userInfo }) => {
       <CurrentBalance>
         <span>현재 보유 베리</span>
         <span>
-          <strong>{userInfo.balance}</strong> 베리
+          <strong>{userInfo.balance.toLocaleString("ko-KR")}</strong> 베리
         </span>
       </CurrentBalance>
       <Buttons>

@@ -614,7 +614,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
         <NavBack>
           <Balance scroll={scroll}>
             <img src={cake} alt="cake" />
-            <span>{userInfo.balance} 베리</span>
+            <span>{userInfo.balance?.toLocaleString("ko-KR")} 베리</span>
           </Balance>
           <LoggedInProfile>
             <span>{userInfo.name}</span>님
@@ -671,7 +671,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
                 </SidebarTitle>
                 <SidebarBalance>
                   <img src={cake} alt="cake" />
-                  <strong>{userInfo.balance}</strong>
+                  <strong>{userInfo.balance?.toLocaleString("ko-KR")}</strong>
                   <span>베리</span>
                 </SidebarBalance>
 
