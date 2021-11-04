@@ -116,7 +116,6 @@ const PasswordInput = styled.input`
 const PasswordCheckInput = styled.input`
   width: 100%;
   height: 55px;
-  margin: 0 0 35px 0;
   padding: 20px;
   border-radius: 10px;
   border: solid 1px #979797;
@@ -128,7 +127,33 @@ const PasswordCheckInput = styled.input`
   @media only screen and (max-width: 640px) {
     font-size: 15px;
     height: 45px;
-    margin: 0 0 20px 0;
+  }
+`;
+
+const PrivacyCheckContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 5px;
+  & label {
+    font-weight: 500;
+    font-size: 15px;
+    margin-right: 5px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  @media only screen and (max-width: 640px) {
+    & label {
+      font-size: 13px;
+    }
+  }
+`;
+
+const PrivacyCheck = styled.input`
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -224,7 +249,11 @@ export default function SigninEmail() {
     email: false,
     password: false,
     passwordCheck: false,
+    privacy: false,
   });
+
+  useEffect(() => {}, [checkValid]);
+
   const [nameVisible, setNameVisible] = useState("hidden");
   const [emailVisible, setEmailVisible] = useState("hidden");
   const [passwordVisible, setPasswordVisible] = useState("hidden");
@@ -251,6 +280,8 @@ export default function SigninEmail() {
       setErrorMessage("비밀번호는 7자리 이상이어야 합니다.");
     else if (checkValid.passwordCheck === false)
       setErrorMessage("비밀번호가 일치하지 않습니다.");
+    else if (checkValid.privacy === false)
+      setErrorMessage("개인정보수집 동의 후 가입 가능합니다.");
     else {
       setErrorMessage("");
       signin();
@@ -302,16 +333,17 @@ export default function SigninEmail() {
   };
 
   const inputChange = (e) => {
+    let checkValidTemp = checkValid;
     if (e.target.name === "name") {
       if (e.target.value) {
         loginInfo.name = e.target.value;
-        checkValid.name = true;
+        checkValidTemp.name = true;
         console.log("name is ", e.target.value);
 
         setNameVisible("visible");
       } else {
         //empty name
-        checkValid.name = false;
+        checkValidTemp.name = false;
         console.log("empty name");
         setNameVisible("hidden");
       }
@@ -322,24 +354,24 @@ export default function SigninEmail() {
       if (re.test(email)) {
         //valid email address
         loginInfo.email = e.target.value;
-        checkValid.email = true;
+        checkValidTemp.email = true;
         console.log("email is ", e.target.value);
         setEmailVisible("visible");
       } else {
         //invalid email address
-        checkValid.email = false;
+        checkValidTemp.email = false;
         loginInfo.email = "";
         console.log("invalid email");
         setEmailVisible("hidden");
       }
     } else if (e.target.name === "password") {
       if (e.target.value.length >= 7) {
-        checkValid.password = true;
+        checkValidTemp.password = true;
         loginInfo.password = e.target.value;
         console.log("password is ", e.target.value);
         setPasswordVisible("visible");
       } else {
-        checkValid.password = false;
+        checkValidTemp.password = false;
         loginInfo.password = "";
         console.log("password has to be more than 7 characters");
         setPasswordVisible("hidden");
@@ -348,22 +380,27 @@ export default function SigninEmail() {
       console.log("login password is ", loginInfo.password);
       console.log("passwordCheck is ", e.target.value);
       if (e.target.value === loginInfo.password) {
-        checkValid.passwordCheck = true;
+        checkValidTemp.passwordCheck = true;
         console.log("passwordCheck is ", e.target.value);
         setConfirmVisible("visible");
       } else {
-        checkValid.passwordCheck = false;
+        checkValidTemp.passwordCheck = false;
         console.log("password check does not match");
         setConfirmVisible("hidden");
       }
+    } else if (e.target.name === "privacy") {
+      checkValidTemp.privacy = e.target.checked;
     }
-    console.log("checkValid is ", checkValid);
+    console.log("checkValid is ", checkValidTemp);
+
+    setCheckValid(checkValidTemp);
 
     if (
-      checkValid.name === true &&
-      checkValid.email === true &&
-      checkValid.password === true &&
-      checkValid.passwordCheck === true
+      checkValidTemp.name === true &&
+      checkValidTemp.email === true &&
+      checkValidTemp.password === true &&
+      checkValidTemp.passwordCheck === true &&
+      checkValidTemp.privacy === true
     ) {
       setLoginAble("#da225f");
     } else {
@@ -477,7 +514,7 @@ export default function SigninEmail() {
               color: "#E31019",
               position: "relative",
               left: "93%",
-              bottom: "140px",
+              bottom: "105px",
               visibility: passwordVisible,
             }}
             icon={faCheck}
@@ -489,7 +526,7 @@ export default function SigninEmail() {
               color: "#E31019",
               position: "relative",
               left: "90%",
-              bottom: "105px",
+              bottom: "85px",
               visibility: passwordVisible,
             }}
             icon={faCheck}
@@ -501,7 +538,7 @@ export default function SigninEmail() {
               color: "#E31019",
               position: "relative",
               left: "89%",
-              bottom: "75px",
+              bottom: "40px",
               visibility: confirmVisible,
             }}
             icon={faCheck}
@@ -513,12 +550,21 @@ export default function SigninEmail() {
               color: "#E31019",
               position: "relative",
               left: "85%",
-              bottom: "55px",
+              bottom: "35px",
               visibility: confirmVisible,
             }}
             icon={faCheck}
           />
         )}
+        <PrivacyCheckContainer>
+          <label htmlFor="privacy">개인정보수집에 동의합니다.</label>
+          <PrivacyCheck
+            id="privacy"
+            type="checkbox"
+            onChange={inputChange}
+            name="privacy"
+          ></PrivacyCheck>
+        </PrivacyCheckContainer>
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <LoginButton
           name="login"

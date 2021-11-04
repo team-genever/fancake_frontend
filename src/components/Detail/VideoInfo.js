@@ -265,8 +265,6 @@ const VideoInfo = ({
 
   const [cookies] = useCookies(["Authorization"]);
 
-  const [progressComponent, setProgress] = useState(<div></div>);
-
   const [isLogin, setIsLogin] = useState(cookies.Authorization ? true : false);
 
   useEffect(() => {
@@ -277,8 +275,6 @@ const VideoInfo = ({
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [amount, setAmount] = useState(0);
-
-  const [balance, setBalance] = useState(userInfo.balance);
 
   const [confirmModal, setConfirmModal] = useState(false);
   const [rejectModal, setRejectModal] = useState(false);
@@ -308,6 +304,7 @@ const VideoInfo = ({
   };
   useEffect(() => {
     if (data) {
+      console.log(data, amount);
       setExpire(new Date(data.expirationDate));
     }
   }, [data]);
@@ -315,6 +312,7 @@ const VideoInfo = ({
   useEffect(() => {
     clearInterval(intervalId);
     changeLeftDate();
+    setAmount(0);
     setIntervalId(setInterval(changeLeftDate, 1000));
   }, [expire]);
 
@@ -327,7 +325,7 @@ const VideoInfo = ({
 
   const onClick = (e) => {
     console.log(totalPrice);
-    if (totalPrice > balance) setRejectModal(true);
+    if (totalPrice > userInfo.balance) setRejectModal(true);
     else setConfirmModal(true);
   };
 
