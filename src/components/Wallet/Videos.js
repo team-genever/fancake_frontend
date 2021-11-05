@@ -155,7 +155,6 @@ const Videos = ({
   const [maxPage, setMaxPage] = useState(getMaxPage(window.innerWidth));
   useEffect(() => setCurrentPage(1), [creater]);
   useEffect(() => {
-    videosType === "own" && console.log("보유", videos);
     window.addEventListener("resize", () => {
       setMaxPage(getMaxPage(window.innerWidth));
     });
@@ -223,8 +222,8 @@ const Videos = ({
                     }, 100);
                   }
                   ReactGA.event({
-                    category: 'Step2',
-                    action: `Select ${stock.title}`
+                    category: "Step2",
+                    action: `Select ${stock.title}`,
                   });
                 }}
               >
@@ -238,12 +237,11 @@ const Videos = ({
                     },
                     {
                       id: "onsale",
-                      name:
-                        stock.auctionState === "SUCCESS"
-                          ? "판매완료"
-                          : stock.auctionState === "CANCEL"
-                          ? "판매취소"
-                          : "판매중",
+                      name: stock.onSale
+                        ? "판매중"
+                        : stock.auctionState === "CANCEL"
+                        ? "판매취소"
+                        : "판매완료",
                     },
                   ]}
                   isWallet={isWallet}
@@ -271,6 +269,8 @@ const Videos = ({
             if (currentPage > 1) {
               setCurrentPage(currentPage - 1);
             }
+            const stepTwo = document.getElementById("step_two");
+            stepTwo.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <FontAwesomeIcon icon={faCaretLeft} />
@@ -283,6 +283,8 @@ const Videos = ({
             if (currentPage < totalPage) {
               setCurrentPage(currentPage + 1);
             }
+            const stepTwo = document.getElementById("step_two");
+            stepTwo.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <FontAwesomeIcon icon={faCaretRight} />

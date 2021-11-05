@@ -271,8 +271,6 @@ const VideoInfo = ({
     setIsLogin(cookies.Authorization ? true : false);
   }, [isLogin, cookies]);
 
-  const [OnSale, setOnSale] = useState(data.onSale);
-
   const [totalPrice, setTotalPrice] = useState(0);
   const [amount, setAmount] = useState(0);
 
@@ -352,19 +350,14 @@ const VideoInfo = ({
   };
 
   useEffect(() => {
-    setOnSale(data.onSale);
-  }, []);
-
-  useEffect(() => {
     //로그인 상태, 영상 판매중 여부에 따라 다른 버튼 렌더링
-
     if (!isLogin) {
       setButton(
         <Link to="/auth/main" style={{ textDecoration: "none" }}>
           <Button isLogin={isLogin}>로그인 후 이용가능합니다.</Button>
         </Link>
       );
-    } else if (OnSale) {
+    } else if (data.onSale) {
       setButton(
         <div>
           <ButtonPositioner>
@@ -426,7 +419,7 @@ const VideoInfo = ({
         </Button>
       );
     }
-  }, [isLogin, totalPrice, confirmModal, rejectModal, amount]);
+  }, [isLogin, totalPrice, confirmModal, rejectModal, amount, data]);
 
   return (
     <Positioner>

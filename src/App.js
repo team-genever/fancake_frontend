@@ -68,14 +68,17 @@ function App() {
 
   const updateUserInfo = async (videoIdx, size) => {
     try {
-      const res = await api.post(`videos/${videoIdx}/stock`, null, {
-        headers: {
-          Authorization: cookies.Authorization,
-        },
-        params: {
+      const res = await api.post(
+        `videos/${videoIdx}/stock`,
+        {
           size,
         },
-      });
+        {
+          headers: {
+            Authorization: cookies.Authorization,
+          },
+        }
+      );
       console.log(res);
       await getUserInfo();
       return 200;
@@ -117,10 +120,18 @@ function App() {
         <Route path="/user/edit" component={UserEdit}>
           {loggedIn ? "" : <Redirect to="/" />}
         </Route>
-        <Route exact path="/auth/main" component={LoginMain} />
-        <Route exact path="/auth/SigninEmail" component={SigninEmail} />
-        <Route exact path="/auth/FindID" component={FindID} />
-        <Route exact path="/auth/FindPW" component={FindPW} />
+        <Route exact path="/auth/main" component={LoginMain}>
+          {loggedIn ? <Redirect to="/" /> : ""}
+        </Route>
+        <Route exact path="/auth/SigninEmail" component={SigninEmail}>
+          {loggedIn ? <Redirect to="/" /> : ""}
+        </Route>
+        {/* <Route exact path="/auth/FindID" component={FindID}>
+          {loggedIn ? <Redirect to="/" /> : ""}
+        </Route> */}
+        <Route exact path="/auth/FindPW" component={FindPW}>
+          {loggedIn ? <Redirect to="/" /> : ""}
+        </Route>
         <Route exact path="/user/changePW" component={ChangePW}>
           {loggedIn ? "" : <Redirect to="/" />}
         </Route>

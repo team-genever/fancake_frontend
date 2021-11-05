@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import { GetBackendIP } from "../../settings";
+import { api, GetBackendIP } from "../../settings";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
@@ -137,11 +137,9 @@ const LoginBox = ({ setLoading }) => {
     });
     try {
       setLoading(true);
-      const response = await axios.post(backendip + "user/login", null, {
-        params: {
-          id: loginInfo.email,
-          password: loginInfo.password,
-        },
+      const response = await api.post("user/login", {
+        id: loginInfo.email,
+        password: loginInfo.password,
       });
       console.log(response);
       console.log("login success");

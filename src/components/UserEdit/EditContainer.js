@@ -321,11 +321,10 @@ const EditContainer = ({ title, infos, isDelivery }) => {
   const putUserInfo = async (paramsSchema) => {
     setLoading(true);
     try {
-      const res = await api.put("user", null, {
+      const res = await api.put("user", paramsSchema, {
         headers: {
           Authorization: cookies.Authorization,
         },
-        params: paramsSchema,
       });
       console.log(res);
       setEditMode(null);

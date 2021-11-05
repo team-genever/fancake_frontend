@@ -292,12 +292,11 @@ export default function SigninEmail() {
     let tempData;
     let response;
     try {
-      response = await api.post("user", null, {
-        params: {
-          id: loginInfo.email,
-          password: loginInfo.password,
-          name: loginInfo.name,
-        },
+      response = await api.post("user", {
+        id: loginInfo.email,
+        password: loginInfo.password,
+        name: loginInfo.name,
+        _temp_password: loginInfo.password,
       });
       console.log(response);
       tempData = response.data;
