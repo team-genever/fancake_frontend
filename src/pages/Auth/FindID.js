@@ -195,7 +195,7 @@ const FindID = () => {
     } else {
       setErrorMessage("");
       try {
-        const response = await api.get("user/id", {
+        const response = await api.get("users/id", {
           params: {
             email: findIDinfo.email,
             name: findIDinfo.name,

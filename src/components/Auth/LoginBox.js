@@ -137,7 +137,7 @@ const LoginBox = ({ setLoading }) => {
     });
     try {
       setLoading(true);
-      const response = await api.post("user/login", {
+      const response = await api.post("users/login", {
         id: loginInfo.email,
         password: loginInfo.password,
       });

@@ -146,7 +146,7 @@ export default function ChangePW() {
   const setPassword = async () => {
     try {
       const response = await api.put(
-        "user/password",
+        "users/me/password",
         {
           currentPassword: changePWInfo.password_now,
           newPassword: changePWInfo.password_new,

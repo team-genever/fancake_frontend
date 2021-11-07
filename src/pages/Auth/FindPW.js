@@ -167,7 +167,7 @@ const FindPW = () => {
       setErrorMessage("");
       try {
         console.log(email, name);
-        const response = await api.get("user/password", {
+        const response = await api.get("users/password", {
           params: {
             email,
             name,

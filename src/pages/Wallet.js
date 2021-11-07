@@ -54,7 +54,7 @@ class Wallet extends React.Component {
   getUserInfo = async () => {
     const { cookies } = this.props;
     try {
-      const responseStock = await api.get("user/stocks", {
+      const responseStock = await api.get("users/me/stocks", {
         headers: {
           Authorization: cookies.get("Authorization"),
         },
