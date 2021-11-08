@@ -71,9 +71,9 @@ const PopupDescription = styled.p`
   }
 `;
 
-const RejectModal = ({ setModal, userId }) => {
+const RejectModal = ({ setModal }) => {
   return (
-    <Popup>
+    <Popup padding={[30, 30]}>
       <PopupTitle>잔고가 충분하지 않습니다.</PopupTitle>
       <PopupDescription>먼저 지갑을 충전하고 구매해주세요!</PopupDescription>
       <div className="buttonsContainer">
@@ -84,7 +84,7 @@ const RejectModal = ({ setModal, userId }) => {
         >
           돌아가기
         </button>
-        <Link to={"/wallet/" + userId}>
+        <Link to={"/user/wallet"}>
           <button
             onClick={() => {
               setModal(false);

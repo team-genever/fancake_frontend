@@ -174,6 +174,7 @@ const FindPW = () => {
           },
         });
         console.log(response);
+        window.alert("비밀번호가 초기화되었습니다. 메일을 확인해주세요.");
         window.location.replace("/auth/main");
       } catch (error) {
         window.alert("비밀번호 요청 도중 오류가 발생했습니다.");

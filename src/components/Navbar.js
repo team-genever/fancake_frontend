@@ -7,8 +7,8 @@ import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import { api } from "settings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import ReactGA from 'react-ga';
+import { faArrowUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import ReactGA from "react-ga";
 
 const Container = styled.div`
   width: 100%;
@@ -59,7 +59,7 @@ const NavBack = styled.div`
   z-index: 9;
 `;
 
-const HomeLink = styled.a`
+const HomeLink = styled(Link)`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -189,6 +189,31 @@ const Balance = styled.div`
 `;
 
 const LoginButton = styled(Link)`
+  background-color: ${(props) => props.theme.mainPink};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 32px;
+  border-radius: 5px;
+  text-decoration: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  & span {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 12px;
+  }
+  &:hover {
+    background-color: ${(props) => props.theme.mainPinkHover};
+  }
+
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
+`;
+
+const LoginButtonA = styled.a`
   background-color: ${(props) => props.theme.mainPink};
   display: flex;
   justify-content: center;
@@ -534,6 +559,40 @@ const SidebarLinkA = styled.a`
   }
 `;
 
+const FloatingBtnsGrid = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: grid;
+  grid-template-columns: 45px;
+  grid-auto-rows: 45px;
+`;
+
+const FloatingBtn = styled.div`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s ease-in-out;
+  ${(props) => (props.scroll < 100 ? "display: none" : "")};
+  & svg {
+    font-size: 18px;
+    color: black;
+  }
+  &:hover {
+    transition: all 0.1s ease-in-out;
+    background-color: ${(props) => props.theme.boxGray};
+    & svg {
+      color: white;
+    }
+    cursor: pointer;
+  }
+`;
+
 const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   const [cookies, _, removeCookie] = useCookies(["Authorization"]);
   const [loggedIn, setLoggedIn] = useState();
@@ -542,7 +601,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
 
   //GA
   let pageView;
-  if (pathname === "*") pageView = '/not-found';
+  if (pathname === "*") pageView = "/not-found";
   else pageView = pathname;
   ReactGA.pageview(pageView); // Sending GA page views
 
@@ -588,7 +647,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   return (
     <>
       <NavFront>
-        <HomeLink href="http://fancake.xyz/" scroll={scroll}>
+        <HomeLink to="/" scroll={scroll}>
           {/* <object data={logo} type="image/svg+xml" aria-label="logo" /> */}
           <img src={logo} alt="logo" />
           <h1>fanCake</h1>
@@ -647,9 +706,9 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
           <LoginButton to="/auth/main" onClick={onClick}>
             <span>로그인</span>
           </LoginButton>
-          <LoginButton to="/" onClick={onClick}>
-            <span>지금 체험하기</span>
-          </LoginButton>
+          <LoginButtonA href="http://fancake.xyz/" onClick={onClick}>
+            <span>서비스 소개</span>
+          </LoginButtonA>
         </NavBack>
       )}
       <Background checked={checked} onClick={onLinkClick} />
@@ -717,6 +776,14 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
           </SidebarContent>
         </Sidebar>
       </SidebarContainer>
+      <FloatingBtnsGrid>
+        <FloatingBtn
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          scroll={scroll}
+        >
+          <FontAwesomeIcon icon={faArrowUp} />
+        </FloatingBtn>
+      </FloatingBtnsGrid>
     </>
   );
 };
