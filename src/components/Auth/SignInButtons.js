@@ -1,8 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import SigninEmail from "pages/Auth/SigninEmail";
+import axios from "axios";
+
+const { naver } = window;
 
 const Container = styled.div`
   width: 100%;
@@ -62,12 +65,26 @@ const EmailButton = styled.button`
 `;
 
 const SignInButtons = () => {
+  const [naverLogin] = useState(
+    new naver.LoginWithNaverId({
+      clientId: "Ar3sZvt17MhvpRqq6Iju",
+      callbackUrl: "http://localhost:3000/callback",
+    })
+  );
+
+  useEffect(() => {
+    naverLogin.init();
+    console.log(naverLogin);
+  }, [naverLogin]);
+
   const componentClicked = (e) => {
     if (e.target.name === "naver") {
       console.log("naver clicked");
-      <Link
-        to={(window.location.href = "http://psj2867.com/api/oauth/naver_test")}
-      />;
+      try {
+        const response = axios.get(
+          "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=Ar3sZvt17MhvpRqq6Iju&redirect_uri=http:%2F%2Flocalhost:3000%2F&state=1234"
+        );
+      } catch {}
     } else if (e.target.name === "email") {
       console.log("email clicked");
     }
@@ -75,7 +92,13 @@ const SignInButtons = () => {
 
   return (
     <Container>
-      <NaverButton name="naver" onClick={componentClicked}>
+      <NaverButton
+        name="naver"
+        id="naverIdLogin"
+        onClick={() => {
+          naverLogin.authorize();
+        }}
+      >
         네이버로 시작하기
       </NaverButton>
       <Link to="/auth/SigninEmail">

@@ -23,6 +23,7 @@ import { useCookies } from "react-cookie";
 import styled from "styled-components";
 import { api } from "settings";
 import axios from "axios";
+import Callback from "pages/NaverCallback";
 
 const NavBackground = styled.div`
   width: 100%;
@@ -130,6 +131,9 @@ function App() {
           {loggedIn ? <Redirect to="/" /> : ""}
         </Route> */}
         <Route exact path="/auth/FindPW" component={FindPW}>
+          {loggedIn ? <Redirect to="/" /> : ""}
+        </Route>
+        <Route exact path="/callback" component={Callback}>
           {loggedIn ? <Redirect to="/" /> : ""}
         </Route>
         <Route exact path="/user/changePW" component={ChangePW}>
