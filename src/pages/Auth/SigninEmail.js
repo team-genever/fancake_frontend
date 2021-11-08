@@ -292,12 +292,11 @@ export default function SigninEmail() {
     let tempData;
     let response;
     try {
-      response = await api.post("user", null, {
-        params: {
-          id: loginInfo.email,
-          password: loginInfo.password,
-          name: loginInfo.name,
-        },
+      response = await api.post("users", {
+        id: loginInfo.email,
+        password: loginInfo.password,
+        name: loginInfo.name,
+        _temp_password: loginInfo.password,
       });
       console.log(response);
       tempData = response.data;
@@ -313,11 +312,9 @@ export default function SigninEmail() {
 
   const welcomePopup = async () => {
     try {
-      const response = await api.post("user/login", null, {
-        params: {
-          id: loginInfo.email,
-          password: loginInfo.password,
-        },
+      const response = await api.post("users/login", {
+        id: loginInfo.email,
+        password: loginInfo.password,
       });
       setCookie("Authorization", response.data.accessToken, {
         expires: new Date(response.data.accessTokenExpiresIn),

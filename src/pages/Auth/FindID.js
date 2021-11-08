@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
+import Popup from "components/Popup";
+import { api } from "settings";
 
 const Container = styled.div`
   width: 100%;
@@ -51,7 +53,7 @@ const NameInput = styled.input`
   border-radius: 10px;
   border: solid 1px #979797;
   font-size: 18px;
-  color: #d8d8d8;
+  color: black;
 
   @media only screen and (max-width: 640px) {
     font-size: 15px;
@@ -68,7 +70,7 @@ const EmailInput = styled.input`
   border-radius: 10px;
   border: solid 1px #979797;
   font-size: 18px;
-  color: #d8d8d8;
+  color: black;
 
   @media only screen and (max-width: 640px) {
     font-size: 15px;
@@ -96,7 +98,7 @@ const LoginButton = styled.button`
   //padding: 37px 348px 37px 347px;
   border-radius: 60px;
   background-color: #da225f;
-  font-size: 24px;
+  font-size: 20px;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -106,8 +108,34 @@ const LoginButton = styled.button`
   }
 
   @media only screen and (max-width: 640px) {
-    font-size: 20px;
+    font-size: 15px;
     height: 55px;
+  }
+`;
+
+const PopupTitle = styled.h3`
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 20px;
+  margin-bottom: 10px;
+  @media screen and (max-width: 640px) {
+    font-size: 5.3vw;
+    line-height: 6vw;
+    margin-bottom: 5vw;
+  }
+`;
+
+const PopupDescription = styled.p`
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+  @media screen and (max-width: 640px) {
+    font-size: 3.5vw;
+    line-height: 4.5vw;
+    margin-bottom: 5vw;
   }
 `;
 
@@ -123,40 +151,61 @@ const FindID = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [emailOK, setEmailOK] = useState(false);
   const [loginAble, setLoginAble] = useState("#878485");
+  const [popup, setPopup] = useState(false);
 
   const inputChange = (e) => {
+    let findIDinfoTemp = {
+      name: "",
+      email: "",
+    };
+    let emailOKTemp = false;
+    console.log(findIDinfoTemp);
     setErrorMessage("");
     setLoginAble("#878485");
     if (e.target.type === "email") {
       let email = e.target.value;
+      console.log(email);
       let re =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (re.test(email)) {
         //valid email address
-        setEmailOK(true);
-        findIDinfo.email = e.target.value;
+        emailOKTemp = true;
+        findIDinfoTemp.email = email;
       } else {
         //invalid email address
-        setEmailOK(false);
+        emailOKTemp = false;
       }
     } else if (e.target.type === "text") {
-      findIDinfo.name = e.target.value;
+      findIDinfoTemp.name = e.target.value;
     }
 
-    if (emailOK === true && findIDinfo.name !== "") {
+    setEmailOK(emailOKTemp);
+    setFindIDinfo(findIDinfoTemp);
+
+    if (emailOKTemp === true && findIDinfoTemp.name !== "") {
       setLoginAble("#da225f");
     }
   };
 
-  const loginClicked = (e) => {
-    if (findIDinfo.name == "") {
+  const loginClicked = async (e) => {
+    if (findIDinfo.name === "") {
       setErrorMessage("이름을 입력해주세요.");
-    } else if (emailOK == false) {
+    } else if (emailOK === false) {
       setErrorMessage("이메일이 정확하지 않습니다");
     } else {
       setErrorMessage("");
-      console.log("아이디 찾기 실행");
-      //이름+이메일이 db에 있는지 확인 --> 있을 시 : 아이디 복구 이메일 전송, 없을 시 : 에러 메세지
+      try {
+        const response = await api.get("users/id", {
+          params: {
+            email: findIDinfo.email,
+            name: findIDinfo.name,
+          },
+        });
+        console.log(response);
+        //setPopup(true);
+      } catch (error) {
+        window.alert("로그인을 하는 도중 오류가 발생했습니다.");
+      }
     }
   };
 
@@ -165,6 +214,23 @@ const FindID = () => {
       <Helmet>
         <title>fanCake | 아이디 찾기</title>
       </Helmet>
+      {popup ? (
+        <Popup padding={[30, 30]}>
+          <PopupTitle>아이디 찾기 완료</PopupTitle>
+          <PopupDescription>회원님의 아이디는 {} 입니다.</PopupDescription>
+          <div className="buttonsContainer">
+            <button
+              onClick={() => {
+                window.location.replace("/auth/main");
+              }}
+            >
+              로그인하러 가기
+            </button>
+          </div>
+        </Popup>
+      ) : (
+        ""
+      )}
       <LoginDiv>
         <TextDiv>아이디 찾기</TextDiv>
         이름

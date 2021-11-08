@@ -148,10 +148,10 @@ const ConfirmModal = ({
           <div className="buttonsContainer">
             <button
               onClick={() => {
+                setModal(false);
                 window.location.reload();
                 const first = document.getElementById("step_one");
                 first.scrollIntoView({ behavior: "smooth" });
-                setModal(false);
               }}
             >
               계속 구매하기

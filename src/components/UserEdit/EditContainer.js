@@ -321,11 +321,10 @@ const EditContainer = ({ title, infos, isDelivery }) => {
   const putUserInfo = async (paramsSchema) => {
     setLoading(true);
     try {
-      const res = await api.put("user", null, {
+      const res = await api.put("users/me", paramsSchema, {
         headers: {
           Authorization: cookies.Authorization,
         },
-        params: paramsSchema,
       });
       console.log(res);
       setEditMode(null);
@@ -498,7 +497,7 @@ const EditContainer = ({ title, infos, isDelivery }) => {
                 );
                 if (reallyDelete) {
                   try {
-                    const response = await api.delete("user", {
+                    const response = await api.delete("users/me", {
                       headers: {
                         Authorization: cookies.Authorization,
                       },

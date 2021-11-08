@@ -169,7 +169,7 @@ const Transaction = () => {
   const getHistories = async () => {
     let content;
     try {
-      const response = await api.get("user/tradings", {
+      const response = await api.get("users/me/tradings", {
         headers: {
           Authorization: cookies.Authorization,
         },

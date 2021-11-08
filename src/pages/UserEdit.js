@@ -84,7 +84,7 @@ const UserEdit = () => {
 
   const getUserInfo = async () => {
     try {
-      const response = await api.get("user", {
+      const response = await api.get("users/me", {
         headers: {
           Authorization: cookies.Authorization,
         },

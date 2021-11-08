@@ -131,12 +131,12 @@ export default function LoginMain() {
         <Or>or</Or>
         <LoginBox setLoading={setLoading} />
         <FindIDPW>
-          <Link to={"./FindID"} style={{ textDecoration: "none" }}>
+          {/* <Link to={"./FindID"} style={{ textDecoration: "none" }}>
             <FindID id="id" onClick={findingClicked}>
               아이디 찾기
             </FindID>
           </Link>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
+          &nbsp;&nbsp;|&nbsp;&nbsp; */}
           <Link to={"./FindPW"} style={{ textDecoration: "none" }}>
             <FindPW id="pw" onClick={findingClicked}>
               비밀번호 찾기

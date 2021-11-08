@@ -145,20 +145,24 @@ export default function ChangePW() {
 
   const setPassword = async () => {
     try {
-      const response = await api.put("user/password", null, {
-        headers: {
-          Authorization: cookies.Authorization,
+      const response = await api.put(
+        "users/me/password",
+        {
+          currentPassword: changePWInfo.password_now,
+          newPassword: changePWInfo.password_new,
         },
-        //changePWInfo, // == params
-        params: {
-          //old_password: changePWInfo.password_now,
-          password: changePWInfo.password_new,
-        },
-      });
+        {
+          headers: {
+            Authorization: cookies.Authorization,
+          },
+        }
+      );
       backendResponse = response.data;
       console.log("response from back is ", response.data);
     } catch (e) {
-      console.error(e);
+      window.alert(
+        "비밀번호 변경 도중 오류가 발생했습니다. 다시 시도해주세요."
+      );
     } finally {
     }
   };
