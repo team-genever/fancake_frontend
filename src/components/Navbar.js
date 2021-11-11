@@ -647,7 +647,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   return (
     <>
       <NavFront>
-        <HomeLink to="/" scroll={scroll}>
+        <HomeLink to="/" scroll={scroll} onClick={onClick}>
           {/* <object data={logo} type="image/svg+xml" aria-label="logo" /> */}
           <img src={logo} alt="logo" />
           <h1>fanCake</h1>
@@ -686,9 +686,9 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
               </LoggedInLink>
             </LoggedInList>
           </LoggedInProfile>
-          <LoginButton to="/" onClick={onClick}>
-            <span>지금 체험하기</span>
-          </LoginButton>
+          <LoginButtonA href="http://fancake.xyz/">
+            <span>서비스 소개</span>
+          </LoginButtonA>
           {/* <LoggedInButton>
             <span>나의 정보</span>
             <FontAwesomeIcon icon={faCaretDown} />
@@ -706,7 +706,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
           <LoginButton to="/auth/main" onClick={onClick}>
             <span>로그인</span>
           </LoginButton>
-          <LoginButtonA href="http://fancake.xyz/" onClick={onClick}>
+          <LoginButtonA href="http://fancake.xyz/">
             <span>서비스 소개</span>
           </LoginButtonA>
         </NavBack>
