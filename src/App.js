@@ -32,7 +32,7 @@ const NavBackground = styled.div`
   top: 0;
   left: 0;
   padding: 0 50px 0 80px;
-  background-color: rgba(0, 0, 0, 0.41);
+  background-color: rgba(255, 255, 255, 0.41);
   display: flex;
   align-items: center;
   z-index: 9;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
-import logo from "images/logo.svg";
+import logo from "images/logo.png";
 import cake from "images/cake.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -650,7 +650,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
         <HomeLink to="/" scroll={scroll} onClick={onClick}>
           {/* <object data={logo} type="image/svg+xml" aria-label="logo" /> */}
           <img src={logo} alt="logo" />
-          <h1>fanCake</h1>
+          {/* <h1>fanCake</h1> */}
         </HomeLink>
         {/* <Navigator>
           <SHomeLink
