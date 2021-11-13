@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import logo from "images/logo.png";
-import cake from "images/cake.svg";
+import berry from "images/berry.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
@@ -672,7 +672,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
       {loggedIn ? (
         <NavBack>
           <Balance scroll={scroll}>
-            <img src={cake} alt="cake" />
+            <img src={berry} alt="berry" />
             <span>{userInfo.balance?.toLocaleString("ko-KR")} 베리</span>
           </Balance>
           <LoggedInProfile>
@@ -729,7 +729,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
                   반가워요, {userInfo.name}님!
                 </SidebarTitle>
                 <SidebarBalance>
-                  <img src={cake} alt="cake" />
+                  <img src={berry} alt="berry" />
                   <strong>{userInfo.balance?.toLocaleString("ko-KR")}</strong>
                   <span>베리</span>
                 </SidebarBalance>
