@@ -182,7 +182,7 @@ const Videos = ({
       </TotalPage>
       {videosType === "own" ? (
         videos && videos.length !== 0 ? (
-          <VideosGrid>
+          <VideosGrid id="owning_video">
             {filteredStocks.map((stock, index) => (
               <OwningVideo
                 key={index}
@@ -202,7 +202,7 @@ const Videos = ({
           <NotFound>보유한 영상이 없습니다.</NotFound>
         )
       ) : videos && videos.length !== 0 ? (
-        <VideosGrid>
+        <VideosGrid id="with_video">
           {filteredStocks.map((stock_, index) => {
             const size = stock_.size;
             const stock = isWallet ? stock_.video : stock_;
@@ -269,8 +269,19 @@ const Videos = ({
             if (currentPage > 1) {
               setCurrentPage(currentPage - 1);
             }
-            const stepTwo = document.getElementById("step_two");
-            stepTwo.scrollIntoView({ behavior: "smooth" });
+            if (isWallet) {
+              if (videosType === "own") {
+                const owningVideo = document.getElementById("owning_video");
+                owningVideo?.scrollIntoView({ behavior: "smooth" });
+              } else if (videosType === "with") {
+                const withVideo = document.getElementById("with_video");
+                console.log(withVideo);
+                withVideo?.scrollIntoView({ behavior: "smooth" });
+              }
+            } else {
+              const stepTwo = document.getElementById("step_two");
+              stepTwo?.scrollIntoView({ behavior: "smooth" });
+            }
           }}
         >
           <FontAwesomeIcon icon={faCaretLeft} />
@@ -283,8 +294,19 @@ const Videos = ({
             if (currentPage < totalPage) {
               setCurrentPage(currentPage + 1);
             }
-            const stepTwo = document.getElementById("step_two");
-            stepTwo.scrollIntoView({ behavior: "smooth" });
+            if (isWallet) {
+              if (videosType === "own") {
+                const owningVideo = document.getElementById("owning_video");
+                owningVideo?.scrollIntoView({ behavior: "smooth" });
+              } else if (videosType === "with") {
+                const withVideo = document.getElementById("with_video");
+                console.log(withVideo);
+                withVideo?.scrollIntoView({ behavior: "smooth" });
+              }
+            } else {
+              const stepTwo = document.getElementById("step_two");
+              stepTwo?.scrollIntoView({ behavior: "smooth" });
+            }
           }}
         >
           <FontAwesomeIcon icon={faCaretRight} />
