@@ -1,5 +1,6 @@
 import Loading from "components/Loading";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { api } from "settings";
 import styled from "styled-components";
 
@@ -21,6 +22,7 @@ const Container = styled.div`
 `;
 
 const Callback = () => {
+  const [_, setCookie] = useCookies(["Authorization"]);
   const request = async (dataArray) => {
     try {
       console.log({
@@ -34,8 +36,13 @@ const Callback = () => {
         expires_in: parseInt(dataArray[3][1]),
       });
       console.log(response);
+      setCookie("Authorization", response.data.accessToken, {
+        expires: new Date(response.data.accessTokenExpiresIn),
+        path: "/",
+      });
     } catch {
       window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
       //window.location.replace("/");
     }
   };
@@ -46,6 +53,7 @@ const Callback = () => {
       .map((item) => item.split("="));
     request(dataArray);
   }, []);
+
   return (
     <Container>
       <Loading />

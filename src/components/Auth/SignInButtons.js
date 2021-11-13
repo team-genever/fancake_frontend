@@ -67,7 +67,7 @@ const EmailButton = styled.button`
 const SignInButtons = () => {
   const [naverLogin] = useState(
     new naver.LoginWithNaverId({
-      clientId: "Ar3sZvt17MhvpRqq6Iju",
+      clientId: "PdW0nmtpfhryHj5UrU_C",
       callbackUrl: "http://localhost:3000/callback",
     })
   );
