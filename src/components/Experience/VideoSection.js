@@ -60,6 +60,21 @@ const StepContainer = styled.div`
   }
 `;
 
+const SeolmunContainer = styled.div`
+  background-color: white;
+  max-width: 800px;
+  border-radius: 20px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  @media only screen and (max-width: 640px) {
+    padding: 4vw 5vw;
+    margin-bottom: 3vw;
+  }
+`;
+
 const GrayBox = styled.div`
   background-color: ${(props) => props.theme.boxCountGray};
   margin: 25px 0px;
@@ -443,10 +458,11 @@ export default function VideoSection({
         </StepContainer>
       )}
       {hasBought && (
-        <StepContainer id="formContainer">
+        <SeolmunContainer id="formContainer">
           <Step>설문에 참여하고 상품도 받아가세요! 🥤</Step>
-          <Widget id="y9tvCbTe" style={{ width: "100%", height: 500 }} />
-        </StepContainer>
+          {/* <Widget id="y9tvCbTe" style={{ width: "100%", height: 500 }} /> */}
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScwfgHg1E8e1ZnqLhBSaq8U7JbgnJnKJptGDhaHtQRKydi7jw/viewform?embedded=true" width="100%" height="1200px" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
+        </SeolmunContainer>
       )}
     </Positioner>
   );
