@@ -631,11 +631,19 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
 
   const onClick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  const onLinkClick = () => {
+  const onLinkClick = (e) => {
     const input = document.getElementById("menu");
     input.checked = false;
     setChecked(false);
   };
+
+  const menuButtonClicked = (e) => {
+    ReactGA.event({
+      category: "Navbar Button",
+      action: `Select ${e.target.name} button from path ${pathname}`,
+    });
+    console.log("clicked");
+  }
 
   const onLogout = () => {
     removeCookie("Authorization", {
@@ -647,7 +655,10 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   return (
     <>
       <NavFront>
-        <HomeLink to="/" scroll={scroll} onClick={onClick}>
+        <HomeLink to="/" scroll={scroll} name="home" onClick={(e) => {
+          onClick();
+          menuButtonClicked(e);
+        }}>
           {/* <object data={logo} type="image/svg+xml" aria-label="logo" /> */}
           <img src={logo} alt="logo" />
           {/* <h1>fanCake</h1> */}
@@ -679,14 +690,17 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
             <span>{userInfo.name}</span>님
             <FontAwesomeIcon icon={faCaretDown} />
             <LoggedInList id="LoggedInList">
-              <LoggedInLink to="/user/wallet">나의 지갑</LoggedInLink>
-              <LoggedInLink to="/user/edit">회원정보수정</LoggedInLink>
-              <LoggedInLink to="/" onClick={onLogout}>
+              <LoggedInLink to="/user/wallet" name="wallet" onClick={menuButtonClicked}>나의 지갑</LoggedInLink>
+              <LoggedInLink to="/user/edit" name="infoedit" onClick={menuButtonClicked}>회원정보수정</LoggedInLink>
+              <LoggedInLink to="/" name="logout" onClick={(event) => {
+                onLogout();
+                menuButtonClicked(event);
+              }}>
                 <strong>로그아웃</strong>
               </LoggedInLink>
             </LoggedInList>
           </LoggedInProfile>
-          <LoginButtonA href="http://fancake.xyz/">
+          <LoginButtonA href="http://fancake.xyz/" name="serviceinfo" onClick={menuButtonClicked}>
             <span>서비스 소개</span>
           </LoginButtonA>
           {/* <LoggedInButton>
