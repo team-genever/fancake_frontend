@@ -160,11 +160,11 @@ const CommentInputGrid = styled.div`
     height: 7%;
     padding: 1.5vw 0;
     & input {
-      font-size: 2.5vw;
-      padding: 2vw;
+      font-size: 3vw;
+      padding: 3vw;
     }
     & button {
-      font-size: 3vw;
+      font-size: 3.5vw;
     }
   }
 `;
@@ -308,10 +308,10 @@ const Comments = ({ videoIdx, userIdx }) => {
                 if (commentInput !== "" && loggedIn) {
                   postComments();
                   setCommentInput("");
-                } else if (commentInput === "") {
-                  window.alert("내용을 작성해주세요.");
-                } else {
+                } else if (!loggedIn) {
                   window.alert("로그인 후 이용 가능합니다.");
+                } else {
+                  window.alert("내용을 작성해주세요.");
                 }
               }}
             >
