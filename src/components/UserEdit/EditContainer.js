@@ -328,7 +328,7 @@ const EditContainer = ({ title, infos, isDelivery }) => {
       });
       console.log(res);
       setEditMode(null);
-    } catch {
+    } catch (error) {
       setError("회원정보를 수정하는 동안 오류가 발생했습니다.");
     } finally {
       setLoading(false);
@@ -508,10 +508,8 @@ const EditContainer = ({ title, infos, isDelivery }) => {
                       expires: "Thu, 01 Jan 1970 00:00:00 UTC",
                       path: "/",
                     });
-                  } catch {
-                    window.alert(
-                      "탈퇴 처리 과정 중 오류가 발생했습니다.\n다시 시도해 주세요."
-                    );
+                  } catch (error) {
+                    window.alert(error.response.data[0].message);
                   }
                 }
               }}

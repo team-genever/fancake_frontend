@@ -135,9 +135,10 @@ const LoginBox = ({ setLoading }) => {
       id: loginInfo.email,
       password: loginInfo.password,
     });
+    let response;
     try {
       setLoading(true);
-      const response = await api.post("users/login", {
+      response = await api.post("users/login", {
         id: loginInfo.email,
         password: loginInfo.password,
       });
@@ -153,7 +154,7 @@ const LoginBox = ({ setLoading }) => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       setLoading(false);
-      window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해 주세요.");
+      window.alert(error.response.data[0].message);
     } finally {
     }
   }

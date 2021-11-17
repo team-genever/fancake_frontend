@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const Positioner = styled.div`
   text-align: left;
   width: 100%;
+  grid-area: video;
   //padding: 1vw 0vw 5vw 0vw;
 
   @media only screen and (max-width: 640px) {
@@ -21,6 +22,7 @@ const Heading = styled.div`
   font-weight: bold;
   font-size: 25px;
   line-height: 32px;
+  text-align: center;
 
   @media only screen and (max-width: 1007px) {
     //padding: 0vw 7vw;

@@ -11,6 +11,7 @@ const Positioner = styled.div`
   //padding: 50px 0px;
   margin: 0 auto;
   width: 100%;
+  grid-area: info;
   //margin-bottom: 100px; //임시
   @media only screen and (max-width: 1007px) {
     padding: 0;
@@ -42,13 +43,16 @@ const Grid = styled.div`
   grid-template-columns: 2fr 3fr;
   grid-auto-rows: max-content;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  & div:nth-child(even) {
+    justify-self: end;
+  }
   @media only screen and (max-width: 1007px) {
     grid-template-columns: max-content 1fr;
     margin-bottom: 10px;
     gap: 5px;
   }
-  @media only screen and (max-width: 1007px) {
+  @media only screen and (max-width: 640px) {
     margin-bottom: 3vw;
     gap: 1.5vw;
   }
@@ -71,7 +75,6 @@ const BoldTd = styled.div`
 `;
 
 const PinkTd = styled.div`
-  width: 100%;
   color: ${(props) => props.theme.mainPink};
   font-weight: bold;
   font-size: 15px;
@@ -95,6 +98,7 @@ const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 7px;
+  margin-bottom: 10px;
 `;
 
 const ProgressContainer = styled.div`
@@ -435,7 +439,7 @@ const VideoInfo = ({
         </BlackTd>
         <BoldTd>한 조각당 가격</BoldTd>
         <BlackTd>{data.pricePerShare.toLocaleString("ko-KR")} 베리</BlackTd>
-        <Web>
+        {/* <Web>
           <BoldTd>진행률</BoldTd>
         </Web>
         <Web>
@@ -458,7 +462,7 @@ const VideoInfo = ({
               조각 남음
             </GrayFont>
           </PinkTd>
-        </Web>
+        </Web> */}
       </Grid>
       {/* <Table>
           <Body>
@@ -476,27 +480,23 @@ const VideoInfo = ({
             </tr>
           </Body>
         </Table> */}
-      <Mobile>
-        <FlexContainer>
-          <ProgressContainer>
-            <ProgressBar>
-              <Progress
-                percent={Math.floor(
-                  (data.currentAmount / data.totalAmount) * 100
-                )}
-              />
-            </ProgressBar>
-          </ProgressContainer>
-        </FlexContainer>
-        <FlexContainer>
-          <BoldTd>
-            <Mobile>{data.currentAmount}조각</Mobile>
-          </BoldTd>
-          <BlackTd>
-            <Mobile>총 {data.totalAmount}조각</Mobile>
-          </BlackTd>
-        </FlexContainer>
-      </Mobile>
+
+      <FlexContainer>
+        <ProgressContainer>
+          <ProgressBar>
+            <Progress
+              percent={Math.floor(
+                (data.currentAmount / data.totalAmount) * 100
+              )}
+            />
+          </ProgressBar>
+        </ProgressContainer>
+      </FlexContainer>
+      <FlexContainer>
+        <BoldTd>{data.currentAmount}조각</BoldTd>
+        <BlackTd>총 {data.totalAmount}조각</BlackTd>
+      </FlexContainer>
+
       {buttonComponent}
     </Positioner>
   );

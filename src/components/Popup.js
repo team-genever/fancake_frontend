@@ -49,7 +49,7 @@ const PopupContainer = styled.div`
     color: white;
     border: none;
     padding: 10px 20px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     border-radius: 10px;
   }

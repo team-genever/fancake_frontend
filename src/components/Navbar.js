@@ -566,6 +566,7 @@ const FloatingBtnsGrid = styled.div`
   display: grid;
   grid-template-columns: 45px;
   grid-auto-rows: 45px;
+  z-index: 10;
 `;
 
 const FloatingBtn = styled.div`
@@ -643,7 +644,7 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
       action: `Select ${e.target.name} button from path ${pathname}`,
     });
     console.log("clicked");
-  }
+  };
 
   const onLogout = () => {
     removeCookie("Authorization", {
@@ -655,10 +656,15 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
   return (
     <>
       <NavFront>
-        <HomeLink to="/" scroll={scroll} name="home" onClick={(e) => {
-          onClick();
-          menuButtonClicked(e);
-        }}>
+        <HomeLink
+          to="/"
+          scroll={scroll}
+          name="home"
+          onClick={(e) => {
+            onClick();
+            menuButtonClicked(e);
+          }}
+        >
           {/* <object data={logo} type="image/svg+xml" aria-label="logo" /> */}
           <img src={logo} alt="logo" />
           {/* <h1>fanCake</h1> */}
@@ -690,17 +696,37 @@ const Navbar = ({ location: { pathname }, userInfo, setUserInfo }) => {
             <span>{userInfo.name}</span>님
             <FontAwesomeIcon icon={faCaretDown} />
             <LoggedInList id="LoggedInList">
-              <LoggedInLink to="/user/wallet" name="wallet" onClick={menuButtonClicked}>나의 지갑</LoggedInLink>
-              <LoggedInLink to="/user/edit" name="infoedit" onClick={menuButtonClicked}>회원정보수정</LoggedInLink>
-              <LoggedInLink to="/" name="logout" onClick={(event) => {
-                onLogout();
-                menuButtonClicked(event);
-              }}>
+              <LoggedInLink
+                to="/user/wallet"
+                name="wallet"
+                onClick={menuButtonClicked}
+              >
+                나의 지갑
+              </LoggedInLink>
+              <LoggedInLink
+                to="/user/edit"
+                name="infoedit"
+                onClick={menuButtonClicked}
+              >
+                회원정보수정
+              </LoggedInLink>
+              <LoggedInLink
+                to="/"
+                name="logout"
+                onClick={(event) => {
+                  onLogout();
+                  menuButtonClicked(event);
+                }}
+              >
                 <strong>로그아웃</strong>
               </LoggedInLink>
             </LoggedInList>
           </LoggedInProfile>
-          <LoginButtonA href="http://fancake.xyz/" name="serviceinfo" onClick={menuButtonClicked}>
+          <LoginButtonA
+            href="http://fancake.xyz/"
+            name="serviceinfo"
+            onClick={menuButtonClicked}
+          >
             <span>서비스 소개</span>
           </LoginButtonA>
           {/* <LoggedInButton>

@@ -192,11 +192,11 @@ const LoginButton = styled.button`
 `;
 
 const PopupTitle = styled.h3`
-  font-size: 20px;
+  font-size: 23px;
   font-weight: bold;
   text-align: center;
-  line-height: 20px;
-  margin-bottom: 10px;
+  line-height: 23px;
+  margin-bottom: 15px;
   @media screen and (max-width: 640px) {
     font-size: 5.3vw;
     line-height: 6vw;
@@ -206,10 +206,10 @@ const PopupTitle = styled.h3`
 
 const PopupDescription = styled.p`
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   @media screen and (max-width: 640px) {
     font-size: 3.5vw;
     line-height: 4.5vw;
@@ -304,7 +304,7 @@ export default function SigninEmail() {
       console.log("sign in success");
       setPopup(true);
     } catch (error) {
-      window.alert("회원가입 도중 오류가 발생했습니다. 다시 시도해 주세요.");
+      window.alert(error.response.data[0].message);
       console.error(error);
     } finally {
     }
@@ -321,7 +321,7 @@ export default function SigninEmail() {
         path: "/",
       });
     } catch (error) {
-      window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해 주세요.");
+      window.alert(error.response.data[0].message);
       console.error(error);
     } finally {
       setPopup(false);

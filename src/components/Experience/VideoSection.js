@@ -244,7 +244,7 @@ export default function VideoSection({
 
   const getUserStocks = async () => {
     try {
-      const response = await api.get("user/stocks", {
+      const response = await api.get("users/me/stocks", {
         headers: {
           Authorization: cookies.Authorization,
         },
@@ -461,7 +461,17 @@ export default function VideoSection({
         <SeolmunContainer id="formContainer">
           <Step>설문에 참여하고 상품도 받아가세요! 🥤</Step>
           {/* <Widget id="y9tvCbTe" style={{ width: "100%", height: 500 }} /> */}
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScwfgHg1E8e1ZnqLhBSaq8U7JbgnJnKJptGDhaHtQRKydi7jw/viewform?embedded=true" width="100%" height="1200px" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
+          <iframe
+            title="fanCake Google Form"
+            src="https://docs.google.com/forms/d/e/1FAIpQLScwfgHg1E8e1ZnqLhBSaq8U7JbgnJnKJptGDhaHtQRKydi7jw/viewform?embedded=true"
+            width="100%"
+            height="1200px"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+          >
+            로드 중…
+          </iframe>
         </SeolmunContainer>
       )}
     </Positioner>

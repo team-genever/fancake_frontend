@@ -64,7 +64,9 @@ function App() {
       });
       console.log(response);
       setUserInfo(response.data);
-    } catch (e) {}
+    } catch (error) {
+      window.alert(error.response.data[0].message);
+    }
   };
 
   const updateUserInfo = async (videoIdx, size) => {
@@ -83,8 +85,8 @@ function App() {
       console.log(res);
       await getUserInfo();
       return 200;
-    } catch (e) {
-      window.alert("처리 도중 문제가 발생 했습니다. 다시 시도해주세요.");
+    } catch (error) {
+      window.alert(error.response.data[0].message);
       return 400;
     }
   };

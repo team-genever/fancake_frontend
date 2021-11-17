@@ -77,8 +77,8 @@ const Callback = () => {
         });
         window.location.replace("/");
       }
-    } catch {
-      window.alert("로그인 도중 오류가 발생했습니다. 다시 시도해주세요.");
+    } catch (error) {
+      window.alert(error.response.data[0].message);
     } finally {
     }
   };

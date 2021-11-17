@@ -8,30 +8,37 @@ import Loading from "components/Loading";
 
 import axios from "axios";
 import { getAllByDisplayValue } from "@testing-library/dom";
+import Comments from "components/Detail/Comments";
 
 const Container = styled.div`
   width: 100%;
   height: max-content;
+  background-color: ${(props) => props.theme.fontSmallGray};
 `;
 
 const Container2 = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   //flex-wrap: wrap;
-  background-color: ${(props) => props.theme.fontSmallGray};
+  grid-template-areas:
+    "video comments"
+    "info comments";
+
   padding: 30px;
-  gap: 50px;
+  gap: 20px;
   align-items: center;
 
   @media only screen and (max-width: 1007px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, max-content);
+    max-height: max-content;
     gap: 30px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "video"
+      "info"
+      "comments";
   }
   @media only screen and (max-width: 640px) {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(2, max-content);
-    gap: 30px;
+    padding: 3.5vw;
   }
 `;
 
@@ -55,6 +62,7 @@ function Detail({
             setHasBought={setHasBought}
             getApi={getApi}
           />
+          <Comments videoIdx={videoInfo.videoIdx} userIdx={userInfo.userIdx} />
         </Container2>
       </Container>
     )

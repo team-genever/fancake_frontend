@@ -50,11 +50,11 @@ const ConfirmButton = styled.button`
 `;
 
 const PopupTitle = styled.h3`
-  font-size: 20px;
+  font-size: 23px;
   font-weight: bold;
   text-align: center;
-  line-height: 20px;
-  margin-bottom: 10px;
+  line-height: 23px;
+  margin-bottom: 15px;
   @media screen and (max-width: 640px) {
     font-size: 5.3vw;
     line-height: 6vw;
@@ -64,10 +64,10 @@ const PopupTitle = styled.h3`
 
 const PopupDescription = styled.p`
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   @media screen and (max-width: 640px) {
     font-size: 3.5vw;
     line-height: 4.5vw;
@@ -76,7 +76,7 @@ const PopupDescription = styled.p`
 `;
 
 const PopupInfosContainer = styled.div`
-  width: 230px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,7 +96,7 @@ const PopupInfoContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   & span {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 13px;
     text-align: left;
@@ -107,7 +107,7 @@ const PopupInfoContainer = styled.div`
   }
   & strong {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 15px;
   }
   & .info_pink {
     color: ${(props) => props.theme.mainPink};
@@ -159,6 +159,7 @@ const ConfirmModal = ({
             <button
               onClick={() => {
                 setModal(false);
+                window.location.reload();
                 setTimeout(() => {
                   const formContainer =
                     document.getElementById("formContainer");

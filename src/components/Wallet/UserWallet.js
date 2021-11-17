@@ -155,11 +155,11 @@ const ChargeButton = styled.button`
 `;
 
 const PopupTitle = styled.h3`
-  font-size: 20px;
+  font-size: 23px;
   font-weight: bold;
   text-align: center;
-  line-height: 20px;
-  margin-bottom: 10px;
+  line-height: 23px;
+  margin-bottom: 15px;
   @media screen and (max-width: 640px) {
     font-size: 5.3vw;
     line-height: 6vw;
@@ -169,10 +169,10 @@ const PopupTitle = styled.h3`
 
 const PopupDescription = styled.p`
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   @media screen and (max-width: 640px) {
     font-size: 3.5vw;
     line-height: 4.5vw;
