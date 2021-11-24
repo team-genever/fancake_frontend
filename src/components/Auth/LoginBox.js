@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { api, GetBackendIP } from "../../settings";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import ReactGA from "react-ga";
 
 const Container = styled.div`
   width: 100%;
@@ -144,6 +145,11 @@ const LoginBox = ({ setLoading }) => {
       });
       console.log(response);
       console.log("login success");
+
+      ReactGA.event({
+        category: "login",
+        action: `email login`,
+      });
 
       setCookie("Authorization", response.data.accessToken, {
         expires: new Date(response.data.accessTokenExpiresIn),
