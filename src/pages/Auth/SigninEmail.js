@@ -327,6 +327,8 @@ export default function SigninEmail() {
       setPopup(false);
       window.location.replace("/");
     }
+
+    return window.gtag_report_conversion("/");
   };
 
   const inputChange = (e) => {

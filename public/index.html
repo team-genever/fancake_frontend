@@ -39,6 +39,34 @@
       src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
       charset="utf-8"
     ></script>
+    <!-- Global site tag (gtag.js) - Google Ads: 808018897 -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-808018897"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-808018897");
+    </script>
+    <!-- Event snippet for fanCake MVP 가입 conversion page In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof url != "undefined") {
+            window.location = url;
+          }
+        };
+        gtag("event", "conversion", {
+          send_to: "AW-808018897/cNzTCMLRkYMDENHHpYED",
+          event_callback: callback,
+        });
+        return false;
+      }
+    </script>
     <title>fanCake</title>
   </head>
   <body>
