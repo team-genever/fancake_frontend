@@ -13,6 +13,7 @@ import { api, GetBackendIP } from "../../settings";
 import axios from "axios";
 import Popup from "components/Popup";
 import { useCookies } from "react-cookie";
+import ReactGA from "react-ga";
 
 const Container = styled.div`
   width: 100%;
@@ -302,6 +303,12 @@ export default function SigninEmail() {
       tempData = response.data;
       console.log("tempData is ", tempData);
       console.log("sign in success");
+
+      ReactGA.event({
+        category: "signin",
+        action: `email signin`,
+      });
+
       setPopup(true);
     } catch (error) {
       window.alert(error.response.data[0].message);
@@ -327,6 +334,8 @@ export default function SigninEmail() {
       setPopup(false);
       window.location.replace("/");
     }
+
+    return window.gtag_report_conversion("/");
   };
 
   const inputChange = (e) => {

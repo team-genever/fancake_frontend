@@ -315,7 +315,7 @@ export default function VideoSection({
           />
         </StepContainer>
       )}
-      {hasBought && (
+      {(
         <SeolmunContainer id="formContainer">
           <Step>설문에 참여하고 상품도 받아가세요! 🥤</Step>
           {/* <Widget id="y9tvCbTe" style={{ width: "100%", height: 500 }} /> */}

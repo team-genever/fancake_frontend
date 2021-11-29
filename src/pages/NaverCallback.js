@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { api } from "settings";
 import styled from "styled-components";
+import ReactGA from "react-ga";
 
 const Container = styled.div`
   width: 100%;
@@ -68,13 +69,25 @@ const Callback = () => {
       console.log(response);
       setAccessToken(response.data.accessToken);
       setExpire(response.data.accessTokenExpiresIn);
-      if (response.data.new) {
+      if (response.data.new) {  //네이버 첫 회원가입 성공 시
         setPopup(true);
-      } else {
+
+        ReactGA.event({
+          category: "signin",
+          action: `naver signin`,
+        });
+
+      } else {  //네이버 계정이 있는 상태에서 로그인
         setCookie("Authorization", response.data.accessToken, {
           expires: new Date(response.data.accessTokenExpiresIn),
           path: "/",
         });
+
+        ReactGA.event({
+          category: "login",
+          action: `naver login`,
+        });
+
         window.location.replace("/");
       }
     } catch (error) {
