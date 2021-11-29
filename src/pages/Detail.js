@@ -9,6 +9,9 @@ import Loading from "components/Loading";
 import axios from "axios";
 import { getAllByDisplayValue } from "@testing-library/dom";
 import Comments from "components/Detail/Comments";
+import SockJS from "sockjs-client";
+import { useCookies } from "react-cookie";
+import { Stomp } from "@stomp/stompjs";
 
 const Container = styled.div`
   width: 100%;
@@ -49,6 +52,7 @@ function Detail({
   videoInfo,
   currentVideo,
   getApi,
+  stompClient,
 }) {
   return (
     currentVideo && (
@@ -62,7 +66,11 @@ function Detail({
             setHasBought={setHasBought}
             getApi={getApi}
           />
-          <Comments videoIdx={videoInfo.videoIdx} userIdx={userInfo.userIdx} />
+          <Comments
+            stompClient={stompClient}
+            videoIdx={videoInfo.videoIdx}
+            userIdx={userInfo.userIdx}
+          />
         </Container2>
       </Container>
     )

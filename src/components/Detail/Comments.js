@@ -1,10 +1,13 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "components/Loading";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
+import { GetBackendIP } from "settings";
 import { api } from "settings";
 import styled from "styled-components";
+import SockJS from "sockjs-client";
+import * as StompJS from "@stomp/stompjs";
 
 const Positioner = styled.div`
   position: relative;
@@ -175,6 +178,7 @@ const Comments = ({ videoIdx, userIdx }) => {
   const [loggedIn, setLoggedIn] = useState(cookies.Authorization !== undefined);
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState("");
+  let stompClient = null;
 
   const getComments = async () => {
     try {
@@ -198,6 +202,7 @@ const Comments = ({ videoIdx, userIdx }) => {
       );
       console.log(response);
     } catch (error) {
+      console.log(error);
       window.alert("댓글을 업로드 하는 도중 오류가 발생했습니다.");
     }
   };
@@ -208,7 +213,7 @@ const Comments = ({ videoIdx, userIdx }) => {
         headers: { Authorization: cookies.Authorization },
         data: { commentIdx },
       });
-      console.log(response);
+      window.alert("정상적으로 삭제되었습니다.");
     } catch (error) {
       window.alert("댓글을 삭제하는 도중 오류가 발생했습니다.");
     }
@@ -219,6 +224,9 @@ const Comments = ({ videoIdx, userIdx }) => {
     let remain = [];
     for (let i = 1; i < name.length; i++) {
       remain.push("*");
+      if (i > 6) {
+        break;
+      }
     }
     return first + remain.join("");
   };
@@ -238,17 +246,79 @@ const Comments = ({ videoIdx, userIdx }) => {
     }
   };
 
+  const commentSubmit = () => {
+    if (commentInput !== "" && loggedIn) {
+      postComments();
+      setCommentInput("");
+    } else if (!loggedIn) {
+      window.alert("로그인 후 이용 가능합니다.");
+    } else {
+      window.alert("내용을 작성해주세요.");
+    }
+  };
+
+  const getTempToken = async () => {
+    let authToken = null;
+
+    try {
+      const response = await api.get("users/me/token");
+      console.log("token", response);
+    } catch (e) {}
+
+    return authToken;
+  };
+
+  const connectSocket = async () => {
+    let authToken;
+
+    if (cookies.Authorization) {
+      authToken = cookies.Authorization;
+    } else {
+      authToken = getTempToken();
+    }
+
+    console.log(GetBackendIP() + "ws/end?authToken=" + authToken);
+
+    stompClient = new StompJS.Client({
+      webSocketFactory: () =>
+        new SockJS(GetBackendIP() + "ws/end?authToken=" + authToken),
+      debug: function (str) {
+        console.log(str);
+      },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      onConnect: (frame) => {
+        console.log(`/sub/videos/${videoIdx}/comments`, frame);
+        console.log("Connected");
+        const sub = stompClient.subscribe(
+          `/sub/videos/${videoIdx}/comments`,
+          (data) => {
+            setComments(JSON.parse(data.body));
+            setLoading(false);
+          }
+        );
+        console.log(sub);
+      },
+    });
+
+    stompClient.activate();
+    console.log(stompClient);
+  };
+
+  const disconnectSocket = () => {
+    stompClient.deactivate();
+    console.log("disconnected");
+  };
+
   useEffect(() => {
-    getComments();
-  }, [comments, videoIdx]);
+    connectSocket();
+    return () => disconnectSocket();
+  }, [videoIdx]);
 
   useEffect(() => {
     setLoggedIn(cookies.Authorization !== undefined);
   }, [cookies]);
-
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
 
   return (
     <Positioner>
@@ -287,7 +357,14 @@ const Comments = ({ videoIdx, userIdx }) => {
             )}
           </CommentsGrid>
 
-          <CommentInputGrid loggedIn={loggedIn}>
+          <CommentInputGrid
+            loggedIn={loggedIn}
+            onKeyDown={(e) => {
+              if (e.code === "Enter") {
+                commentSubmit();
+              }
+            }}
+          >
             <input
               placeholder={
                 loggedIn
@@ -303,20 +380,7 @@ const Comments = ({ videoIdx, userIdx }) => {
                 }
               }}
             />
-            <button
-              onClick={() => {
-                if (commentInput !== "" && loggedIn) {
-                  postComments();
-                  setCommentInput("");
-                } else if (!loggedIn) {
-                  window.alert("로그인 후 이용 가능합니다.");
-                } else {
-                  window.alert("내용을 작성해주세요.");
-                }
-              }}
-            >
-              게시
-            </button>
+            <button onClick={commentSubmit}>게시</button>
           </CommentInputGrid>
         </>
       )}

@@ -1,20 +1,20 @@
 import axios from "axios";
 
-const getAdress = () => {
+const getAdress = (getOriginal) => {
   const location = window.location.hostname;
   if (location.includes("localhost") || location.includes("fancake")) {
-    return "https://psj2867.com/api/";
+    return getOriginal ? "https://psj2867.com/" : "https://psj2867.com/api/";
   } else {
-    return "/api/";
+    return getOriginal ? "/" : "/api/";
   }
 };
 
 //let backend_ip_address = "http://localhost:80/api/";
 let backend_ip_address = getAdress();
 
-export const GetBackendIP = () => {
+export const GetBackendIP = (getOriginal) => {
   try {
-    return backend_ip_address;
+    return getAdress(getOriginal);
   } catch (error) {
     console.error(error);
   }

@@ -7,6 +7,7 @@ import Detail from "pages/Detail";
 import { useCookies } from "react-cookie";
 import { api } from "settings";
 import { Widget } from "@typeform/embed-react";
+import { GetBackendIP } from "settings";
 
 const Positioner = styled.div`
   background-color: ${(props) => props.theme.boxLightGray};
@@ -240,6 +241,7 @@ export default function VideoSection({
   getApi,
 }) {
   const [hasBought, setHasBought] = useState(false);
+
   const [cookies] = useCookies(["Authorization"]);
 
   const getUserStocks = async () => {
@@ -256,154 +258,10 @@ export default function VideoSection({
   };
 
   useEffect(() => {
-    getUserStocks();
+    if (cookies.Authorization) {
+      getUserStocks();
+    }
   }, []);
-
-  // const [video_info, setData] = useState([
-  //   {
-  //     video_id: "1",
-  //     types: [
-  //       { id: "youtube", name: "유튜브" },
-  //       { id: "onsale", name: "판매중" },
-  //     ],
-  //     title: "스틱 PC 중 최고 성능!! USB 처럼 생긴 초키니 컴퓨터 사봤습니다",
-  //     channelName: "뻘짓 연구소",
-  //     tokenCount: 100,
-  //     price: 12000,
-  //     deadline: "2021-10-31",
-  //   },
-  //   {
-  //     video_id: "2",
-  //     types: [
-  //       { id: "tiktok", name: "틱톡" },
-  //       { id: "onsale", name: "판매중" },
-  //     ],
-  //     title: "[쇼츠/먹방]CU돈까스김밥과 훈제닭다리 먹끼(ft.핵불닭소스ㄷㄷ)",
-  //     channelName: "뻘짓 연구소",
-  //     tokenCount: 120,
-  //     price: 12000,
-  //     deadline: "2021-10-31",
-  //   },
-  //   {
-  //     video_id: "3",
-  //     types: [
-  //       { id: "tiktok", name: "틱톡" },
-  //       { id: "closed", name: "판매완료" },
-  //     ],
-  //     title: "[쇼츠/먹방]CU돈까스김밥과 훈제닭다리 먹끼(ft.핵불닭소스ㄷㄷ)",
-  //     channelName: "뻘짓 연구소",
-  //     tokenCount: 120,
-  //     price: 12000,
-  //     deadline: "2021-10-31",
-  //   },
-  // ]);
-
-  // const [video_component, setComponent] = useState();
-  // const [all, setAll] = useState(true);
-  // const [onSale, setOnSale] = useState(false);
-  // const [plan, setPlan] = useState(false);
-  // const [closed, setClosed] = useState(false);
-  // const [state, setState] = useState("전체");
-
-  // const ButtonClicked = (e) => {
-  //   switch (e.target.name) {
-  //     case "전체":
-  //       setAll(true);
-  //       setPlan(false);
-  //       setOnSale(false);
-  //       setClosed(false);
-  //       setState("전체");
-  //       break;
-  //     case "판매예정":
-  //       setAll(false);
-  //       setPlan(true);
-  //       setOnSale(false);
-  //       setClosed(false);
-  //       setState("판매예정");
-  //       break;
-  //     case "구매가능":
-  //       setAll(false);
-  //       setPlan(false);
-  //       setOnSale(true);
-  //       setClosed(false);
-  //       setState("판매중");
-  //       break;
-  //     case "종료":
-  //       setAll(false);
-  //       setPlan(false);
-  //       setOnSale(false);
-  //       setClosed(true);
-  //       setState("판매완료");
-  //       break;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   console.log(userStocks);
-  //   setComponent(
-  //     video_info
-  //       .filter((data) => {
-  //         if (state === "전체") return true;
-  //         if (data.types[1].name === state) return true;
-  //         return false;
-  //       })
-  //       .map((data, index) => {
-  //         let currentDate = new Date();
-
-  //         let deadline = new Date(data.deadline);
-  //         let remainingTime = deadline.getTime() - currentDate.getTime();
-  //         let remainingDay = Math.floor(remainingTime / 1000 / 60 / 60 / 24);
-  //         let remainingHour = 24 - currentDate.getHours();
-  //         let remainingMin = 60 - currentDate.getMinutes();
-  //         let remainingSec = 60 - currentDate.getSeconds();
-
-  //         return (
-  //           <Link
-  //             style={{ textDecoration: "none", color: "black" }}
-  //             to={"/experience/detail/" + data.video_id}
-  //           >
-  //             <GrayBox>
-  //               <Container>
-  //                 <Thumbnail />
-  //                 <TextContainer>
-  //                   <PropertiesGrid>
-  //                     {data.types.map((type, index) => (
-  //                       <Property key={index} type={type.id}>
-  //                         <span>{type.name}</span>
-  //                       </Property>
-  //                     ))}
-  //                   </PropertiesGrid>
-  //                   <Title>{data.title}</Title>
-  //                   <ChannelName>{data.channelName}</ChannelName>
-  //                   <ProgressContainer>
-  //                     <ProgressBar>
-  //                       <Progress />
-  //                     </ProgressBar>
-  //                   </ProgressContainer>
-  //                   <TextContainer2>
-  //                     <GrayText>총 {data.tokenCount}조각</GrayText>
-  //                     <PinkText>84%</PinkText>
-  //                   </TextContainer2>
-  //                   <TextContainer2>
-  //                     <GrayText>조각당 가격</GrayText>
-  //                     <GrayText>{data.price}원</GrayText>
-  //                   </TextContainer2>
-  //                   <TextContainer2>
-  //                     <GrayText>남은 시간</GrayText>
-  //                     <PinkText>
-  //                       {/*한 자리 수일때 0 추가하는 것 구현해야 함*/}
-  //                       {remainingDay}일 {remainingHour}:{remainingMin}:
-  //                       {remainingSec}
-  //                     </PinkText>
-  //                   </TextContainer2>
-  //                 </TextContainer>
-  //               </Container>
-  //             </GrayBox>
-  //           </Link>
-  //         );
-  //       })
-  //   );
-  // }, [Date()]);
 
   return (
     <Positioner>
@@ -466,9 +324,9 @@ export default function VideoSection({
             src="https://docs.google.com/forms/d/e/1FAIpQLScwfgHg1E8e1ZnqLhBSaq8U7JbgnJnKJptGDhaHtQRKydi7jw/viewform?embedded=true"
             width="100%"
             height="1200px"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
+            frameBorder="0"
+            marginHeight="0"
+            marginWidth="0"
           >
             로드 중…
           </iframe>

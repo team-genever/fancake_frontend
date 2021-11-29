@@ -509,7 +509,7 @@ const EditContainer = ({ title, infos, isDelivery }) => {
                       path: "/",
                     });
                   } catch (error) {
-                    window.alert(error.response.data[0].message);
+                    window.alert("탈퇴 처리를 하는 도중 오류가 발생했습니다.");
                   }
                 }
               }}
