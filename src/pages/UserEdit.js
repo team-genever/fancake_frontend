@@ -80,7 +80,7 @@ const UserEdit = () => {
   const [error, setError] = useState(null);
   const [cookies] = useCookies(["Authorization"]);
   const [basicInfo, setBasicInfo] = useState([]);
-  const [deliveryInfo, setDeliveryInfo] = useState([]);
+  // const [deliveryInfo, setDeliveryInfo] = useState([]);
 
   const getUserInfo = async () => {
     try {
@@ -121,39 +121,39 @@ const UserEdit = () => {
       //   changeLink: true,
       // },
     ]);
-    setDeliveryInfo([
-      {
-        type: "수령인",
-        content: info.address.addressRecipient
-          ? info.address.addressRecipient
-          : null,
-        changeLink: true,
-      },
-      {
-        type: "전화번호",
-        content: info.address.addressPhoneNumber
-          ? info.address.addressPhoneNumber
-          : null,
-        changeLink: true,
-      },
-      {
-        type: "도로명 주소",
-        content: info.address.address ? info.address.address : null,
-        changeLink: true,
-      },
-      {
-        type: "상세주소",
-        content: info.address.addressDetail ? info.address.addressDetail : null,
-        changeLink: true,
-      },
-      {
-        type: "우편번호",
-        content: info.address.addressZipCode
-          ? info.address.addressZipCode
-          : null,
-        changeLink: true,
-      },
-    ]);
+    // setDeliveryInfo([
+    //   {
+    //     type: "수령인",
+    //     content: info.address.addressRecipient
+    //       ? info.address.addressRecipient
+    //       : null,
+    //     changeLink: true,
+    //   },
+    //   {
+    //     type: "전화번호",
+    //     content: info.address.addressPhoneNumber
+    //       ? info.address.addressPhoneNumber
+    //       : null,
+    //     changeLink: true,
+    //   },
+    //   {
+    //     type: "도로명 주소",
+    //     content: info.address.address ? info.address.address : null,
+    //     changeLink: true,
+    //   },
+    //   {
+    //     type: "상세주소",
+    //     content: info.address.addressDetail ? info.address.addressDetail : null,
+    //     changeLink: true,
+    //   },
+    //   {
+    //     type: "우편번호",
+    //     content: info.address.addressZipCode
+    //       ? info.address.addressZipCode
+    //       : null,
+    //     changeLink: true,
+    //   },
+    // ]);
   };
 
   useEffect(() => {

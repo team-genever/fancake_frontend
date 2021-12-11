@@ -5,29 +5,9 @@ import berry from "images/berry.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
-import { api } from "settings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import ReactGA from "react-ga";
-
-const Container = styled.div`
-  width: 100%;
-  height: 80px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 0 30px 0 30px;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 9;
-
-  @media only screen and (max-width: 640px) {
-    height: 14vw;
-    padding: 0 5vw;
-  }
-`;
 
 const NavFront = styled.div`
   position: fixed;
@@ -90,77 +70,6 @@ const HomeLink = styled(Link)`
     & h1 {
       font-size: 5vw;
     }
-  }
-`;
-
-const SLink = styled(Link)`
-  height: 100%;
-  width: max-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border-bottom: ${(props) =>
-    props.selected ? `1px solid ${props.theme.boxVeryLightGray}` : "none"};
-  & span {
-    color: ${(props) =>
-      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
-    font-size: 17px;
-    font-weight: normal;
-  }
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid;
-    border-bottom-color: ${(props) =>
-      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
-  }
-
-  @media only screen and (max-width: 640px) {
-    display: none;
-    /* & span {
-      font-size: 8px;
-    } */
-  }
-`;
-
-const SHomeLink = styled.a`
-  height: 100%;
-  width: max-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border-bottom: ${(props) =>
-    props.selected ? `1px solid ${props.theme.boxVeryLightGray}` : "none"};
-  & span {
-    color: ${(props) =>
-      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
-    font-size: 17px;
-    font-weight: normal;
-  }
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid;
-    border-bottom-color: ${(props) =>
-      props.selected ? props.theme.boxVeryLightGray : props.theme.boxLightGray};
-  }
-
-  @media only screen and (max-width: 640px) {
-    display: none;
-    /* & span {
-      font-size: 8px;
-    } */
-  }
-`;
-
-const Navigator = styled.div`
-  height: 100%;
-  display: flex;
-  gap: 35px;
-
-  @media only screen and (max-width: 640px) {
-    // gap: 15px;
-    display: none;
   }
 `;
 
@@ -329,50 +238,6 @@ const LoggedInLink = styled(Link)`
   }
   @media only screen and (max-width: 1007px) {
     font-size: 14px;
-  }
-`;
-
-const LoggedInButton = styled.div`
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.1);
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 180px;
-  height: 48px;
-  border-radius: 15px;
-  border: 0.5px solid white;
-  & span {
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
-  }
-  & svg {
-    right: 15px;
-    font-size: 22px;
-    color: white;
-    position: absolute;
-  }
-  &:hover {
-    cursor: pointer;
-  }
-
-  @media only screen and (max-width: 1007px) {
-    width: 140px;
-    height: 35px;
-    border-radius: 10px;
-    & span {
-      font-size: 13px;
-    }
-    & svg {
-      right: 10px;
-      font-size: 17px;
-    }
-  }
-
-  @media only screen and (max-width: 640px) {
-    display: none;
   }
 `;
 

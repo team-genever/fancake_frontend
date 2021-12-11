@@ -1,7 +1,7 @@
 // 4 - 로그인/회원가입
 
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { SignInButtons, LoginBox } from "components/Auth";
 import { Helmet } from "react-helmet";
@@ -80,14 +80,7 @@ const FindIDPW = styled.div`
     font-size: 12px;
   }
 `;
-const FindID = styled.span`
-  cursor: pointer;
-  color: black;
 
-  :hover {
-    color: ${(props) => props.theme.boxGray};
-  }
-`;
 const FindPW = styled.span`
   cursor: pointer;
   color: black;

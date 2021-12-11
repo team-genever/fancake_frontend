@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Popup from "components/Popup";
@@ -151,7 +150,7 @@ const FindID = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [emailOK, setEmailOK] = useState(false);
   const [loginAble, setLoginAble] = useState("#878485");
-  const [popup, setPopup] = useState(false);
+  const [popup] = useState(false);
 
   const inputChange = (e) => {
     let findIDinfoTemp = {

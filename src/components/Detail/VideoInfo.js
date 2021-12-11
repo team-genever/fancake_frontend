@@ -18,25 +18,6 @@ const Positioner = styled.div`
   }
 `;
 
-const Table = styled.table`
-  text-align: left;
-
-  table-layout: fixed;
-  width: 100%;
-  word-break: keep-all;
-  font-size: 16px;
-  @media only screen and (max-width: 1007px) {
-    font-size: 18px;
-    padding: 0px 3.5vw;
-  }
-  @media only screen and (max-width: 640px) {
-    font-size: 3vw;
-    padding: 0;
-  }
-`;
-
-const InfoContainer = styled.div``;
-
 const Grid = styled.div`
   width: 100%;
   display: grid;
@@ -55,16 +36,6 @@ const Grid = styled.div`
   @media only screen and (max-width: 640px) {
     margin-bottom: 3vw;
     gap: 1.5vw;
-  }
-`;
-
-const Body = styled.div`
-  width: 100%;
-  @media only screen and (max-width: 640px) {
-    & tr {
-      display: flex;
-      justify-content: space-between;
-    }
   }
 `;
 
@@ -130,12 +101,6 @@ const Progress = styled.div`
   );
 `;
 
-const GrayFont = styled.div`
-  font-weight: bold;
-  font-size: 15px;
-  color: ${(props) => props.theme.boxGray};
-`;
-
 const BoldFont = styled.div`
   font-weight: bold;
   font-size: 17px;
@@ -160,20 +125,6 @@ const Button = styled.div`
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.isLogin && props.theme.mainPinkHover};
-  }
-`;
-
-const ButtonContainer = styled.div`
-  right: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media only screen and (max-width: 1007px) {
-    width: 55vw;
-  }
-  @media only screen and (max-width: 640px) {
-    margin-top: 18px;
-    width: 70vw;
   }
 `;
 
@@ -230,21 +181,6 @@ const Input = styled.input`
 
   @media only screen and (max-width: 640px) {
     width: 30vw;
-  }
-`;
-
-const Mobile = styled.div`
-  //모바일에서 보이는 부분
-  display: none;
-  @media only screen and (max-width: 1007px) {
-    display: block;
-    margin-bottom: 10px;
-  }
-`;
-
-const Web = styled.div`
-  @media only screen and (max-width: 1007px) {
-    display: none;
   }
 `;
 
@@ -439,47 +375,7 @@ const VideoInfo = ({
         </BlackTd>
         <BoldTd>한 조각당 가격</BoldTd>
         <BlackTd>{data.pricePerShare.toLocaleString("ko-KR")} 베리</BlackTd>
-        {/* <Web>
-          <BoldTd>진행률</BoldTd>
-        </Web>
-        <Web>
-          <PinkTd>
-            <FlexContainer>
-              <ProgressContainer>
-                <ProgressBar>
-                  <Progress
-                    percent={Math.floor(
-                      (data.currentAmount / data.totalAmount) * 100
-                    )}
-                  />
-                </ProgressBar>
-              </ProgressContainer>
-              {(data.currentAmount / data.totalAmount) * 100}%
-            </FlexContainer>
-            <GrayFont>
-              총 {data.totalAmount}조각 중{" "}
-              {data.totalAmount - data.currentAmount}
-              조각 남음
-            </GrayFont>
-          </PinkTd>
-        </Web> */}
       </Grid>
-      {/* <Table>
-          <Body>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
-            <tr>
-              <td colSpan="2"></td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td colSpan="2">{buttonComponent}</td>
-            </tr>
-          </Body>
-        </Table> */}
 
       <FlexContainer>
         <ProgressContainer>

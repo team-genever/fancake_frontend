@@ -151,13 +151,6 @@ const KakaoLink = styled.a`
   }
 `;
 
-const IconContainer = styled.div`
-  font-size: 16px;
-  height: 100%;
-  @media only screen and (max-width: 640px) {
-  }
-`;
-
 const Footer = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   const handleResize = () => {

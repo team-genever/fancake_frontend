@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-// import { GetBackendIP } from "../../settings"
-
-// import axios from "axios";
+// import { Link } from "react-router-dom";
 
 const Positioner = styled.div`
   text-align: left;
@@ -33,25 +30,25 @@ const Heading = styled.div`
   }
 `;
 
-const ChannelName = styled(Link)`
-  display: block;
-  color: ${(props) => props.theme.boxGray};
-  font-weight: 500;
-  font-size: large;
-  &:hover {
-    color: ${(props) => props.theme.backgroundGray};
-  }
+// const ChannelName = styled(Link)`
+//   display: block;
+//   color: ${(props) => props.theme.boxGray};
+//   font-weight: 500;
+//   font-size: large;
+//   &:hover {
+//     color: ${(props) => props.theme.backgroundGray};
+//   }
 
-  @media only screen and (max-width: 1007px) {
-    //padding: 0vw 7vw;
-    width: 100%;
-    text-align: center;
-  }
+//   @media only screen and (max-width: 1007px) {
+//     //padding: 0vw 7vw;
+//     width: 100%;
+//     text-align: center;
+//   }
 
-  @media only screen and (max-width: 640px) {
-    font-size: 3vw;
-  }
-`;
+//   @media only screen and (max-width: 640px) {
+//     font-size: 3vw;
+//   }
+// `;
 
 const YoutubeEmbed = styled.iframe`
   aspect-ratio: 16 / 9;

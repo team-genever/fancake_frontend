@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { api, GetBackendIP } from "../../settings";
-import axios from "axios";
 import { useCookies } from "react-cookie";
 import ReactGA from "react-ga";
 

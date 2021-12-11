@@ -1,7 +1,7 @@
 // 4.4 - 비밀번호 변경
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import { api } from "settings";

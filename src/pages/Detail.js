@@ -1,17 +1,9 @@
 import styled from "styled-components";
 import Video from "components/Detail/Video";
-import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import VideoInfo from "components/Detail/VideoInfo";
-import { api, GetBackendIP } from "../settings";
-import Loading from "components/Loading";
 
-import axios from "axios";
-import { getAllByDisplayValue } from "@testing-library/dom";
 import Comments from "components/Detail/Comments";
-import SockJS from "sockjs-client";
-import { useCookies } from "react-cookie";
-import { Stomp } from "@stomp/stompjs";
 
 const Container = styled.div`
   width: 100%;

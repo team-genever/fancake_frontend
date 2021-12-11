@@ -1,9 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-import SigninEmail from "pages/Auth/SigninEmail";
-import axios from "axios";
 
 const { naver } = window;
 
@@ -76,19 +73,6 @@ const SignInButtons = () => {
     naverLogin.init();
     console.log(naverLogin);
   }, [naverLogin]);
-
-  const componentClicked = (e) => {
-    if (e.target.name === "naver") {
-      console.log("naver clicked");
-      try {
-        const response = axios.get(
-          "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=Ar3sZvt17MhvpRqq6Iju&redirect_uri=http:%2F%2Flocalhost:3000%2F&state=1234"
-        );
-      } catch {}
-    } else if (e.target.name === "email") {
-      console.log("email clicked");
-    }
-  };
 
   return (
     <Container>

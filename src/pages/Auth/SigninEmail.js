@@ -1,16 +1,13 @@
 // 4.1 - 이메일로 가입하기
 
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { LoginBox } from "components/Auth";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMediaQuery } from "react-responsive";
 import { Helmet } from "react-helmet";
 
-import { api, GetBackendIP } from "../../settings";
-import axios from "axios";
+import { api } from "../../settings";
 import Popup from "components/Popup";
 import { useCookies } from "react-cookie";
 import ReactGA from "react-ga";
@@ -262,7 +259,7 @@ export default function SigninEmail() {
   const [loginAble, setLoginAble] = useState("#878485");
 
   const [popup, setPopup] = useState(false);
-  const [cookies, setCookie] = useCookies(["Authorization"]);
+  const [_, setCookie] = useCookies(["Authorization"]);
 
   const [errorMessage, setErrorMessage] = useState("");
 

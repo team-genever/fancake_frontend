@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "components/Loading";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { GetBackendIP } from "settings";
 import { api } from "settings";
@@ -180,17 +180,17 @@ const Comments = ({ videoIdx, userIdx }) => {
   const [commentInput, setCommentInput] = useState("");
   let stompClient = null;
 
-  const getComments = async () => {
-    try {
-      const response = await api.get(`videos/${videoIdx}/comments`, {});
-      setComments(response.data.content);
-      console.log(response.data.content);
-    } catch (error) {
-      window.alert("댓글을 불러오는 도중 오류가 발생했습니다.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const getComments = async () => {
+  //   try {
+  //     const response = await api.get(`videos/${videoIdx}/comments`, {});
+  //     setComments(response.data.content);
+  //     console.log(response.data.content);
+  //   } catch (error) {
+  //     window.alert("댓글을 불러오는 도중 오류가 발생했습니다.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const postComments = async () => {
     try {
@@ -209,7 +209,7 @@ const Comments = ({ videoIdx, userIdx }) => {
 
   const deleteComments = async (commentIdx) => {
     try {
-      const response = await api.delete(`videos/${videoIdx}/comments`, {
+      await api.delete(`videos/${videoIdx}/comments`, {
         headers: { Authorization: cookies.Authorization },
         data: { commentIdx },
       });
@@ -257,43 +257,24 @@ const Comments = ({ videoIdx, userIdx }) => {
     }
   };
 
-  const getTempToken = async () => {
-    let authToken = null;
-
-    try {
-      const response = await api.get("users/me/token");
-      console.log("token", response);
-    } catch (e) {}
-
-    return authToken;
-  };
-
   const connectSocket = async () => {
-    let authToken;
-
-    if (cookies.Authorization) {
-      authToken = cookies.Authorization;
-    } else {
-      authToken = getTempToken();
-    }
-
-    console.log(GetBackendIP() + "ws/end?authToken=" + authToken);
+    console.log(GetBackendIP() + "ws/end");
 
     stompClient = new StompJS.Client({
-      webSocketFactory: () =>
-        new SockJS(GetBackendIP() + "ws/end?authToken=" + authToken),
+      webSocketFactory: () => new SockJS(GetBackendIP() + "ws/end"),
       debug: function (str) {
         console.log(str);
       },
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
+      // reconnectDelay: 5000,
+      // heartbeatIncoming: 4000,
+      // heartbeatOutgoing: 4000,
       onConnect: (frame) => {
         console.log(`/sub/videos/${videoIdx}/comments`, frame);
         console.log("Connected");
         const sub = stompClient.subscribe(
           `/sub/videos/${videoIdx}/comments`,
           (data) => {
+            console.log("Comments", [...comments, ...JSON.parse(data.body)]);
             setComments(JSON.parse(data.body));
             setLoading(false);
           }

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 
 const Positioner = styled.div`
@@ -7,69 +7,11 @@ const Positioner = styled.div`
   //position: relative;
 `;
 
-const Heading = styled.div`
-  font-size: 25px;
-  font-weight: normal;
-
-  @media only screen and (max-width: 640px) {
-    font-size: 4.5vw;
-  }
-`;
-
-const Button = styled.button`
-  border: 1px solid black;
-  display: block;
-  background-color: white;
-  cursor: pointer;
-  padding: 8px 30px 8px 30px;
-  font-weight: bold;
-  margin: 50px auto 0px auto;
-  text-decoration: none;
-
-  @media only screen and (max-width: 640px) {
-    font-size: 12px;
-    padding: 15px 20px;
-    margin: 30px auto 0px auto;
-  }
-`;
-
-// const LeftShadow = styled.div`
-//   z-index: 4;
-//   left: 0;
-//   width: 30px;
-//   height: 75px;
-//   background: linear-gradient(
-//     to left,
-//     rgba(255, 255, 255, 0),
-//     rgba(255, 255, 255, 1)
-//   );
-//   position: absolute;
-// `;
-
-// const RightShadow = styled.div`
-//   z-index: 4;
-//   right: 0;
-//   width: 30px;
-//   height: 75px;
-//   background: linear-gradient(
-//     to right,
-//     rgba(255, 255, 255, 0),
-//     rgba(255, 255, 255, 1)
-//   );
-//   position: absolute;
-// `;
-
 const Container = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  /* overflow-x: scroll;
-  cursor: pointer; */
-  /* 
-  ::-webkit-scrollbar {
-    display: none;
-  } */
 `;
 
 const Box = styled.div`

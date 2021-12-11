@@ -1,7 +1,6 @@
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OwningVideo from "./OwningVideo";
 import WithVideo from "./WithVideo";
@@ -218,7 +217,6 @@ const Videos = ({
                     category: "Step2",
                     action: `Select ${stock.title}`,
                   });
-
                 }}
               >
                 <WithVideo

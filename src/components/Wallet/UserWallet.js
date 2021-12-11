@@ -1,8 +1,6 @@
 import Popup from "components/Popup";
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import { api } from "settings";
 import styled from "styled-components";
 
 const Container = styled.div`

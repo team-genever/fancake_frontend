@@ -1,16 +1,11 @@
 //2 - 체험하기 페이지
 
-import { getElementError } from "@testing-library/dom";
-import React, { Component, useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Banner from "components/Experience/Banner";
 import CreaterSection from "components/Experience/CreaterSection";
-import RequestSection from "components/Experience/RequestSection";
 import VideoSection from "components/Experience/VideoSection";
-import { GetBackendIP } from "../settings";
-import axios from "axios";
 import { api } from "settings";
 import Loading from "components/Loading";
-import { useCookies, withCookies } from "react-cookie";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
 

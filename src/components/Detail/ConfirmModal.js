@@ -3,52 +3,6 @@ import Popup from "components/Popup";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const CancelButton = styled.button`
-  background-color: ${(props) => props.theme.buttonGray};
-  color: white;
-  border: none;
-  font-size: 15px;
-  padding: 15px 30px;
-  border-radius: 10px;
-  margin-top: 40px;
-  margin: 10px;
-  width: 210px;
-
-  :hover {
-    background-color: ${(props) => props.theme.boxGray};
-    cursor: pointer;
-  }
-
-  @media only screen and (max-width: 640px) {
-    width: 35vw;
-    height: 10vw;
-    font-size: 3.2vw;
-  }
-`;
-
-const ConfirmButton = styled.button`
-  background-color: ${(props) => props.theme.mainPink};
-  color: white;
-  border: none;
-  font-size: 15px;
-  padding: 15px 30px;
-  border-radius: 10px;
-  margin-top: 40px;
-  margin: 10px;
-  width: 210px;
-
-  :hover {
-    background-color: ${(props) => props.theme.mainPinkHover};
-    cursor: pointer;
-  }
-
-  @media only screen and (max-width: 640px) {
-    width: 35vw;
-    height: 10vw;
-    font-size: 3.2vw;
-  }
-`;
-
 const PopupTitle = styled.h3`
   font-size: 23px;
   font-weight: bold;

@@ -9,7 +9,7 @@ import Wallet from "pages/Wallet";
 import History from "pages/History";
 import UserEdit from "pages/UserEdit";
 
-import { LoginMain, SigninEmail, FindID, FindPW } from "pages/Auth/";
+import { LoginMain, SigninEmail, FindPW } from "pages/Auth/";
 import ChangePW from "pages/Userpage/ChangePW";
 
 import Error from "pages/Error";
@@ -22,7 +22,6 @@ import Footer from "components/Footer";
 import { useCookies } from "react-cookie";
 import styled from "styled-components";
 import { api } from "settings";
-import axios from "axios";
 import Callback from "pages/NaverCallback";
 
 const NavBackground = styled.div`
