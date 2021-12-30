@@ -2,8 +2,8 @@ import axios from "axios";
 
 const getAdress = (getOriginal) => {
   const location = window.location.hostname;
-  if (location.includes("localhost") || location.includes("fancake")) {
-    return getOriginal ? "https://psj2867.com/" : "https://psj2867.com/api/";
+  if (location.includes("localhost")) {
+    return getOriginal ? "https://web.fancake.xyz/" : "https://web.fancake.xyz/api/";
   } else {
     return getOriginal ? "/" : "/api/";
   }
